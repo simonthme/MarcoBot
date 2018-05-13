@@ -9,13 +9,34 @@ const app = express();
 const PORT = Config.category[Config.indexCategory].port;
 const verificationController = require("./controllers/verification");
 const messageWebhookController = require("./controllers/messageWebhook");
+const apiMessenger = require('./helpers/apiMessenger');
+const product_data = require('./messenger/product_data');
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 
 app.get("/", verificationController);
 app.post("/", messageWebhookController);
+app.get('/setup', (req, res) => {
+  apiMessenger.callbackStartButton(product_data.getStartedData)
+    .then(response => {
+      console.log(response.data);
+      return apiMessenger.callbackStartButton(product_data.menuData)
+    })
+    .then(response => {
+      console.log(response.data);
+      return apiMessenger.callbackStartButton(product_data.welcomeMessage)
+    })
+    .then(response => {
+      console.log(response.data);
+      res.send(response.data);
+    })
+    .catch(err => {
+      console.log(err);
+      res.send(err);
+    });
+});
 
 app.listen(PORT, () => console.log("server listening to port ", PORT));

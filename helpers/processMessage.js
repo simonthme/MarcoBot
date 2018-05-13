@@ -8,7 +8,7 @@ const graphqlRequest = require('../helpers/apiGraphql');
 const apiMessenger = require('../helpers/apiMessenger');
 const messengerMethods = require('../messenger/messengerMethods');
 const clientControl = require('../controllers/clientControl');
-
+const product_data = require('../messenger/product_data');
 
 
 module.exports = (event) => {
@@ -20,12 +20,18 @@ module.exports = (event) => {
       if (res.userMessenger === null) {
         messengerMethods.createUser(senderId)
           .then((userSaved) => {
-            console.log('USER SAVED');
-            console.log(userSaved);
-            //DO SOME SHIT
+
           })
           .catch(err => console.log("Error to create USER: ", err))
       }
+      apiMessenger.callbackStartButton(product_data.getStartedData)
+        .then(res => {
+          console.log('response get started');
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
       const apiaiSession = apiAiClient.textRequest(message,
         {sessionId: Config.projectIDDialogflow});
       apiaiSession.on("response", (response) => {
@@ -37,6 +43,7 @@ module.exports = (event) => {
       });
       apiaiSession.on("error", error => console.log("ERROR dialogflow ===>", error));
       apiaiSession.end();
+
     })
     .catch(err => console.log(err));
 };
