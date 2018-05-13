@@ -10,17 +10,19 @@ module.exports = {
     return new Promise((resolve, reject) => {
       apiMessenger.receiveProfileFacebook(senderId)
         .then((res) => {
-          if (res.body) {
-            const resParsed = JSON.parse(res.body);
+        console.log('RECEIVE profile');
+          if (res.data) {
             const userToSave = {
-              firstName: resParsed.first_name,
-              lastName: resParsed.last_name,
-              profilePic: resParsed.profile_pic,
-              timezone: resParsed.timezone,
-              gender: resParsed.gender,
-              locale: resParsed.locale,
+              firstName: res.data.first_name,
+              lastName: res.data.last_name,
+              profilePic: res.data.profile_pic,
+              timezone: res.data.timezone,
+              gender: res.data.gender,
+              locale: res.data.locale,
               PSID: senderId
             };
+            console.log('user to save');
+            console.log(userToSave);
             const mutation = mutationUserMessenger.createUserMessenger(userToSave.PSID,
               userToSave.firstName, userToSave.lastName, userToSave.gender, userToSave.locale, userToSave.timezone);
             graphqlRequest.sendMutation(mutation, userToSave)
