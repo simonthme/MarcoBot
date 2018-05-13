@@ -16,8 +16,8 @@ const sendMessage = (senderId, data, typeMessage) => {
       message: data
     };
     apiMessenger.sendToFacebook(objectToSend)
-      .then((res) => resolve(res))
-      .catch(err => reject(err));
+      .then((res) =>  resolve(res))
+      .catch(err =>  reject(err));
   });
 };
 
@@ -30,7 +30,9 @@ module.exports = (event) => {
       if (res.userMessenger === null) {
         messengerMethods.createUser(senderId)
           .then((userSaved) => {
-
+          console.log('USER SAVED');
+          console.log(userSaved);
+            //DO SOME SHIT
           })
           .catch(err => console.log("Error to create USER: ", err))
       } else {
