@@ -10,7 +10,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       apiMessenger.receiveProfileFacebook(senderId)
         .then((res) => {
-        console.log('RECEIVE profile');
           if (res.data) {
             const userToSave = {
               firstName: res.data.first_name,
@@ -21,8 +20,6 @@ module.exports = {
               locale: res.data.locale,
               PSID: senderId
             };
-            console.log('user to save');
-            console.log(userToSave);
             const mutation = mutationUserMessenger.createUserMessenger(userToSave.PSID,
               userToSave.firstName, userToSave.lastName, userToSave.gender, userToSave.locale, userToSave.timezone);
             graphqlRequest.sendMutation(mutation, userToSave)
