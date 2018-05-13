@@ -14,6 +14,7 @@ module.exports = {
     }
   },
   sendToFacebook: (data) => {
+    console.log(data);
     return axios.post(`https://graph.facebook.com/v2.6/me/messages?access_token=${Config.tokenAppFacebook}`, data);
   },
 
@@ -21,6 +22,6 @@ module.exports = {
     return axios.get(`https://graph.facebook.com/v2.6/${psid}?fields=first_name,name,last_name,profile_pic,locale,timezone,gender&access_token=${Config.tokenAppFacebook}`);
   },
   callbackStartButton: (data) => {
-    return axios.post(`https://graph.facebook.com/v2.6/me/messenger_profile?access_token=${Config.tokenAppFacebook}`, qs.stringify(data));
+    return axios.post(`https://graph.facebook.com/v2.6/me/messenger_profile?access_token=${Config.tokenAppFacebook}`,data);
   }
 };

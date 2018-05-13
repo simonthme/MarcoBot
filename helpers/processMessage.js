@@ -24,14 +24,6 @@ module.exports = (event) => {
           })
           .catch(err => console.log("Error to create USER: ", err))
       }
-      apiMessenger.callbackStartButton(product_data.getStartedData)
-        .then(res => {
-          console.log('response get started');
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
       const apiaiSession = apiAiClient.textRequest(message,
         {sessionId: Config.projectIDDialogflow});
       apiaiSession.on("response", (response) => {
