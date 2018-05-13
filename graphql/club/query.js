@@ -10,12 +10,44 @@ module.exports = {
           types
           description
           tags
-          schedule
           priceRange
           photos
-          location
           music
-        }
+          location{
+            lat
+            lng
+          }
+          schedule {
+            monday {
+              start
+              end
+            }
+            tuesday {
+              start
+              end
+            }
+            wednesday {
+              start
+              end
+            }
+            thursday {
+              start
+              end
+            }
+            friday {
+              start
+              end
+            }
+            sunday {
+              start
+              end
+            }
+            saturday {
+              start
+              end
+            }
+          }
+      }
     }`
   }
 };

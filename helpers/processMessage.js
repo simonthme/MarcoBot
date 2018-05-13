@@ -7,19 +7,9 @@ const queryUserMessenger = require('../graphql/userMessenger/query');
 const graphqlRequest = require('../helpers/apiGraphql');
 const apiMessenger = require('../helpers/apiMessenger');
 const messengerMethods = require('../messenger/messengerMethods');
+const clientControl = require('../controllers/clientControl');
 
-const sendMessage = (senderId, data, typeMessage) => {
-  return new Promise((resolve, reject) => {
-    const objectToSend = {
-      recipient: {id: senderId},
-      messaging_types: typeMessage,
-      message: data
-    };
-    apiMessenger.sendToFacebook(objectToSend)
-      .then((res) =>  resolve(res))
-      .catch(err =>  reject(err));
-  });
-};
+
 
 module.exports = (event) => {
   const senderId = event.sender.id;
@@ -30,26 +20,23 @@ module.exports = (event) => {
       if (res.userMessenger === null) {
         messengerMethods.createUser(senderId)
           .then((userSaved) => {
-          console.log('USER SAVED');
-          console.log(userSaved);
+            console.log('USER SAVED');
+            console.log(userSaved);
             //DO SOME SHIT
           })
           .catch(err => console.log("Error to create USER: ", err))
-      } else {
-        const apiaiSession = apiAiClient.textRequest(message,
-          {sessionId: Config.projectIDDialogflow});
-        apiaiSession.on("response", (response) => {
-          //TODO: FAIRE FONCTION QUI CHECK LA REPONSE DU DIALOGFLOW ET DONC DE LA DEMANDE DE L'UTILISATEUR
-          console.log("RESPONSE ===> ", response.result);
-          const result = {text: response.result.fulfillment.speech};
-          sendMessage(senderId, result, "RESPONSE")
-            .then(() => console.log("Send to Messenger"))
-            .catch((err) => console.log("Impossible to Send to Messenger: ", err))
-        });
-        apiaiSession.on("error", error => console.log("ERROR dialogflow ===>", error));
-        apiaiSession.end();
       }
-
+      const apiaiSession = apiAiClient.textRequest(message,
+        {sessionId: Config.projectIDDialogflow});
+      apiaiSession.on("response", (response) => {
+        //TODO: FAIRE FONCTION QUI CHECK LA REPONSE DU DIALOGFLOW ET DONC DE LA DEMANDE DE L'UTILISATEUR
+        console.log("RESPONSE ===> ", response.result);
+        clientControl.checkDialogflow(senderId, response)
+          .then(() => console.log("CHECKING DONE !"))
+          .catch(err => console.log(err));
+      });
+      apiaiSession.on("error", error => console.log("ERROR dialogflow ===>", error));
+      apiaiSession.end();
     })
     .catch(err => console.log(err));
 };
