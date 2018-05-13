@@ -16,8 +16,8 @@ const sendMessage = (senderId, data, typeMessage) => {
       message: data
     };
     apiMessenger.sendToFacebook(objectToSend)
-      .then((res) => resolve(res))
-      .catch(err => reject(err));
+      .then((res) =>  resolve(res))
+      .catch(err =>  reject(err));
   });
 };
 

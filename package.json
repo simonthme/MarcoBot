@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon -L -e graphql,js,json index.js"
+  },
   "dependencies": {
     "apiai": "^4.0.3",
     "axios": "^0.18.0",
@@ -10,6 +13,7 @@
     "dialogflow": "^0.3.0",
     "express": "^4.16.3",
     "graphql-request": "^1.5.2",
+    "qs": "^6.5.2",
     "request": "^2.85.0"
   }
 }
