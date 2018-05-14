@@ -54,7 +54,9 @@ module.exports = {
       }
     ]
   },
-
-
+  templateList: (list) => {
+    const buttonToReturn = {};
+    const arrayOfButton = [];
+  }
 
 };
