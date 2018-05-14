@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "apiai": "^4.0.3",
+    "async": "^2.6.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "dialogflow": "^0.3.0",
