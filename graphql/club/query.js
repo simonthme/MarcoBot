@@ -49,5 +49,53 @@ module.exports = {
           }
       }
     }`
+  },
+  queryClub: (id) => {
+    return `{
+      club(id: "${id}") {
+          id
+          name
+          types
+          description
+          tags
+          priceRange
+          photos
+          music
+          location{
+            lat
+            lng
+          }
+          schedule {
+            monday {
+              start
+              end
+            }
+            tuesday {
+              start
+              end
+            }
+            wednesday {
+              start
+              end
+            }
+            thursday {
+              start
+              end
+            }
+            friday {
+              start
+              end
+            }
+            sunday {
+              start
+              end
+            }
+            saturday {
+              start
+              end
+            }
+          }
+      }
+    }`
   }
 };

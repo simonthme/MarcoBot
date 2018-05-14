@@ -17,5 +17,21 @@ module.exports = {
           museums_id
         }
     }`
+  },
+  queryExhibition: (id) => {
+    return `{
+      exhibition(id: "${id}") {
+          id
+          name
+          types
+          tags
+          description
+          priceRange
+          photos
+          dateStart
+          dateEnd
+          museums_id
+        }
+    }`
   }
 };

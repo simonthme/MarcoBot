@@ -51,7 +51,7 @@ module.exports = {
   },
   queryMuseum: (id) => {
     return `{
-      museum(id: ${id}) {
+      museum(id: "${id}") {
           id
           name
           types
