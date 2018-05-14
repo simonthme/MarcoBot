@@ -125,5 +125,23 @@ module.exports = {
   },
   defaultPostback: {
     "text": "Mmmh, there seems to be a problem..."
+  },
+  letsGoMessage: {
+    "text": "Awesome!! 👌"
+  },
+  noNeedMessage: {
+    "text": "Oh! That's a shame! 😢"
+  },
+  preFeedback: {
+    "text": "Nevertheless, I'd love to know why I can't help you..."
+  },
+  feedbackInput: {
+    "text": "Could you tell me? "
+  },
+  preQuestionMessage: {
+    "text": "In order to create your personalized travel experience, I’d like to know you better. For that,  I’ll ask you a few questions."
+  },
+  question1Message: {
+    "text": "So, what kind of things you like to do while in a foreign city ?"
   }
 };
