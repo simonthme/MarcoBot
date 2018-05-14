@@ -15,6 +15,14 @@ module.exports = (event) => {
     case 'EVENT_CANCEL_EXCITEMENT':
       quickReplyCancel(senderID);
       break;
+    case 'EVENT_ALONE':
+      break;
+    case 'EVENT_PARTNER':
+      break;
+    case 'EVENT_FRIENDS':
+      break;
+    case 'EVENT_FAMILY':
+      break;
     default :
       postbackDefault(senderID);
       break;

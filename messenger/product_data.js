@@ -78,7 +78,7 @@ module.exports = {
     "text": "Mmmh, there seems to be a problem..."
   },
   letsGoMessage: {
-    "text": "Awesome!! 👌"
+    "text": "Awesome!! 👌🚀"
   },
   noNeedMessage: {
     "text": "Oh! That's a shame! 😢"
@@ -90,7 +90,29 @@ module.exports = {
     "text": "Could you tell me? "
   },
   preQuestionMessage: {
-    "text": "In order to create your personalized travel experience, I’d like to know you better. For that,  I’ll ask you a few questions."
+    "text": "Just before starting with your personalized travel experience, I'd like to ask you some questions. 🤓 Just between you and me, 🤫 with who are you traveling?",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"😇 I'm Alone",
+        "payload":"EVENT_ALONE",
+      },
+      {
+        "content_type":"text",
+        "title":"❤️ With my partner",
+        "payload":"EVENT_PARTNER",
+      },
+      {
+        "content_type":"text",
+        "title":"🎉 With friends",
+        "payload":"EVENT_FRIENDS",
+      },
+      {
+        "content_type":"text",
+        "title":"👨‍👩‍👧‍👦 With my family",
+        "payload":"EVENT_FAMILY",
+      }
+    ]
   },
   question1Message: {
     "text": "So, what kind of things you like to do while in a foreign city ?"
