@@ -3,8 +3,8 @@
  */
 const apiMessenger = require('../helpers/apiMessenger');
 const graphqlRequest = require('../helpers/apiGraphql');
-const mutationUserMessenger = require('../graphql/userMessenger/mutation');
-
+const mutationAccountMessenger = require('../graphql/accountMessenger/mutation');
+const mutationUser = require('../graphql/user/mutation');
 module.exports = {
   createUser: (senderId) => {
     return new Promise((resolve, reject) => {
@@ -14,17 +14,27 @@ module.exports = {
             const userToSave = {
               firstName: res.data.first_name,
               lastName: res.data.last_name,
-              profilePic: res.data.profile_pic,
               timezone: res.data.timezone,
               gender: res.data.gender,
               locale: res.data.locale,
+              profilePic: res.data.profile_pic,
               PSID: senderId
             };
-            const mutation = mutationUserMessenger.createUserMessenger(userToSave.PSID,
-              userToSave.firstName, userToSave.lastName, userToSave.gender, userToSave.locale, userToSave.timezone);
-            graphqlRequest.sendMutation(mutation, userToSave)
-              .then(userSaved => {
-                return resolve(userSaved)
+            const mutationCreateAccount = mutationAccountMessenger.createAccountMessenger(userToSave.PSID,
+              userToSave.locale, userToSave.timezone);
+            const mutationCreateUser = mutationUser.createUser(userToSave.PSID, userToSave.firstName, userToSave.lastName, userToSave.profilePic);
+            graphqlRequest.sendMutation(mutationCreateAccount, userToSave)
+              .then(accountSaved => {
+                console.log(accountSaved);
+                if (accountSaved) {
+                  userToSave.accountmessengers_id = userToSave.PSID;
+                    graphqlRequest.sendMutation(mutationCreateUser, userToSave)
+                    .then(userSaved=> {
+                      return resolve(userSaved);
+                    })
+                    .catch(err => console.log(err));
+                }
+
               })
               .catch(err =>  reject(err));
           }

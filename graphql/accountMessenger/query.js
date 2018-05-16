@@ -4,15 +4,11 @@
 module.exports = {
   queryPSID: (PSID) => {
     return `{
-      userMessenger(PSID: ${PSID}) {
+      accountMessenger(PSID: ${PSID}) {
           id,
-          idUser,
           PSID,
-          firstName,
-          lastName,
           timezone,
           createAt,
-          gender,
           deleted,
           locale
         }

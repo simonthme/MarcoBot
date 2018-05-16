@@ -1,5 +1,5 @@
 const apiGraphql = require("../../helpers/apiGraphql");
-const userMessenger = require("../../graphql/userMessenger/query");
+const user = require("../../graphql/user/query");
 const product_data = require("../product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
 const helper = require("../../helpers/helper");
@@ -76,16 +76,19 @@ module.exports = (senderID) => {
       });
 
   };
-  apiGraphql.sendQuery(userMessenger.queryPSID(senderID))
+  console.log(senderID);
+  apiGraphql.sendQuery(user.queryUserByAccountMessenger(senderID))
     .then(response => {
-      if (response.userMessenger === null) {
+      console.log(response);
+      if (response.userByAccountMessenger === null) {
         messengerMethods.createUser(senderID)
           .then(response => {
-            messageQueue(response.createUserMessenger);
+            console.log(response);
+            messageQueue(response.createUser);
           })
           .catch(err => console.log("Error to create USER: ", err))
       } else {
-        messageQueue(response.userMessenger);
+        messageQueue(response.userByAccountMessenger);
       }
     })
     .catch(err => {

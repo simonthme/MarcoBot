@@ -9,6 +9,7 @@ module.exports = {
     return request(Config.category[Config.indexCategory].apiGraphQlUrl, query)
   },
   sendMutation: (query, variables) => {
+    console.log(query);
     return request(Config.category[Config.indexCategory].apiGraphQlUrl, query,
       variables)
   }

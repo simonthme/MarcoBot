@@ -1,10 +1,10 @@
 const product_data = require('../messenger/product_data');
 const apiMessenger = require('./apiMessenger');
 const apiGraphql = require('./apiGraphql');
-const userMessenger = require('../graphql/userMessenger/query');
+const userMessenger = require('../graphql/accountMessenger/query');
 const helper = require('../helpers/helper');
-const postbackDefault = require('../messenger/blocks/default');
-const postbackGetStarted = require('../messenger/blocks/getStarted');
+const postbackDefault = require('../messenger/postbackBlocks/default');
+const postbackGetStarted = require('../messenger/postbackBlocks/getStarted');
 const postbackInteractionWithCard = require('../messenger/blocks/interactionWithCard');
 
 module.exports = (event) => {

@@ -3,7 +3,7 @@
  */
 const Config = require('../config');
 const apiAiClient = require("apiai")(Config.clientTokenDialogflow);
-const queryUserMessenger = require('../graphql/userMessenger/query');
+const user = require("../graphql/user/query");
 const graphqlRequest = require('../helpers/apiGraphql');
 const apiMessenger = require('../helpers/apiMessenger');
 const messengerMethods = require('../messenger/messengerMethods');
@@ -14,10 +14,10 @@ const product_data = require('../messenger/product_data');
 module.exports = (event) => {
   const senderId = event.sender.id;
   const message = event.message.text;
-  const query = queryUserMessenger.queryPSID(senderId);
+  const query = user.queryUserByAccountMessenger(senderId);
   graphqlRequest.sendQuery(query)
     .then(res => {
-      if (res.userMessenger === null) {
+      if (res.userByAccountMessenger === null) {
         messengerMethods.createUser(senderId)
           .then((userSaved) => {
 
