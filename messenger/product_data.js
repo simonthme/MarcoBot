@@ -58,7 +58,7 @@ module.exports = {
           "buttons": [
             {
               "type": "postback",
-              "title": "I want to go",
+              "title": "Let's go!",
               "payload": `GOING_${kindElement}:${elem.id}`
             },
             {
@@ -71,11 +71,6 @@ module.exports = {
               "title": "View more",
               "payload": `VIEWMORE_${kindElement}:${elem.id}`
             },
-            // {
-            //   "type": "postback",
-            //   "title": "Back",
-            //   "payload": `BACK`
-            // },
           ]
         };
         arrayOfElement.push(element);
@@ -165,5 +160,10 @@ module.exports = {
   },
   question1Message: {
     "text": "So, what kind of things you like to do while in a foreign city ?"
+  },
+  questionLocation: (eventID) => {
+    return {
+      "text": "So, before to go there, could "
+    }
   }
 };

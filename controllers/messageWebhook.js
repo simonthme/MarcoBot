@@ -16,6 +16,7 @@ module.exports = (req, res) =>  {
             processMessage(event);
           }
         } else {
+          console.log("dwadad")
           if (event.postback) {
             receivedPostback(event);
           }

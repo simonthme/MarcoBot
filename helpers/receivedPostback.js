@@ -5,7 +5,7 @@ const userMessenger = require('../graphql/accountMessenger/query');
 const helper = require('../helpers/helper');
 const postbackDefault = require('../messenger/postbackBlocks/default');
 const postbackGetStarted = require('../messenger/postbackBlocks/getStarted');
-const postbackInteractionWithCard = require('../messenger/blocks/interactionWithCard');
+const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 
 module.exports = (event) => {
   const senderID = event.sender.id;
