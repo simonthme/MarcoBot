@@ -164,6 +164,43 @@ module.exports = {
     ]
   },
   question1Message: {
-    "text": "So, what kind of things you like to do while in a foreign city ?"
+    "text": "So, what would you like to do?",
+    "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Famous sites",
+        "payload":"EVENT_SITE",
+      },
+      {
+        "content_type":"text",
+        "title":"Exhibitions",
+        "payload":"EVENT_EXHIB",
+      },
+      {
+        "content_type":"text",
+        "title":"Restaurants",
+        "payload":"EVENT_REST",
+      },
+      {
+        "content_type":"text",
+        "title":"Bars",
+        "payload":"EVENT_BAR",
+      },
+      {
+        "content_type":"text",
+        "title":"Events",
+        "payload":"EVENT_EVENT",
+      },
+      {
+        "content_type":"text",
+        "title":"Shopping",
+        "payload":"EVENT_SHOP",
+      },
+      {
+        "content_type":"text",
+        "title":"Outdoor",
+        "payload":"EVENT_PARK",
+      }
+    ]
   }
 };
