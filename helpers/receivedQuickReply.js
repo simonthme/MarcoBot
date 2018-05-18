@@ -5,8 +5,8 @@ const postbackDefault = require('../messenger/postbackBlocks/default');
 const  quickReplySite = require('../messenger/quickReplyBlocks/site/site');
 const  quickReplyBar = require('../messenger/quickReplyBlocks/bar/bar');
 const  quickReplyRest = require('../messenger/quickReplyBlocks/restaurant/restaurant');
-const  quickReplyExhib = require('../messenger/quickReplyBlocks/exhibition/exhibition');
-const  quickReplyEvent = require('../messenger/quickReplyBlocks/event/event');
+const  quickReplyDistrict = require('../messenger/quickReplyBlocks/district/district');
+
 module.exports = (event) => {
   console.log(event);
   const senderID = event.sender.id;
@@ -35,17 +35,14 @@ module.exports = (event) => {
     case 'EVENT_SITE':
       quickReplySite(senderID);
       break;
-    case 'EVENT_EXHIB':
-      quickReplyExhib(senderID);
-      break;
     case 'EVENT_REST':
       quickReplyRest(senderID);
       break;
     case 'EVENT_BAR':
       quickReplyBar(senderID);
       break;
-    case 'EVENT_EVENT':
-      quickReplyEvent(senderID);
+    case 'EVENT_DISTRICT':
+      quickReplyDistrict(senderID);
       break;
     default :
       postbackDefault(senderID);
