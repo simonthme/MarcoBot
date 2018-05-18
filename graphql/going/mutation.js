@@ -18,6 +18,8 @@ module.exports = {
           shows_id
           sites_id
           users_id
+          lastClick
+          dateClick
         }
       }
     `

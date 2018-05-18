@@ -6,12 +6,14 @@ const helper = require('../helpers/helper');
 const postbackDefault = require('../messenger/postbackBlocks/default');
 const postbackGetStarted = require('../messenger/postbackBlocks/getStarted');
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
+const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
 
 module.exports = (event) => {
   const senderID = event.sender.id;
   const recipientID = event.recipient.id;
   const timeOfMessage = event.timestamp;
   const payload = event.postback.payload;
+  const message = event.message ? event.message : null;
   if(payload.includes("GOING") || payload.includes("LATER") || payload.includes("VIEWMORE")){
     return postbackInteractionWithCard(payload, senderID);
   } else {

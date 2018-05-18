@@ -53,7 +53,7 @@ module.exports = {
       async.each(list, (elem, callback) => {
         const element = {
           "title": `${elem.name}`,
-          //"image_url": `${Config.category[Config.indexCategory].apiUrl}/image/${elem.photos[0]}`,
+          "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
           "subtitle": "We have the right hat for everyone.",
           "buttons": [
             {
@@ -135,35 +135,129 @@ module.exports = {
   },
   preQuestionMessage: {
     "text": "Just before starting with your personalized travel experience, I'd like to ask you some questions. 🤓 Just between you and me, 🤫 with who are you traveling?",
-    "quick_replies":[
+    "quick_replies": [
       {
-        "content_type":"text",
-        "title":"😇 I'm Alone",
-        "payload":"EVENT_ALONE",
+        "content_type": "text",
+        "title": "😇 I'm Alone",
+        "payload": "EVENT_ALONE",
       },
       {
-        "content_type":"text",
-        "title":"❤️ With my partner",
-        "payload":"EVENT_PARTNER",
+        "content_type": "text",
+        "title": "❤️ With my partner",
+        "payload": "EVENT_PARTNER",
       },
       {
-        "content_type":"text",
-        "title":"🎉 With friends",
-        "payload":"EVENT_FRIENDS",
+        "content_type": "text",
+        "title": "🎉 With friends",
+        "payload": "EVENT_FRIENDS",
       },
       {
-        "content_type":"text",
-        "title":"👨‍👩‍👧‍👦 With my family",
-        "payload":"EVENT_FAMILY",
+        "content_type": "text",
+        "title": "👨‍👩‍👧‍👦 With my family",
+        "payload": "EVENT_FAMILY",
       }
     ]
   },
   question1Message: {
-    "text": "So, what kind of things you like to do while in a foreign city ?"
+    "text": "So, what would you like to do?",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Famous sites",
+        "payload": "EVENT_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "Exhibitions",
+        "payload": "EVENT_EXHIB",
+      },
+      {
+        "content_type": "text",
+        "title": "Restaurants",
+        "payload": "EVENT_REST",
+      },
+      {
+        "content_type": "text",
+        "title": "Bars",
+        "payload": "EVENT_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "Events",
+        "payload": "EVENT_EVENT",
+      },
+      {
+        "content_type": "text",
+        "title": "Shopping",
+        "payload": "EVENT_SHOP",
+      },
+      {
+        "content_type": "text",
+        "title": "Outdoor",
+        "payload": "EVENT_PARK",
+      }
+    ]
   },
-  questionLocation: (eventID) => {
+  rememberLocation: (eventID) => {
     return {
-      "text": "So, before to go there, could "
+      "text": "So, can you remember me your location? It has been a long time 🙈",
+      "quick_replies": [
+        {
+          "content_type": "location",
+        },
+        {
+          "content_type": "text",
+          "title": "No, use my old position",
+          "payload": `NOLOCATIONEVENT:${eventID}`,
+        }
+      ]
+    }
+  },
+  updateLocation: () => {
+    return {
+      "text": "You can update your location if you want by clicking the button",
+      "quick_replies": [
+        {
+          "content_type": "location",
+        }
+      ]
+    }
+  },
+  askLocation: (eventID) => {
+    return {
+      "text": "I like your determination 👊, but before can you send me your location?",
+      "quick_replies": [
+        {
+          "content_type": "location",
+          "title": "Yes",
+          "payload": `YESLOCATIONEVENT:${eventID}`,
+        },
+        {
+          "content_type": "text",
+          "title": "No",
+          "payload": `NOLOCATIONEVENT:${eventID}`,
+        }
+      ]
+    }
+  },
+  sendItinerary: (origin, destination) => {
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "Let's go ! I let you press on the button to see the itinerary👇‍️",
+          "buttons": [
+            {
+              "type": "web_url",
+              "url": `https://www.google.com/maps/dir/${origin.lat},${origin.lng}/${destination.lat},${destination.lng}/`,
+              "title": "🚇🚎 Itinerary 📍",
+              "webview_height_ratio": "full",
+              "messenger_extensions": "false",
+            }
+          ]
+        }
+      }
     }
   }
 };

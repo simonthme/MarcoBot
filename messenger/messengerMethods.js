@@ -20,9 +20,10 @@ module.exports = {
               profilePic: res.data.profile_pic,
               PSID: senderId
             };
-            const mutationCreateAccount = mutationAccountMessenger.createAccountMessenger(userToSave.PSID,
-              userToSave.locale, userToSave.timezone);
-            const mutationCreateUser = mutationUser.createUser(userToSave.PSID, userToSave.firstName, userToSave.lastName, userToSave.profilePic);
+            // const mutationCreateAccount = mutationAccountMessenger.createAccountMessenger(userToSave.PSID,
+            //   userToSave.locale, userToSave.timezone);
+            const mutationCreateAccount = mutationAccountMessenger.createAccountMessenger();
+            const mutationCreateUser = mutationUser.createUser();
             graphqlRequest.sendMutation(mutationCreateAccount, userToSave)
               .then(accountSaved => {
                 if (accountSaved) {

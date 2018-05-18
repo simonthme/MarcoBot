@@ -6,6 +6,7 @@ const apiGraphql = require('../helpers/apiGraphql');
 const queryBar = require('../graphql/bar/query')
 const productData = require("../messenger/product_data");
 
+
 const sendMessage = (senderId, data, typeMessage) => {
   return new Promise((resolve, reject) => {
     const objectToSend = {

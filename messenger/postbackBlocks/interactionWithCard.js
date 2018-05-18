@@ -17,6 +17,10 @@ const querySite = require("../../graphql/site/query");
 const mutationGoing = require("../../graphql/going/mutation");
 const mutationLater = require("../../graphql/later/mutation");
 const apiMessenger = require("../../helpers/apiMessenger");
+const product_data = require("../product_data");
+const helper = require("../../helpers/helper");
+
+const LIMIT_HOUR_ASK_LOCATION = 2;
 
 const events = {
   "BAR": (id) => apiGraphql.sendQuery(queryBar.queryBar(id)),
@@ -45,15 +49,79 @@ const sendMessage = (senderId, data, typeMessage) => {
   });
 };
 
-const _createGoing = (senderID, userID, eventID, eventName) => {
+const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
   const key = `${eventName}s_id`;
   const dataToSend = {
     "users_id": userID
   };
+  let user = {};
   dataToSend[key] = eventID;
   return apiGraphql.sendMutation(mutationGoing.createGoing(), dataToSend)
     .then(res => {
-      return sendMessage(senderID)
+      if(res.createGoing){
+        return apiGraphql.sendQuery(queryUser.queryUser(userID))
+      }
+    })
+    .then(res => {
+      if (res.user) {
+        user = res.user;
+        if (res.user.geoLocation.lat !== null) {
+          const diffHour = Math.abs(new Date() - new Date(res.user.geoLocation.lastUpdated)) / 36e5;
+          if (diffHour >= LIMIT_HOUR_ASK_LOCATION) {
+            return sendMessage(senderID, product_data.rememberLocation(eventID), "RESPONSE")
+          } else {
+            return sendMessage(senderID, product_data.letsGoMessage, "RESPONSE")
+              .then((response) => {
+                if (response.status === 200)
+                  return apiMessenger.sendToFacebook({
+                    recipient: {id: senderID},
+                    sender_action: 'typing_on',
+                    messaging_types: "RESPONSE",
+                    message: ""
+                  })
+              })
+              .then(helper.delayPromise(2000))
+              .then(response => {
+                if (response.status === 200)
+                  return sendMessage(senderID, product_data.sendItinerary(user.geoLocation, resultat.location), "RESPONSE")
+              })
+              .then(response => {
+                if (response.status === 200) {
+                  return apiMessenger.sendToFacebook({
+                    recipient: {id: senderID},
+                    sender_action: 'typing_on',
+                    messaging_types: "RESPONSE",
+                    message: ""
+                  })
+                }
+              })
+              .then(helper.delayPromise(2000))
+              .then(response => {
+                if (response.status === 200 && resultat.suggestion !== null){
+                  return sendMessage(senderID, {text: resultat.suggestion}, "RESPONSE")
+                } else {
+                  return apiMessenger.sendToFacebook({
+                    recipient: {id: senderID},
+                    sender_action: 'typing_on',
+                    messaging_types: "RESPONSE",
+                    message: ""
+                  })
+                }
+              })
+              .then(response => {
+                if(response.status === 200)
+                  return sendMessage(senderID, product_data.updateLocation(), "RESPONSE")
+              })
+              //.then(helper.delayPromise(2000))
+              // .then(response => {
+              //   if(response.status === 200)
+              // })
+              .catch(err => console.log(err))
+          }
+        } else {
+          return sendMessage(senderID, product_data.askLocation(eventID), "RESPONSE")
+        }
+      }
     })
 };
 
@@ -79,7 +147,7 @@ module.exports = (payload, senderID) => {
   let userId = "";
   return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderID))
     .then(res => {
-      if(res.userByAccountMessenger){
+      if (res.userByAccountMessenger) {
         userId = res.userByAccountMessenger.id;
         return events[event](eventID)
       }
@@ -87,7 +155,7 @@ module.exports = (payload, senderID) => {
     .then(res => {
       const eventName = event.toLocaleLowerCase();
       const resultat = res[eventName];
-      switch(newPayload){
+      switch (newPayload) {
         case "GOING":
           return _createGoing(senderID, userId, eventID, eventName, resultat);
         case "LATER":
