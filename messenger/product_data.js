@@ -431,7 +431,7 @@ module.exports = {
     }
   },
   selectionDistrict: {
-    "text": "Gooooo! 🚀",
+    "text": "‍Yay! 🚶‍♂️",
   },
   selectionDistrict2: {
       "text": "But wait, I don't know where you'd like to go... Could you choose a district ?:"
@@ -441,7 +441,7 @@ module.exports = {
       "type": "template",
       "payload": {
         "template_type": "list",
-        "top_elemennt_style": "compact",
+        "top_element_style": "compact",
         "elements": [
           {
             "title": "Around Le Louvre",
@@ -491,6 +491,17 @@ module.exports = {
               }
             ]
           },
+        ]
+      }
+    }
+  },
+  selectionDistrictType2: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "list",
+        "top_element_style": "compact",
+        "elements": [
           {
             "title": "The Champs Elysée surroundings",
             "image_url": "https://api.marco-app.com/api/image/minChamps.jpg",
@@ -539,6 +550,17 @@ module.exports = {
               }
             ]
           },
+        ]
+      }
+    }
+  },
+  selectionDistrictType3: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "list",
+        "top_element_style": "compact",
+        "elements": [
           {
             "title": "Montmartre",
             "image_url": "https://api.marco-app.com/api/image/minMontmartre.jpg",
@@ -553,7 +575,7 @@ module.exports = {
           },
           {
             "title": "Trocadéro surroundings",
-            "image_url": "https://api.marco-app.com/api/image/minTrocadero.jpg",
+            "image_url": "https://api.marco-app.com/api/image/minTroca.jpg",
             "subtitle": "Famous artistic hill of Paris.",
             "buttons": [
               {
@@ -577,7 +599,7 @@ module.exports = {
           },
           {
             "title": "Montparnasse & surroundings",
-            "image_url": "https://api.marco-app.com/api/image/minMontparnasse.jpg",
+            "image_url": "https://api.marco-app.com/api/image/minMontpar.jpg",
             "subtitle": "Famous for its theatres.",
             "buttons": [
               {
@@ -587,11 +609,9 @@ module.exports = {
               }
             ]
           }
-
         ]
       }
     }
-  },
-
+  }
 }
 ;

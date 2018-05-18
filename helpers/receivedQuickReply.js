@@ -42,6 +42,7 @@ module.exports = (event) => {
       quickReplyBar(senderID);
       break;
     case 'EVENT_DISTRICT':
+      console.log('case district');
       quickReplyDistrict(senderID);
       break;
     default :
