@@ -97,9 +97,8 @@ module.exports = (_event) => {
       if (response.status === 200)
         return sendMessage(senderId, product_data.sendItinerary(geoLocation, eventObject.location), "RESPONSE")
     })
-    .then(res => {
-      if (res[event]) {
-        eventObject = res[event];
+    .then(response => {
+      if (response.status === 200) {
         return apiMessenger.sendToFacebook({
           recipient: {id: senderId},
           sender_action: 'typing_on',
@@ -110,24 +109,21 @@ module.exports = (_event) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      if (response.status === 200 && eventObject.suggestion !== null){
+      if (response.status === 200 && eventObject.suggestion !== null) {
         return sendMessage(senderId, {text: eventObject.suggestion}, "RESPONSE")
       } else {
         return apiMessenger.sendToFacebook({
-          recipient: {id: senderID},
+          recipient: {id: senderId},
           sender_action: 'typing_on',
           messaging_types: "RESPONSE",
           message: ""
         })
       }
     })
+    .then(helper.delayPromise(2000))
     .then(response => {
       if(response.status === 200)
-        return sendMessage(senderId, product_data.updateLocation(), "RESPONSE")
+        return sendMessage(senderId, product_data.question1MessageAfterLocation, "RESPONSE")
     })
-    //.then(helper.delayPromise(2000))
-    // .then(response => {
-    //   if(response.status === 200)
-    // })
     .catch(err => console.log(err))
 };

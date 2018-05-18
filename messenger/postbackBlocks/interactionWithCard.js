@@ -112,10 +112,6 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
                 if(response.status === 200)
                   return sendMessage(senderID, product_data.updateLocation(), "RESPONSE")
               })
-              //.then(helper.delayPromise(2000))
-              // .then(response => {
-              //   if(response.status === 200)
-              // })
               .catch(err => console.log(err))
           }
         } else {
@@ -132,8 +128,37 @@ const _createLater = (senderID, userID, eventID, eventName, event) => {
   dataToSend[`${eventName}s_id`] = eventID;
   return apiGraphql.sendMutation(mutationLater.createLater(), dataToSend)
     .then(res => {
-      return sendMessage(senderID, {text: ""})
+      if(res){
+        return apiMessenger.sendToFacebook({
+          recipient: {id: senderID},
+          sender_action: 'typing_on',
+          messaging_types: "RESPONSE",
+          message: ""
+        })
+      }
     })
+    .then(helper.delayPromise(2000))
+    .then(res => {
+      if(res.status === 200)
+      return sendMessage(senderID, product_data.saveLater, "RESPONSE")
+    })
+    .then(res => {
+      if(res.status === 200){
+        return apiMessenger.sendToFacebook({
+          recipient: {id: senderID},
+          sender_action: 'typing_on',
+          messaging_types: "RESPONSE",
+          message: ""
+        })
+      }
+    })
+    .then(helper.delayPromise(2000))
+    .then(res => {
+      if(res.status === 200)
+      return sendMessage(senderID, product_data.question1MessageAfterLater, "RESPONSE")
+    })
+
+
 };
 
 const _seeMore = (senderID, event) => {

@@ -11,7 +11,6 @@ module.exports = (senderID, travelType) => {
     },
     message: ''
   };
-  console.log(typeof senderID);
   const user = {
   accountmessengers_id: senderID,
     travelType: travelType
