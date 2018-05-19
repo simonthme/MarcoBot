@@ -157,12 +157,21 @@ const _createLater = (senderID, userID, eventID, eventName, event) => {
       if(res.status === 200)
       return sendMessage(senderID, product_data.question1MessageAfterLater, "RESPONSE")
     })
-
-
 };
 
-const _seeMore = (senderID, event) => {
-
+const _seeMore = (senderID, eventName, event) => {
+  return apiMessenger.sendToFacebook({
+    recipient: {id: senderID},
+    sender_action: 'typing_on',
+    messaging_types: "RESPONSE",
+    message: ""
+  })
+    .then(helper.delayPromise(2000))
+    .then(response => {
+      if (response.status === 200) {
+        return sendMessage(senderID, product_data.viewMore(event.description, eventName, event.id), "RESPONSE")
+      }
+    })
 };
 
 module.exports = (payload, senderID) => {
@@ -186,7 +195,7 @@ module.exports = (payload, senderID) => {
         case "LATER":
           return _createLater(senderID, userId, eventID, eventName);
         case "VIEWMORE":
-          return _seeMore(senderID, resultat);
+          return _seeMore(senderID, event, resultat);
         default:
           break;
       }

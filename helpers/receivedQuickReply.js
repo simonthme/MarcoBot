@@ -8,7 +8,7 @@ const quickReplyBar = require('../messenger/quickReplyBlocks/bar/bar');
 const quickReplyRest = require('../messenger/quickReplyBlocks/restaurant/restaurant');
 const quickReplyDistrict = require('../messenger/quickReplyBlocks/district/district');
 const noUpdateLocation = require('../messenger/quickReplyBlocks/noUpdateLocation');
-
+const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 module.exports = (event) => {
   const senderID = event.sender.id;
   const recipientID = event.recipient.id;
@@ -16,6 +16,8 @@ module.exports = (event) => {
   const payload = event.message.quick_reply.payload;
   if (payload.includes("NOLOCATIONEVENT")) {
     return quickReplyLocation(payload, senderID);
+  } else if (payload.includes("GOING") || payload.includes("LATER") ) {
+      return postbackInteractionWithCard(payload, senderID)
   } else {
     switch (payload) {
       case 'EVENT_CONFIRM_EXCITEMENT':
