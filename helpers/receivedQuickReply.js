@@ -45,6 +45,7 @@ module.exports = (event) => {
       console.log('case district');
       quickReplyDistrict(senderID);
       break;
+
     default :
       postbackDefault(senderID);
       break;

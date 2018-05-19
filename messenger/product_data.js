@@ -320,7 +320,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Cafés",
-                "payload":"BAR_PUB"
+                "payload":"BAR_CAFE"
               }
             ]
           },
@@ -431,7 +431,7 @@ module.exports = {
     }
   },
   selectionDistrict: {
-    "text": "‍Yay! 🚶‍♂️",
+    "text": "‍Yay! 🚶‍️",
   },
   selectionDistrict2: {
       "text": "But wait, I don't know where you'd like to go... Could you choose a district ?:"
@@ -611,6 +611,33 @@ module.exports = {
           }
         ]
       }
+    }
+  },
+  priceMessage(type, tag) {
+    return {
+      "text": "What about the price?",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "💸",
+          "payload": `PRICE_ONE_${type}_${tag}`,
+        },
+        {
+          "content_type": "text",
+          "title": "💸💸",
+          "payload": `PRICE_TWO_${type}_${tag}`,
+        },
+        {
+          "content_type": "text",
+          "title": "💸💸💸",
+          "payload": `PRICE_THREE_${type}_${tag}`,
+        },
+        {
+          "content_type": "text",
+          "title": "💸💸💸💸",
+          "payload": `PRICE_FOUR_${type}_${tag}`,
+        }
+      ]
     }
   }
 }
