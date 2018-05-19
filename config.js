@@ -2,10 +2,11 @@
  * Created by corentin on 27/04/2018.
  */
 module.exports = {
-  tokenAppFacebook : 'EAADL0Qx96O8BANaws8XANuonnD0sD8ZB9uH2zBqVviOZBOeWj4iNltiC9nHqYb4bgMJosX0Pe0d5afNwaLN4BR6J9QGJXLYKN2667XbZAE9TwitwCpNv5kNApaOI70L4dfQTQNvXAhv0SDHCDIo7vX1f1C3LrtPSvnWWZAenGQZDZD',
+  tokenAppFacebook : 'EAAe0IGvwaycBAAYGE3M02HWyp7UGZCahOxstJC45WPgqRCP01TN4y3mqbbyvAQG8pbOW6wchbNlnWZA3eJ49INZBDOMwSyZCqwsHZAd7c9fciQqJrKjseZCZBu4bkD8TfvuMfSGZCIu6OR3PWBdub2taJ6k8g8Fd5hIYzAGw1qWymAZDZD',
   clientTokenDialogflow: "c8ad203d756f4c828380f8e61d261cde",
   projectIDDialogflow: "first-agent-af296",
   verificationMessenger: "xFdu09GhnS8f4n-ghEzsx",
+  keyApiGoogle: "AIzaSyCeV-rbeGfSA913Pzk8lRjo5I7pZ6Gu39s",
   // The variable to change: if you want development it's 0,
   // if you want production it's 1
   // if you localhost it's 2

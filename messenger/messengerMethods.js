@@ -26,7 +26,6 @@ module.exports = {
             const mutationCreateUser = mutationUser.createUser();
             graphqlRequest.sendMutation(mutationCreateAccount, userToSave)
               .then(accountSaved => {
-                console.log(accountSaved);
                 if (accountSaved) {
                   userToSave.accountmessengers_id = userToSave.PSID;
                     graphqlRequest.sendMutation(mutationCreateUser, userToSave)

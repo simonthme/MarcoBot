@@ -53,12 +53,12 @@ module.exports = {
       async.each(list, (elem, callback) => {
         const element = {
           "title": `${elem.name}`,
-          //"image_url": `${Config.category[Config.indexCategory].apiUrl}/image/${elem.photos[0]}`,
+          "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
           "subtitle": "We have the right hat for everyone.",
           "buttons": [
             {
               "type": "postback",
-              "title": "I want to go",
+              "title": "Let's go!",
               "payload": `GOING_${kindElement}:${elem.id}`
             },
             {
@@ -71,11 +71,6 @@ module.exports = {
               "title": "View more",
               "payload": `VIEWMORE_${kindElement}:${elem.id}`
             },
-            // {
-            //   "type": "postback",
-            //   "title": "Back",
-            //   "payload": `BACK`
-            // },
           ]
         };
         arrayOfElement.push(element);
@@ -188,8 +183,128 @@ module.exports = {
       }
     ]
   },
+  question1MessageAfterLocation: {
+    "text": "I'm sure that you will enjoy it ☺, if you want something else do not hesitate to flag me",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "EVENT_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "EVENT_REST",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "EVENT_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "Districts",
+        "payload": "EVENT_DISTRICT",
+      }
+    ]
+  },
+  question1MessageAfterLater: {
+    "text": "Meanwhile, if you want something else do not hesitate to flag me ",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "EVENT_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "EVENT_REST",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "EVENT_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "Districts",
+        "payload": "EVENT_DISTRICT",
+      }
+    ]
+  },
+  rememberLocation: (eventID) => {
+    return {
+      "text": "So, can you remember me your location? It has been a long time 🙈",
+      "quick_replies": [
+        {
+          "content_type": "location",
+        },
+        {
+          "content_type": "text",
+          "title": "No, use my old position",
+          "payload": `NOLOCATIONEVENT:${eventID}`,
+        }
+      ]
+    }
+  },
+  updateLocation: () => {
+    return {
+      "text": "You can update your location if you want by clicking the button",
+      "quick_replies": [
+        {
+          "content_type": "location",
+        },
+        {
+          "content_type": "text",
+          "title": "No",
+          "payload": `NO_UPDATE_LOCATION`,
+        }
+      ]
+    }
+  },
+  askLocation: (eventID) => {
+    return {
+      "text": "I like your determination 👊, but before can you send me your location?",
+      "quick_replies": [
+        {
+          "content_type": "location",
+          "title": "Yes",
+          "payload": `YESLOCATIONEVENT:${eventID}`,
+        },
+        {
+          "content_type": "text",
+          "title": "No",
+          "payload": `NOLOCATIONEVENT:${eventID}`,
+        }
+      ]
+    }
+  },
+  sendItinerary: (origin, destination) => {
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "Let's go ! I let you press on the button to see the itinerary👇‍️",
+          "buttons": [
+            {
+              "type": "web_url",
+              "url": `https://www.google.com/maps/dir/${origin.lat},${origin.lng}/${destination.lat},${destination.lng}/`,
+              "title": "🚇🚎 Itinerary 📍",
+              "webview_height_ratio": "full",
+              "messenger_extensions": "false",
+            }
+          ]
+        }
+      }
+    }
+  },
   selectionSite: {
     "text": "Great choice! 🎉",
+  },
+  saveLater: {
+    "text": "Ok, no problem I will save it for you !🎉",
   },
   selectionSite2: {
     "text": "But wait, what type of visits are you interested in? "
@@ -640,5 +755,4 @@ module.exports = {
       ]
     }
   }
-}
-;
+};

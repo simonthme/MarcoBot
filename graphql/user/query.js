@@ -1,13 +1,18 @@
 module.exports = {
   queryUser: (id) => {
     return `{
-      userMessenger(id: "${id}") {
+      user(id: "${id}") {
           id,
           firstName,
           lastName,
           createAt,
           gender,
           deleted,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          }
         }
     }`
   },
@@ -20,6 +25,11 @@ module.exports = {
           createAt,
           gender,
           deleted,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          }
         }
     }`
   },

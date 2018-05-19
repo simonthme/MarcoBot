@@ -4,6 +4,9 @@
 const processMessage = require('../helpers/processMessage');
 const receivedPostback = require('../helpers/receivedPostback');
 const receivedQuickReply = require('../helpers/receivedQuickReply');
+const receiveLocation = require('../helpers/receiveLocation');
+
+
 module.exports = (req, res) =>  {
   if (req.body.object === "page"){
     req.body.entry.forEach(entry => {
@@ -18,6 +21,8 @@ module.exports = (req, res) =>  {
         } else {
           if (event.postback) {
             receivedPostback(event);
+          } else if (event.message.attachments && event.message.attachments[0].type === 'location') {
+            receiveLocation(event);
           }
         }
       });
