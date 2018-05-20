@@ -1,9 +1,9 @@
 const apiGraphql = require("../../helpers/apiGraphql");
 const user = require("../../graphql/user/query");
-const product_data = require("../product_data");
+const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
 const helper = require("../../helpers/helper");
-const messengerMethods = require("../messengerMethods");
+const messengerMethods = require("../../messenger/messengerMethods");
 
 module.exports = (senderID) => {
   let messageData = {
@@ -12,6 +12,7 @@ module.exports = (senderID) => {
     },
     message: ''
   };
+
   const messageQueue = (userMessenger) => {
     messageData.message =
       product_data.initialMessage(userMessenger);
@@ -72,11 +73,10 @@ module.exports = (senderID) => {
         console.log("end of first batch");
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response.data);
       });
 
   };
-  console.log(senderID);
   apiGraphql.sendQuery(user.queryUserByAccountMessenger(senderID))
     .then(response => {
       console.log(response);

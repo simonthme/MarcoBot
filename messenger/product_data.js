@@ -6,7 +6,7 @@ const async = require("async");
 module.exports = {
   getStartedData: {
     "get_started": {
-      "payload": "EVENT_GET_STARTED"
+      "payload": "INIT"
     }
   },
   menuData: {
@@ -109,12 +109,12 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Yes let's go!",
-        "payload": "EVENT_CONFIRM_EXCITEMENT",
+        "payload": "EXCITEMENT_CONFIRM",
       },
       {
         "content_type": "text",
         "title": "No I don't need you",
-        "payload": "EVENT_CANCEL_EXCITEMENT",
+        "payload": "EXCITEMENT_CANCEL",
       }
     ]
   },
@@ -139,22 +139,22 @@ module.exports = {
       {
         "content_type": "text",
         "title": "😇 I'm Alone",
-        "payload": "EVENT_ALONE",
+        "payload": "TRAVELTYPE_ALONE",
       },
       {
         "content_type": "text",
         "title": "❤️ With my partner",
-        "payload": "EVENT_PARTNER",
+        "payload": "TRAVELTYPE_PARTNER",
       },
       {
         "content_type": "text",
         "title": "🎉 With friends",
-        "payload": "EVENT_FRIENDS",
+        "payload": "TRAVELTYPE_FRIENDS",
       },
       {
         "content_type": "text",
         "title": "👨‍👩‍👧‍👦 With my family",
-        "payload": "EVENT_FAMILY",
+        "payload": "TRAVELTYPE_FAMILY",
       }
     ]
   },
@@ -164,22 +164,22 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Visiting",
-        "payload": "EVENT_SITE",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
         "title": "I'm hungry",
-        "payload": "EVENT_REST",
+        "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
         "title": "I'm thirsty",
-        "payload": "EVENT_BAR",
+        "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
         "title": "Districts",
-        "payload": "EVENT_DISTRICT",
+        "payload": "SEARCH_DISTRICT",
       }
     ]
   },
@@ -476,7 +476,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gastronomic",
-                "payload":"REST_GASTRONOMY"
+                "payload":"RESTAURANT_GASTRONOMY"
               }
             ]
           },
@@ -488,7 +488,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Atypical",
-                "payload":"REST_VEGGIE"
+                "payload":"RESTAURANT_VEGGIE"
               }
             ]
           },
@@ -500,7 +500,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Brunch",
-                "payload":"REST_BRUNCH"
+                "payload":"RESTAURANT_BRUNCH"
               }
             ]
           },
@@ -512,7 +512,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Street food",
-                "payload":"REST_STREET"
+                "payload":"RESTAURANT_STREET"
               }
             ]
           },
@@ -524,19 +524,19 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Traditional",
-                "payload":"REST_TRADI"
+                "payload":"RESTAURANT_TRADITIONAL"
               }
             ]
           },
           {
-            "title": "Restaurants",
+            "title": "Others",
             "image_url": "https://api.marco-app.com/api/image/minRestaurant.jpg",
             "subtitle": "Perfect for tasting famous wines.",
             "buttons": [
               {
                 "type":"postback",
-                "title":"Restaurants",
-                "payload":"REST_REST"
+                "title":"Others",
+                "payload":"RESTAURANT_OTHER"
               }
             ]
           },

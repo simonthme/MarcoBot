@@ -1,6 +1,6 @@
-const product_data = require("../../product_data");
-const apiMessenger = require("../../../helpers/apiMessenger");
-const helper = require("../../../helpers/helper");
+const product_data = require("../../messenger/product_data");
+const apiMessenger = require("../../helpers/apiMessenger");
+const helper = require("../../helpers/helper");
 module.exports = (senderID) => {
   let messageData = {
     recipient: {
@@ -8,7 +8,7 @@ module.exports = (senderID) => {
     },
     message: ''
   };
-  messageData.message = product_data.selectionRestaurant;
+  messageData.message = product_data.selectionSite;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
       delete messageData.message;
@@ -19,7 +19,7 @@ module.exports = (senderID) => {
     .then(helper.delayPromise(2000))
     .then(resp => {
       delete messageData.sender_action;
-      messageData.message = product_data.selectionRestaurant2;
+      messageData.message = product_data.selectionSite2;
       if(resp.status === 200) {
         return apiMessenger.sendToFacebook(messageData)
       }
@@ -33,7 +33,7 @@ module.exports = (senderID) => {
     .then(helper.delayPromise(2000))
     .then(resp => {
       delete messageData.sender_action;
-      messageData.message = product_data.selectionRestaurantType;
+      messageData.message = product_data.selectionSiteType;
       if(resp.status === 200) {
         return apiMessenger.sendToFacebook(messageData)
       }

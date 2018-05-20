@@ -4,8 +4,10 @@ const apiGraphql = require('./apiGraphql');
 const userMessenger = require('../graphql/accountMessenger/query');
 const helper = require('../helpers/helper');
 const postbackDefault = require('../messenger/postbackBlocks/default');
-const postbackGetStarted = require('../messenger/postbackBlocks/getStarted');
-const postbackPrice = require('../messenger/postbackBlocks/price');
+const initHandler = require('../handlers/initHandler/init');
+const priceHandlerRestaurant = require('../handlers/priceHandler/restaurantIndex');
+const priceHandlerBar = require('../handlers/priceHandler/barIndex');
+const postbackPrice = require('../handlers/priceHandler/price');
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
 module.exports = (event) => {
@@ -13,49 +15,21 @@ module.exports = (event) => {
   const recipientID = event.recipient.id;
   const timeOfMessage = event.timestamp;
   const payload = event.postback.payload;
+  const payloadType = payload.split("_");
   const message = event.message ? event.message : null;
   if(payload.includes("GOING") || payload.includes("LATER") || payload.includes("VIEWMORE")){
     return postbackInteractionWithCard(payload, senderID);
   } else {
-    switch (payload) {
-      case 'EVENT_GET_STARTED':
-        postbackGetStarted(senderID);
+    console.log(payloadType);
+    switch (payloadType[0]) {
+      case 'INIT':
+        initHandler(senderID);
         break;
-      case 'REST_GASTRONOMY':
-          postbackPrice(senderID, 'REST', 'GASTRONOMY');
+      case 'RESTAURANT':
+        priceHandlerRestaurant(payloadType[1], senderID);
         break;
-      case 'REST_VEGGIE':
-        postbackPrice(senderID, 'REST', 'VEGGIE');
-        break;
-      case 'REST_BRUNCH':
-        postbackPrice(senderID, 'REST', 'BRUNCH');
-        break;
-      case 'REST_STREET':
-        postbackPrice(senderID, 'REST', 'STREET');
-        break;
-      case 'REST_TRADI':
-        postbackPrice(senderID, 'REST', 'TRADI');
-        break;
-      case 'REST_REST':
-        postbackPrice(senderID, 'REST', 'REST');
-        break;
-      case 'BAR_TRENDY':
-          postbackPrice(senderID, 'BAR', 'TRENDY');
-        break;
-      case 'BAR_ATYPICAL':
-        postbackPrice(senderID, 'BAR', 'ATYPICAL');
-        break;
-      case 'BAR_HIGHCLASS':
-        postbackPrice(senderID, 'BAR', 'HIGHCLASS');
-        break;
-      case 'BAR_PUB':
-        postbackPrice(senderID, 'BAR', 'PUB');
-        break;
-      case 'BAR_CAFE':
-        postbackPrice(senderID, 'BAR', 'CAFE');
-        break;
-      case 'BAR_WINE':
-        postbackPrice(senderID, 'BAR', 'WINE');
+      case 'BAR':
+        priceHandlerBar(payloadType[1], senderID);
         break;
       default :
         postbackDefault(senderID);

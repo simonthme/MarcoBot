@@ -1,9 +1,9 @@
 const apiGraphql = require("../../helpers/apiGraphql");
 const user = require("../../graphql/user/query");
-const product_data = require("../product_data");
+const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
 const helper = require("../../helpers/helper");
-const messengerMethods = require("../messengerMethods");
+const messengerMethods = require("../../messenger/messengerMethods");
 
 module.exports = (senderID, type, tag) => {
   let messageData = {
@@ -17,6 +17,6 @@ module.exports = (senderID, type, tag) => {
       console.log(response.data);
     })
     .catch(err => {
-      console.log(err);
+      console.log(err.response.data);
     });
 };
