@@ -29,6 +29,7 @@ module.exports = {
       apiUrl: 'http://api:3003/api',
       apiGraphQlUrl: 'http://api:3003/graphql',
       apiNgrok: 'http://api:3003/graphql',
+      recommendationApilUrl: 'http://recommandation_api:3005/graphql',
       port: 4000
     }
   ]

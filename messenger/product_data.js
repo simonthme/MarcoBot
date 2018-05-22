@@ -735,24 +735,27 @@ module.exports = {
         {
           "content_type": "text",
           "title": "💸",
-          "payload": `PRICE_ONE_${type}_${tag}`,
+          "payload": `PRICE${type}_${tag}_ONE`,
         },
         {
           "content_type": "text",
           "title": "💸💸",
-          "payload": `PRICE_TWO_${type}_${tag}`,
+          "payload": `PRICE${type}_${tag}_TWO`,
         },
         {
           "content_type": "text",
           "title": "💸💸💸",
-          "payload": `PRICE_THREE_${type}_${tag}`,
+          "payload": `PRICE${type}_${tag}_THREE`,
         },
         {
           "content_type": "text",
           "title": "💸💸💸💸",
-          "payload": `PRICE_FOUR_${type}_${tag}`,
+          "payload": `PRICE${type}_${tag}_FOUR`,
         }
       ]
     }
+  },
+  fetchRestaurantsMessage: {
+    "text": "Check what I found for you: "
   }
 };

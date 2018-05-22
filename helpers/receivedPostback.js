@@ -7,7 +7,7 @@ const postbackDefault = require('../messenger/postbackBlocks/default');
 const initHandler = require('../handlers/initHandler/init');
 const priceHandlerRestaurant = require('../handlers/priceHandler/restaurantIndex');
 const priceHandlerBar = require('../handlers/priceHandler/barIndex');
-const postbackPrice = require('../handlers/priceHandler/price');
+
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
 module.exports = (event) => {
@@ -20,7 +20,6 @@ module.exports = (event) => {
   if(payload.includes("GOING") || payload.includes("LATER") || payload.includes("VIEWMORE")){
     return postbackInteractionWithCard(payload, senderID);
   } else {
-    console.log(payloadType);
     switch (payloadType[0]) {
       case 'INIT':
         initHandler(senderID);

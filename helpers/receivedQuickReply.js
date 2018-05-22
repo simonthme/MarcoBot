@@ -1,5 +1,7 @@
 const excitementHandler = require('../handlers/excitementHandler/index');
 const travelTypeHandler = require('../handlers/travelTypeHandler/index');
+const restaurantHandler = require('../handlers/restaurantHandler/typeIndex');
+const barHandler = require('../handlers/barHandler/typeIndex');
 const searchHandler = require('../handlers/searchHandler/index');
 const quickReplyLocation = require(
   '../messenger/quickReplyBlocks/quickReplyLocation');
@@ -28,6 +30,12 @@ module.exports = (event) => {
         break;
       case 'NO_UPDATE_LOCATION':
         noUpdateLocation(senderID);
+        break;
+      case 'PRICERESTAURANT':
+        restaurantHandler(payloadType[1], payloadType[2], senderID);
+        break;
+      case 'PRICEBAR':
+        barHandler(payloadType[1], payloadType[2], senderID);
         break;
       default :
         postbackDefault(senderID);
