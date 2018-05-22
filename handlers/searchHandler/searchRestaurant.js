@@ -1,4 +1,4 @@
-const product_data = require("../product_data");
+const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
 const helper = require("../../helpers/helper");
 module.exports = (senderID) => {
@@ -8,7 +8,7 @@ module.exports = (senderID) => {
     },
     message: ''
   };
-  messageData.message = product_data.noNeedMessage;
+  messageData.message = product_data.selectionRestaurant;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
       delete messageData.message;
@@ -16,12 +16,13 @@ module.exports = (senderID) => {
       if (response.status === 200)
         return apiMessenger.sendToFacebook(messageData);
     })
-    .then(helper.delayPromise(1000))
-    .then(response => {
+    .then(helper.delayPromise(2000))
+    .then(resp => {
       delete messageData.sender_action;
-      messageData.message = product_data.preFeedback;
-      if (response.status === 200)
-        return apiMessenger.sendToFacebook(messageData);
+      messageData.message = product_data.selectionRestaurant2;
+      if(resp.status === 200) {
+        return apiMessenger.sendToFacebook(messageData)
+      }
     })
     .then(response => {
       delete messageData.message;
@@ -29,12 +30,16 @@ module.exports = (senderID) => {
       if (response.status === 200)
         return apiMessenger.sendToFacebook(messageData);
     })
-    .then(helper.delayPromise(3000))
-    .then(response => {
+    .then(helper.delayPromise(2000))
+    .then(resp => {
       delete messageData.sender_action;
-      messageData.message = product_data.feedbackInput;
-      if (response.status === 200)
-        return apiMessenger.sendToFacebook(messageData);
+      messageData.message = product_data.selectionRestaurantType;
+      if(resp.status === 200) {
+        return apiMessenger.sendToFacebook(messageData)
+      }
+    })
+    .then(resp => {
+      console.log(resp);
     })
     .catch(err => {
       console.log(err);

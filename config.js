@@ -2,7 +2,7 @@
  * Created by corentin on 27/04/2018.
  */
 module.exports = {
-  tokenAppFacebook : 'EAAe0IGvwaycBAEgGkZCCb3KqVGDVIiY9XNm2HUpLZBnvacZA2Bn2lJZBOtaUpkP8W3NFoyl5P3356sk94DMmT17YJ1N8sLPvNveQ9zLzDBg9Tc1PVW2i7F1RyCiZAxWw1Sk4vrCZApIIOPb2smTlKutUmSDZAnojWFskKbWCMz70QZDZD',
+  tokenAppFacebook : 'EAAe0IGvwaycBAPyHkiWDW59Ew0UH2MwHjc3BR6kaXOAOZB8fAcOmftmlo4rmOIRSL26ZAH3roZBOnMZCvkDdzmZBEduOGyR4JwyioJxaOLg0QW1Ri134kLD8O8YpFdG4sN70QVBkrBfzsdrQS2JBrEHpDIuJcKyHgJE4BsAeQZBQZDZD',
   clientTokenDialogflow: "c8ad203d756f4c828380f8e61d261cde",
   projectIDDialogflow: "first-agent-af296",
   verificationMessenger: "xFdu09GhnS8f4n-ghEzsx",
@@ -29,6 +29,7 @@ module.exports = {
       apiUrl: 'http://api:3003/api',
       apiGraphQlUrl: 'http://api:3003/graphql',
       apiNgrok: 'http://api:3003/graphql',
+      recommendationApilUrl: 'http://recommandation_api:3005/graphql',
       port: 4000
     }
   ]

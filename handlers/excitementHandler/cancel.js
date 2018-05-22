@@ -1,6 +1,6 @@
-const product_data = require("../../product_data");
-const apiMessenger = require("../../../helpers/apiMessenger");
-const helper = require("../../../helpers/helper");
+const product_data = require("../../messenger/product_data");
+const apiMessenger = require("../../helpers/apiMessenger");
+const helper = require("../../helpers/helper");
 module.exports = (senderID) => {
   let messageData = {
     recipient: {
@@ -8,7 +8,7 @@ module.exports = (senderID) => {
     },
     message: ''
   };
-  messageData.message = product_data.selectionBar;
+  messageData.message = product_data.noNeedMessage;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
       delete messageData.message;
@@ -16,13 +16,12 @@ module.exports = (senderID) => {
       if (response.status === 200)
         return apiMessenger.sendToFacebook(messageData);
     })
-    .then(helper.delayPromise(2000))
-    .then(resp => {
+    .then(helper.delayPromise(1000))
+    .then(response => {
       delete messageData.sender_action;
-      messageData.message = product_data.selectionBar2;
-      if(resp.status === 200) {
-        return apiMessenger.sendToFacebook(messageData)
-      }
+      messageData.message = product_data.preFeedback;
+      if (response.status === 200)
+        return apiMessenger.sendToFacebook(messageData);
     })
     .then(response => {
       delete messageData.message;
@@ -30,16 +29,12 @@ module.exports = (senderID) => {
       if (response.status === 200)
         return apiMessenger.sendToFacebook(messageData);
     })
-    .then(helper.delayPromise(2000))
-    .then(resp => {
+    .then(helper.delayPromise(3000))
+    .then(response => {
       delete messageData.sender_action;
-      messageData.message = product_data.selectionBarType;
-      if(resp.status === 200) {
-        return apiMessenger.sendToFacebook(messageData)
-      }
-    })
-    .then(resp => {
-      console.log(resp);
+      messageData.message = product_data.feedbackInput;
+      if (response.status === 200)
+        return apiMessenger.sendToFacebook(messageData);
     })
     .catch(err => {
       console.log(err);
