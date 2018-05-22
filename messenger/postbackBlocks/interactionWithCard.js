@@ -68,7 +68,7 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
         if (res.user.geoLocation.lat !== null) {
           const diffHour = Math.abs(new Date() - new Date(res.user.geoLocation.lastUpdated)) / 36e5;
           if (diffHour >= LIMIT_HOUR_ASK_LOCATION) {
-            return sendMessage(senderID, product_data.rememberLocation(eventID), "RESPONSE")
+            return sendMessage(senderID, product_data.rememberLocation(eventID, eventName.toUpperCase()), "RESPONSE")
           } else {
             return sendMessage(senderID, product_data.letsGoMessage, "RESPONSE")
               .then((response) => {
@@ -115,7 +115,7 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
               .catch(err => console.log(err))
           }
         } else {
-          return sendMessage(senderID, product_data.askLocation(eventID), "RESPONSE")
+          return sendMessage(senderID, product_data.askLocation(user.firstName, eventID, eventName.toUpperCase()), "RESPONSE")
         }
       }
     })

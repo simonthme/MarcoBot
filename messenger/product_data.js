@@ -172,6 +172,9 @@ module.exports = {
   letsGoMessage: {
     "text": "Awesome!! 👌🚀"
   },
+  letsGoMessage2: {
+    "text": "So we're going there, my dear friend 🧐"
+  },
   noNeedMessage: {
     "text": "Oh! That's a shame! 😢"
   },
@@ -281,7 +284,7 @@ module.exports = {
       }
     ]
   },
-  rememberLocation: (eventID) => {
+  rememberLocation: (eventID, kindEvent) => {
     return {
       "text": "So, can you remember me your location? It has been a long time 🙈",
       "quick_replies": [
@@ -291,7 +294,7 @@ module.exports = {
         {
           "content_type": "text",
           "title": "No, use my old position",
-          "payload": `NOLOCATIONEVENT:${eventID}`,
+          "payload": `USEOLDLOCATIONEVENT_${kindEvent}:${eventID}`,
         }
       ]
     }
@@ -306,14 +309,14 @@ module.exports = {
         {
           "content_type": "text",
           "title": "No",
-          "payload": `NO_UPDATE_LOCATION`,
+          "payload": `NOUPDATELOCATION`,
         }
       ]
     }
   },
-  askLocation: (eventID) => {
+  askLocation: (nameUser, eventID, kindEvent) => {
     return {
-      "text": "I like your determination 👊, but before can you send me your location?",
+      "text": `I like your determination 👊, but before can you send me your location? \nDon't worry ${nameUser} I will do nothing with it, It's just to help you to get the easiest way to go there.`,
       "quick_replies": [
         {
           "content_type": "location",
@@ -323,7 +326,7 @@ module.exports = {
         {
           "content_type": "text",
           "title": "No",
-          "payload": `NOLOCATIONEVENT:${eventID}`,
+          "payload": `NOLOCATIONEVENT_${kindEvent}:${eventID}`,
         }
       ]
     }
@@ -346,6 +349,36 @@ module.exports = {
           ]
         }
       }
+    }
+  },
+  sendLocation: (destination, eventName) => {
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "On the map it's there 👇‍️",
+          "buttons": [
+            {
+              "type": "web_url",
+              "url": `https://www.google.com/maps/dir//${destination.lat},${destination.lng}/`,
+              "title": `📍 ${eventName}` ,
+              "webview_height_ratio": "full",
+              "messenger_extensions": "false",
+            }
+          ]
+        }
+      }
+    }
+  },
+  noLocationEvent: (eventName) => {
+    return {
+      "text": `Ok , I understand ☺️, nevertheless let me give you the address of ${eventName}`
+    }
+  },
+  noLocationEvent2: (eventAddress) => {
+    return {
+      "text": `📍 ${eventAddress}`
     }
   },
   selectionSite: {
@@ -822,5 +855,8 @@ module.exports = {
   },
   fetchRestaurantsMessage: {
     "text": "Check what I found for you: "
+  },
+  jokeMarco: {
+    "text": "I stepped on a Corn Flake, now I'm a Cereal Killer"
   }
 };

@@ -14,7 +14,7 @@ module.exports = (event) => {
   const timeOfMessage = event.timestamp;
   const payload = event.message.quick_reply.payload;
   const payloadType = payload.split("_");
-  if (payload.includes("NOLOCATIONEVENT")) {
+  if (payload.includes("NOLOCATIONEVENT") || payload.includes("USEOLDLOCATIONEVENT")) {
     return quickReplyLocation(payload, senderID);
   } else if (payload.includes("GOING") || payload.includes("LATER") ) {
       return postbackInteractionWithCard(payload, senderID)
@@ -29,7 +29,7 @@ module.exports = (event) => {
       case 'SEARCH':
         searchHandler(payloadType[1], senderID);
         break;
-      case 'NO_UPDATE_LOCATION':
+      case 'NOUPDATELOCATION':
         noUpdateLocation(senderID);
         break;
       case 'PRICERESTAURANT':
