@@ -11,6 +11,7 @@ services:
     network_mode: "env-net"
     external_links:
       - "api:api"
+      - "recommandation_api:recommandation_api"
 networks:
   default:
     external:
