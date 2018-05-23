@@ -15,6 +15,7 @@ module.exports = {
           location{
             lat
             lng
+            name
           }
           schedule {
             monday {
@@ -62,6 +63,7 @@ module.exports = {
           location{
             lat
             lng
+            name
           }
           schedule {
             monday {

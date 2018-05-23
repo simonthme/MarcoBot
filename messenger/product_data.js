@@ -3,6 +3,48 @@
  */
 const Config = require("../config");
 const async = require("async");
+const ARRAYDAY = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+
+const generateSubtitle = (elem, TODAY) => {
+  return new Promise((resolve, reject) => {
+    let money = "";
+    switch(elem.priceRange){
+      case 0:
+        money = "FREE";
+        break;
+      case 1:
+        money = "💸 - 💸💸";
+        break;
+      case 2:
+        money = "💸💸 - 💸💸💸";
+        break;
+      case 3:
+        money = "💸💸💸 - 💸💸💸💸";
+        break;
+      case 4:
+        money = "💸💸💸💸";
+        break;
+      default:
+        money = "FREE";
+        break;
+    }
+    let schedule = "🕐 ";
+    const daySchedule = elem.schedule[ARRAYDAY[TODAY.getDay() -1]];
+    if (daySchedule.length > 0){
+      daySchedule.map((day,i)  => {
+        const addToSchedule = [day.start, ' - ', day.end, ' '];
+        schedule = schedule.concat(day.start, ' - ', day.end, ' ');
+        if(i === daySchedule.length -1){
+          resolve({schedule: schedule, money: money});
+        }
+      })
+    } else {
+      schedule = "❌ CLOSE";
+      resolve({schedule: schedule, money: money});
+    }
+  });
+};
+
 module.exports = {
   getStartedData: {
     "get_started": {
@@ -49,32 +91,38 @@ module.exports = {
   },
   templateList: (list, kindElement) => {
     return new Promise((resolve, reject) => {
+      const TODAY = new Date();
       const arrayOfElement = [];
       async.each(list, (elem, callback) => {
-        const element = {
-          "title": `${elem.name}`,
-          "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
-          "subtitle": "We have the right hat for everyone.",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Let's go!",
-              "payload": `GOING_${kindElement}:${elem.id}`
-            },
-            {
-              "type": "postback",
-              "title": "Later",
-              "payload": `LATER_${kindElement}:${elem.id}`
-            },
-            {
-              "type": "postback",
-              "title": "View more",
-              "payload": `VIEWMORE_${kindElement}:${elem.id}`
-            },
-          ]
-        };
-        arrayOfElement.push(element);
-        callback()
+        generateSubtitle(elem, TODAY)
+          .then(res => {
+            console.log("YOLOOOO", res, elem.location);
+            const element = {
+              "title": `${elem.name}`,
+              "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
+              "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Let's go!",
+                  "payload": `GOING_${kindElement}:${elem.id}`
+                },
+                {
+                  "type": "postback",
+                  "title": "Later",
+                  "payload": `LATER_${kindElement}:${elem.id}`
+                },
+                {
+                  "type": "postback",
+                  "title": "View more",
+                  "payload": `VIEWMORE_${kindElement}:${elem.id}`
+                },
+              ]
+            };
+            arrayOfElement.push(element);
+            callback()
+          })
+          .catch(() => callback("AILLE"))
       }, (err) => {
         if (err) return reject(err);
         return resolve({
@@ -123,6 +171,9 @@ module.exports = {
   },
   letsGoMessage: {
     "text": "Awesome!! 👌🚀"
+  },
+  letsGoMessage2: {
+    "text": "So we're going there, my dear friend 🧐"
   },
   noNeedMessage: {
     "text": "Oh! That's a shame! 😢"
@@ -233,7 +284,7 @@ module.exports = {
       }
     ]
   },
-  rememberLocation: (eventID) => {
+  rememberLocation: (eventID, kindEvent) => {
     return {
       "text": "So, can you remember me your location? It has been a long time 🙈",
       "quick_replies": [
@@ -243,7 +294,7 @@ module.exports = {
         {
           "content_type": "text",
           "title": "No, use my old position",
-          "payload": `NOLOCATIONEVENT:${eventID}`,
+          "payload": `USEOLDLOCATIONEVENT_${kindEvent}:${eventID}`,
         }
       ]
     }
@@ -258,14 +309,14 @@ module.exports = {
         {
           "content_type": "text",
           "title": "No",
-          "payload": `NO_UPDATE_LOCATION`,
+          "payload": `NOUPDATELOCATION`,
         }
       ]
     }
   },
-  askLocation: (eventID) => {
+  askLocation: (nameUser, eventID, kindEvent) => {
     return {
-      "text": "I like your determination 👊, but before can you send me your location?",
+      "text": `I like your determination 👊, but before can you send me your location? \nDon't worry ${nameUser} I will do nothing with it, It's just to help you to get the easiest way to go there.`,
       "quick_replies": [
         {
           "content_type": "location",
@@ -275,7 +326,7 @@ module.exports = {
         {
           "content_type": "text",
           "title": "No",
-          "payload": `NOLOCATIONEVENT:${eventID}`,
+          "payload": `NOLOCATIONEVENT_${kindEvent}:${eventID}`,
         }
       ]
     }
@@ -298,6 +349,36 @@ module.exports = {
           ]
         }
       }
+    }
+  },
+  sendLocation: (destination, eventName) => {
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "On the map it's there 👇‍️",
+          "buttons": [
+            {
+              "type": "web_url",
+              "url": `https://www.google.com/maps/dir//${destination.lat},${destination.lng}/`,
+              "title": `📍 ${eventName}` ,
+              "webview_height_ratio": "full",
+              "messenger_extensions": "false",
+            }
+          ]
+        }
+      }
+    }
+  },
+  noLocationEvent: (eventName) => {
+    return {
+      "text": `Ok , I understand ☺️, nevertheless let me give you the address of ${eventName}`
+    }
+  },
+  noLocationEvent2: (eventAddress) => {
+    return {
+      "text": `📍 ${eventAddress}`
     }
   },
   selectionSite: {
@@ -728,6 +809,23 @@ module.exports = {
       }
     }
   },
+  viewMore: (description, kindElement, eventID) => {
+    return {
+      "text": `${description}`,
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Let's go! 🚀",
+          "payload": `GOING_${kindElement}:${eventID}`,
+        },
+        {
+          "content_type": "text",
+          "title": "Later",
+          "payload": `LATER_${kindElement}:${eventID}`,
+        },
+      ]
+    }
+  },
   priceMessage(type, tag) {
     return {
       "text": "What about the price?",
@@ -757,5 +855,8 @@ module.exports = {
   },
   fetchRestaurantsMessage: {
     "text": "Check what I found for you: "
+  },
+  jokeMarco: {
+    "text": "I stepped on a Corn Flake, now I'm a Cereal Killer"
   }
 };

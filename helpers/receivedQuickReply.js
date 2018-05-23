@@ -3,11 +3,10 @@ const travelTypeHandler = require('../handlers/travelTypeHandler/index');
 const restaurantHandler = require('../handlers/restaurantHandler/typeIndex');
 const barHandler = require('../handlers/barHandler/typeIndex');
 const searchHandler = require('../handlers/searchHandler/index');
-const quickReplyLocation = require(
-  '../messenger/quickReplyBlocks/quickReplyLocation');
+const quickReplyLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
 const postbackDefault = require('../messenger/postbackBlocks/default');
-const noUpdateLocation = require(
-  '../messenger/quickReplyBlocks/noUpdateLocation');
+const noUpdateLocation = require('../messenger/quickReplyBlocks/noUpdateLocation');
+const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 
 module.exports = (event) => {
   const senderID = event.sender.id;
@@ -15,8 +14,10 @@ module.exports = (event) => {
   const timeOfMessage = event.timestamp;
   const payload = event.message.quick_reply.payload;
   const payloadType = payload.split("_");
-  if (payload.includes("NOLOCATIONEVENT")) {
+  if (payload.includes("NOLOCATIONEVENT") || payload.includes("USEOLDLOCATIONEVENT")) {
     return quickReplyLocation(payload, senderID);
+  } else if (payload.includes("GOING") || payload.includes("LATER") ) {
+      return postbackInteractionWithCard(payload, senderID)
   } else {
     switch (payloadType[0]) {
       case 'EXCITEMENT':
@@ -28,7 +29,7 @@ module.exports = (event) => {
       case 'SEARCH':
         searchHandler(payloadType[1], senderID);
         break;
-      case 'NO_UPDATE_LOCATION':
+      case 'NOUPDATELOCATION':
         noUpdateLocation(senderID);
         break;
       case 'PRICERESTAURANT':
