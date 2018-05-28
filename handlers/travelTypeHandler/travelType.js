@@ -12,10 +12,9 @@ module.exports = (senderID, travelType) => {
     message: ''
   };
   const user = {
-  accountmessengers_id: senderID,
+    PSID: senderID,
     travelType: travelType
   };
-  console.log(user);
   apiGraphql.sendMutation(userMutation.updateUserByAccountMessenger(), user)
     .then(response => {
       if(response.updateUserByAccountMessenger !== null) {

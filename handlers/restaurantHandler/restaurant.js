@@ -1,8 +1,10 @@
 const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
 const recommandationApi = require('../../helpers/recommendationApi');
+const apiGraphql = require("../../helpers/apiGraphql");
 const restaurant = require('../../graphql/restaurant/query');
 const helper = require("../../helpers/helper");
+const userMutation = require('../../graphql/user/mutation');
 
 module.exports = (type, price, senderID) => {
   let messageData = {
@@ -11,17 +13,20 @@ module.exports = (type, price, senderID) => {
     },
     message: ''
   };
-  console.log('type : ' + typeof type);
-  console.log('price :' + price);
-  console.log('id : ' + senderID);
   messageData.message = product_data.fetchRestaurantsMessage;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
+      if (response.status === 200)
+        return apiGraphql.sendMutation(userMutation.addCategoryByAccountMessenger(), {
+          PSID: senderID.toString(),
+          category: type
+        });
+    })
+    .then(response => {
+      console.log(response);
       delete messageData.message;
       messageData.sender_action = 'typing_on';
-      if (response.status === 200)
-        return apiMessenger.sendToFacebook(messageData);
-
+      return apiMessenger.sendToFacebook(messageData);
     })
     .then(helper.delayPromise(1000))
     .then(response => {

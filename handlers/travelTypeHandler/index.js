@@ -3,16 +3,16 @@ const quickReplyTravelType = require('./travelType');
 module.exports = (payload, senderID) => {
   switch (payload) {
     case 'ALONE':
-      quickReplyTravelType(senderID, 1);
+      quickReplyTravelType(senderID, 'alone');
       break;
     case 'PARTNER':
-      quickReplyTravelType(senderID, 2);
+      quickReplyTravelType(senderID, 'couple');
       break;
     case 'FRIENDS':
-      quickReplyTravelType(senderID, 3);
+      quickReplyTravelType(senderID, 'friend');
       break;
     case 'FAMILY':
-      quickReplyTravelType(senderID, 4);
+      quickReplyTravelType(senderID, 'family');
       break;
   }
 };
