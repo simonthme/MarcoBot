@@ -2,6 +2,18 @@
  * Created by corentin on 13/05/2018.
  */
 module.exports = {
+  exhibition: `
+      id
+      name
+      types
+      tags
+      description
+      priceRange
+      photos
+      dateStart
+      dateEnd
+      museums_id
+  `,
   queryExhibitions: (page) => {
     return `{
       exhibitions(page: ${page}) {

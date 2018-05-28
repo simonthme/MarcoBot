@@ -52,7 +52,8 @@ const sendMessage = (senderId, data, typeMessage) => {
 const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
   const key = `${eventName}s_id`;
   const dataToSend = {
-    "users_id": userID
+    "users_id": userID,
+    "eventName": eventName
   };
   let user = {};
   dataToSend[key] = eventID;
@@ -133,7 +134,8 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
 
 const _createLater = (senderID, userID, eventID, eventName, event) => {
   const dataToSend = {
-    "users_id": userID
+    "users_id": userID,
+    "eventName": eventName
   };
   dataToSend[`${eventName}s_id`] = eventID;
   return apiGraphql.sendMutation(mutationLater.createLater(), dataToSend)
