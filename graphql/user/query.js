@@ -3,6 +3,7 @@ module.exports = {
     return `{
       user(id: "${id}") {
           id,
+          PSID,
           firstName,
           lastName,
           createAt,
@@ -18,8 +19,9 @@ module.exports = {
   },
   queryUserByAccountMessenger: (id) => {
     return `{
-      userByAccountMessenger(accountmessengers_id: "${id}") {
+      userByAccountMessenger(PSID: "${id}") {
           id,
+          PSID,
           firstName,
           lastName,
           createAt,

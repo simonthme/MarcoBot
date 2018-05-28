@@ -51,52 +51,34 @@ module.exports = {
         }
     }`
   },
-  queryRestaurantsByPriceAndType: (accountId, page, type, price) => {
+  queryRestaurantsByPriceAndType: (accountId, type, price, page) => {
+    console.log(accountId);
+    console.log(page);
+    console.log(price);
+    console.log(type);
+    console.log(`{
+      restaurantsByPriceAndType(accountmessengers_id: ${accountId}, type: [${type}], priceRange: ${price}, page: ${page}) 
+      {
+       _id
+       name
+       photos
+       tags
+       types
+       description
+       deleted
+      }
+    }`);
     return `{
-      restaurants(accountmessengers_id: ${accountId}, type: ${type}, priceRange: ${price}, page: ${page}) {
-          id
-          name
-          types
-          suggestion
-          description
-          tags
-          priceRange
-          photos
-          location{
-            lat
-            lng
-          }
-          schedule {
-            monday {
-              start
-              end
-            }
-            tuesday {
-              start
-              end
-            }
-            wednesday {
-              start
-              end
-            }
-            thursday {
-              start
-              end
-            }
-            friday {
-              start
-              end
-            }
-            sunday {
-              start
-              end
-            }
-            saturday {
-              start
-              end
-            }
-          }
-        }
+      restaurantsByPriceAndType(accountmessengers_id: ${accountId}, type: ${type}, priceRange: ${price}, page: ${page}) 
+      {
+       _id
+       name
+       photos
+       tags
+       types
+       description
+       deleted
+      }
     }`
   },
   queryRestaurant: (id) => {

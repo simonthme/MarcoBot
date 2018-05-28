@@ -4,22 +4,22 @@ const priceIndex = require('./priceIndex');
 module.exports = (payload, price, senderID) => {
   switch (payload) {
     case 'GASTRONOMY':
-      priceIndex(price, ["Gastronomic"], senderID);
+      priceIndex(price, `gastronomic`, senderID);
       break;
     case 'VEGGIE':
-      priceIndex(price, ["Vegan", "Healthy", "Salad", "Gluten-free"], senderID);
+      priceIndex(price, `healthy`, senderID);
       break;
     case 'BRUNCH':
-      priceIndex(price, ["Breakfast", "Cake", "Pastry"], senderID);
+      priceIndex(price, `brunch`, senderID);
       break;
     case 'STREET':
-      priceIndex(price, ["Street-food", "Burger", "Hot-dogs", "Bagel"], senderID);
+      priceIndex(price, `street_food`, senderID);
       break;
     case 'TRADITIONAL':
-      priceIndex(price, ["French",],senderID);
+      priceIndex(price, `traditional`,senderID);
       break;
     case 'OTHER':
-      priceIndex(price, ["American", "Meat", "Italian", "French", "SeaFood", "Pasta", "Pizza"], senderID);
+      priceIndex(price, `other`, senderID);
       break;
   }
 };

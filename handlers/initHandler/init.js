@@ -83,7 +83,6 @@ module.exports = (senderID) => {
       if (response.userByAccountMessenger === null) {
         messengerMethods.createUser(senderID)
           .then(response => {
-            console.log(response);
             messageQueue(response.createUser);
           })
           .catch(err => console.log("Error to create USER: ", err))

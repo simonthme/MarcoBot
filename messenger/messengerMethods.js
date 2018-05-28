@@ -27,7 +27,8 @@ module.exports = {
             graphqlRequest.sendMutation(mutationCreateAccount, userToSave)
               .then(accountSaved => {
                 if (accountSaved) {
-                  userToSave.accountmessengers_id = userToSave.PSID;
+                  console.log(accountSaved);
+                  userToSave.accountmessengers_id = accountSaved.createAccountMessenger.id;
                     graphqlRequest.sendMutation(mutationCreateUser, userToSave)
                     .then(userSaved=> {
                       return resolve(userSaved);
