@@ -91,9 +91,20 @@ const noLocation = (senderID, eventID, eventName) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      if (response.status === 200)
-        return sendMessage(senderID, product_data.sendLocation({lat: event.location.lat,
-          lng: event.location.lng}, event.name), "RESPONSE");
+      if (response.status === 200) {
+        if (eventName.toLowerCase() === "exhibition") {
+          return apiGraphql.sendQuery(queryMuseum.queryMuseum(event.museums_id))
+            .then(response => {
+              if (response.museum) {
+                return sendMessage(senderID,
+                  product_data.sendLocation(response.museum.location, event.name), "RESPONSE");
+              }
+            })
+        } else {
+          return sendMessage(senderID,
+            product_data.sendLocation(event.location, event.name), "RESPONSE");
+        }
+      }
     })
     .then(response => {
       if (response.status === 200) {
@@ -118,7 +129,7 @@ const oldLocation = (senderID, eventID, eventName) => {
   let user = {};
   return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderID))
     .then((response) => {
-      if(response.userByAccountMessenger){
+      if (response.userByAccountMessenger) {
         user = response.userByAccountMessenger;
         return events[eventName](eventID)
       }
@@ -151,11 +162,20 @@ const oldLocation = (senderID, eventID, eventName) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      if (response.status === 200)
-        return sendMessage(senderID, product_data.sendItinerary(
-          {lat: user.geoLocation.lat, lng: user.geoLocation.lng},
-          {lat: event.location.lat, lng: event.location.lng},
-        ), "RESPONSE");
+      if (response.status === 200) {
+        if (eventName.toLowerCase() === "exhibition") {
+          return apiGraphql.sendQuery(queryMuseum.queryMuseum(event.museums_id))
+            .then(response => {
+              if (response.museum) {
+                return sendMessage(senderID, product_data.sendItinerary(
+                  user.geoLocation, response.museum.location), "RESPONSE");
+              }
+            })
+        } else {
+          return sendMessage(senderID, product_data.sendItinerary(
+            user.geoLocation, event.location), "RESPONSE");
+        }
+      }
     })
     .then(response => {
       if (response.status === 200) {
@@ -182,7 +202,7 @@ const oldLocation = (senderID, eventID, eventName) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      if(response.status === 200)
+      if (response.status === 200)
         return sendMessage(senderID, product_data.question1MessageAfterLocation, "RESPONSE")
     })
     .catch(err => console.log(err))

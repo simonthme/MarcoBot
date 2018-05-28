@@ -94,8 +94,18 @@ module.exports = (_event) => {
     })
     .then(helper.delayPromise(2000))
     .then((response) => {
-      if (response.status === 200)
-        return sendMessage(senderId, product_data.sendItinerary(geoLocation, eventObject.location), "RESPONSE")
+      if (response.status === 200) {
+        if (event === "exhibition") {
+          return apiGraphql.sendQuery(queryMuseum.queryMuseum(eventObject.museums_id))
+            .then(response => {
+              if (response.museum) {
+                return sendMessage(senderId, product_data.sendItinerary(geoLocation, response.museum.location), "RESPONSE")
+              }
+            })
+        } else {
+          return sendMessage(senderId, product_data.sendItinerary(geoLocation, eventObject.location), "RESPONSE")
+        }
+      }
     })
     .then(response => {
       if (response.status === 200) {
@@ -122,7 +132,7 @@ module.exports = (_event) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      if(response.status === 200)
+      if (response.status === 200)
         return sendMessage(senderId, product_data.question1MessageAfterLocation, "RESPONSE")
     })
     .catch(err => console.log(err))

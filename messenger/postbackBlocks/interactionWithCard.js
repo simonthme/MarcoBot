@@ -82,8 +82,18 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
               })
               .then(helper.delayPromise(2000))
               .then(response => {
-                if (response.status === 200)
-                  return sendMessage(senderID, product_data.sendItinerary(user.geoLocation, resultat.location), "RESPONSE")
+                if (response.status === 200) {
+                  if(eventName === "exhibition") {
+                    return apiGraphql.sendQuery(queryMuseum.queryMuseum(resultat.museums_id))
+                      .then(response => {
+                        if (response.museum) {
+                          return sendMessage(senderID, product_data.sendItinerary(user.geoLocation, response.museum.location), "RESPONSE")
+                        }
+                      })
+                  } else {
+                    return sendMessage(senderID, product_data.sendItinerary(user.geoLocation, resultat.location), "RESPONSE")
+                  }
+                }
               })
               .then(response => {
                 if (response.status === 200) {

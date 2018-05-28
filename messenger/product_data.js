@@ -96,7 +96,6 @@ module.exports = {
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
-            console.log("YOLOOOO", res, elem.location);
             const element = {
               "title": `${elem.name}`,
               "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
