@@ -1,24 +1,21 @@
-const priceIndex = require('./priceIndex');
+const barHandler = require('./bar');
 
-module.exports = (payload, price, senderID) => {
+module.exports = (payload, type, senderID) => {
   switch (payload) {
-    case 'TRENDY':
-      priceIndex(price, 'TRENDY', senderID);
+    case 'ONE':
+      barHandler(type, 1, senderID);
       break;
-    case 'ATYPICAL':
-      priceIndex(price, 'ATYPICAL', senderID);
+    case 'TWO':
+      barHandler(type , 2, senderID);
       break;
-    case 'HIGHCLASS':
-      priceIndex(price, 'HIGHCLASS', senderID);
+    case 'THREE':
+      barHandler(type , 3, senderID);
       break;
-    case 'PUB':
-      priceIndex(price, 'PUB', senderID);
-      break;
-    case 'CAFE':
-      priceIndex(price, 'CAFE', senderID);
-      break;
-    case 'WINE':
-      priceIndex(price, 'WINE', senderID);
+    case 'FOUR':
+      barHandler(type , 4, senderID);
       break;
   }
 };
+
+
+

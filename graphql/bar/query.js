@@ -96,6 +96,57 @@ module.exports = {
       }
     }`
   },
+  queryBarsByPriceAndType: (PSID, type, price, page) => {
+    return `{
+      barsByPriceAndType(PSID: ${PSID}, type: "${type}", priceRange: ${price}, page: ${page}) 
+      {
+       _id
+    name
+    description
+    photos
+    tags
+    types
+    priceRange
+    location {
+      name
+      lat
+      lng
+    }
+    schedule {
+      monday {
+        start
+        end
+      }
+      tuesday {
+        start
+        end
+      }
+      wednesday {
+        start
+        end
+      }
+      thursday {
+        start
+        end
+      }
+      friday {
+        start
+        end
+      }
+      saturday {
+        start
+        end
+      }
+      sunday {
+        start
+        end
+      }
+    }
+    deleted
+    createAt
+      }
+    }`
+  },
   queryBar: (id) => {
     return `{
       bar(id: "${id}") {
