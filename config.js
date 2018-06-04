@@ -2,7 +2,7 @@
  * Created by corentin on 27/04/2018.
  */
 module.exports = {
-  tokenAppFacebook : 'EAAe0IGvwaycBALqLI3QnYtMmKI3jlfrgxBZBSWYlt72ltZBHw3rOcffHrTS8MP2KXtHznueUch0EmmbQdZBZCz7y4ZBRsYuAs08ZA6wJwO893D9h9JaAxRsuH1NRgqxCZBJvMUBQqjZBj7EZAM5pFcZAXrb46c2wZBDtt1g8rk6Wn1CSQZDZD',
+  tokenAppFacebook : 'EAAe0IGvwaycBAFkYzhGhjAcHjBDzUOglHeef5RBSAawvqf2ZCoehd4ZATIDcB5OxxXvP6TMLlsf82UtY2WOxqToLRqVoqTXyM2KxqlMlJ7FfZAGUJPFbN6lMbz4k5aAGZC5kYTZCIh5yUpolnuNgowiR2f49ZALzoXqPQdiFrJ1gZDZD',
   clientTokenDialogflow: "c8ad203d756f4c828380f8e61d261cde",
   projectIDDialogflow: "first-agent-af296",
   verificationMessenger: "xFdu09GhnS8f4n-ghEzsx",
