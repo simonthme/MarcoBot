@@ -13,6 +13,7 @@ module.exports = (type, price, senderID) => {
     },
     message: ''
   };
+  let dataToSend = {};
   messageData.message = product_data.fetchRestaurantsMessage;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
@@ -35,8 +36,30 @@ module.exports = (type, price, senderID) => {
     })
     .then(res => {
       console.log(res);
+      return product_data.templateList(res.restaurantsByPriceAndType, "RESTAURANT")
     })
+    .then(result => {
+      dataToSend = Object.assign({}, result);
+      console.log(dataToSend);
+      delete messageData.sender_action;
+      messageData.message = dataToSend;
+      return apiMessenger.sendToFacebook(messageData);
+    })
+    .then((response) => {
+      if (response.status === 200)
+        return apiMessenger.sendToFacebook({
+          recipient: {id: senderID},
+          sender_action: 'typing_on',
+          messaging_types: "RESPONSE",
+          message: ""
+        })
+    })
+    .then((response) => {
+      if (response.status === 200)
+        return apiMessenger.sendToFacebook(senderID, dataToSend, "RESPONSE")
+    })
+    .then(() => resolve())
     .catch(err => {
-      console.log(err);
+      console.log(err.response.data.error);
     });
 };

@@ -96,33 +96,54 @@ module.exports = {
         }
     }`
   },
-  queryRestaurantsByPriceAndType: (accountId, type, price, page) => {
-    console.log(accountId);
-    console.log(page);
-    console.log(price);
-    console.log(type);
-    console.log(`{
-      restaurantsByPriceAndType(accountmessengers_id: ${accountId}, type: [${type}], priceRange: ${price}, page: ${page}) 
-      {
-       _id
-       name
-       photos
-       tags
-       types
-       description
-       deleted
-      }
-    }`);
+  queryRestaurantsByPriceAndType: (PSID, type, price, page) => {
     return `{
-      restaurantsByPriceAndType(accountmessengers_id: ${accountId}, type: ${type}, priceRange: ${price}, page: ${page}) 
+      restaurantsByPriceAndType(PSID: ${PSID}, type: "${type}", priceRange: ${price}, page: ${page}) 
       {
        _id
-       name
-       photos
-       tags
-       types
-       description
-       deleted
+    name
+    description
+    photos
+    tags
+    types
+    priceRange
+    location {
+      name
+      lat
+      lng
+    }
+    schedule {
+      monday {
+        start
+        end
+      }
+      tuesday {
+        start
+        end
+      }
+      wednesday {
+        start
+        end
+      }
+      thursday {
+        start
+        end
+      }
+      friday {
+        start
+        end
+      }
+      saturday {
+        start
+        end
+      }
+      sunday {
+        start
+        end
+      }
+    }
+    deleted
+    createAt
       }
     }`
   },

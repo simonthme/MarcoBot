@@ -3,9 +3,11 @@
  */
 const Config = require("../config");
 const async = require("async");
-const ARRAYDAY = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
 const generateSubtitle = (elem, TODAY) => {
+  console.log('ELEMENT');
+  console.log(elem);
   return new Promise((resolve, reject) => {
     let money = "";
     switch(elem.priceRange){
@@ -29,7 +31,8 @@ const generateSubtitle = (elem, TODAY) => {
         break;
     }
     let schedule = "🕐 ";
-    const daySchedule = elem.schedule[ARRAYDAY[TODAY.getDay() -1]];
+    const daySchedule = elem.schedule[ARRAYDAY[TODAY.getDay()]];
+    console.log(daySchedule);
     if (daySchedule.length > 0){
       daySchedule.map((day,i)  => {
         const addToSchedule = [day.start, ' - ', day.end, ' '];
@@ -96,6 +99,8 @@ module.exports = {
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
+            console.log('SUB TITLE GENERATED');
+            console.log(res);
             const element = {
               "title": `${elem.name}`,
               "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
@@ -854,6 +859,9 @@ module.exports = {
   },
   fetchRestaurantsMessage: {
     "text": "Check what I found for you: "
+  },
+  fetchBarsMessage: {
+    "text": "Check that out: "
   },
   jokeMarco: {
     "text": "I stepped on a Corn Flake, now I'm a Cereal Killer"
