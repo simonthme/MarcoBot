@@ -1,7 +1,8 @@
 /**
  * Created by corentin on 17/05/2018.
  */
-const apiGraphql = require("./apiGraphql");
+const ApiGraphql = require("./apiGraphql");
+const apiGraphql = new ApiGraphql();
 const queryGoing = require("../graphql/going/query");
 const mutationUser = require("../graphql/user/mutation");
 const queryBar = require("../graphql/bar/query");

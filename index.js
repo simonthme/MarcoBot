@@ -11,14 +11,23 @@ const verificationController = require("./controllers/verification");
 const messageWebhookController = require("./controllers/messageWebhook");
 const apiMessenger = require('./helpers/apiMessenger');
 const product_data = require('./messenger/product_data');
+const axios = require('axios');
 
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 
+
 app.get("/", verificationController);
 app.post("/", messageWebhookController);
+
+axios.post(Config.category[Config.indexCategory].authUrl, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
+  .then(res => {
+    Config.accessToken = res.data.token;
+    //Todo set token;
+  })
+  .catch(err => console.log(err));
 app.get('/setup', (req, res) => {
   apiMessenger.callbackStartButton(product_data.getStartedData)
     .then(response => {
