@@ -6,8 +6,6 @@ const async = require("async");
 const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
 const generateSubtitle = (elem, TODAY) => {
-  console.log('ELEMENT');
-  console.log(elem);
   return new Promise((resolve, reject) => {
     let money = "";
     switch(elem.priceRange){
@@ -650,7 +648,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_LOUVRE"
+                "payload":"AROUND_louvre"
               }
             ]
           },
@@ -662,7 +660,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_MARAIS"
+                "payload":"AROUND_marais"
               }
             ]
           },
@@ -674,7 +672,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_LATIN"
+                "payload":"AROUND_latin_quarter"
               }
             ]
           },
@@ -686,7 +684,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_EIFFEL"
+                "payload":"AROUND_eiffel_tour"
               }
             ]
           },
@@ -709,7 +707,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_CHAMPS"
+                "payload":"AROUND_champs_elysee"
               }
             ]
           },
@@ -721,7 +719,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_MARTIN"
+                "payload":"AROUND_canal_st_martin"
               }
             ]
           },
@@ -733,7 +731,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_BASTILLE"
+                "payload":"AROUND_bastille"
               }
             ]
           },
@@ -745,7 +743,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_PIGALLE"
+                "payload":"AROUND_pigalle"
               }
             ]
           },
@@ -768,7 +766,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_MONTMARTRE"
+                "payload":"AROUND_montmartre"
               }
             ]
           },
@@ -780,7 +778,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_MONTMARTRE"
+                "payload":"AROUND_trocadero"
               }
             ]
           },
@@ -792,7 +790,7 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_BELLEVILLE"
+                "payload":"AROUND_belleville"
               }
             ]
           },
@@ -804,10 +802,33 @@ module.exports = {
               {
                 "type":"postback",
                 "title":"Gooooo! 🚀",
-                "payload":"AROUND_MONTPARNASSE"
+                "payload":"AROUND_montparnasse"
               }
             ]
           }
+        ]
+      }
+    }
+  },
+  selectionDistrictType4: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "list",
+        "top_element_style": "compact",
+        "elements": [
+          {
+            "title": "Chinese quarter",
+            "image_url": "https://api.marco-app.com/api/image/minChinese.jpg",
+            "subtitle": "Famous for its asian streets and food",
+            "buttons": [
+              {
+                "type":"postback",
+                "title":"Gooooo! 🚀",
+                "payload":"AROUND_chinese_quarter"
+              }
+            ]
+          },
         ]
       }
     }

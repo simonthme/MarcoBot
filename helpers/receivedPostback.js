@@ -7,6 +7,7 @@ const postbackDefault = require('../messenger/postbackBlocks/default');
 const initHandler = require('../handlers/initHandler/init');
 const priceHandlerRestaurant = require('../handlers/priceHandler/restaurantIndex');
 const priceHandlerBar = require('../handlers/priceHandler/barIndex');
+const aroundDistrictHandler = require('../handlers/priceHandler/barIndex');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -29,6 +30,9 @@ module.exports = (event) => {
         break;
       case 'BAR':
         priceHandlerBar(payloadType[1], senderID);
+        break;
+      case 'AROUND':
+        aroundDistrictHandler(payload.slice(7), senderID);
         break;
       default :
         postbackDefault(senderID);

@@ -6,7 +6,7 @@ module.exports = {
       id
       name
       types
-      suggestion
+      tips
       description
       tags
       priceRange
@@ -53,7 +53,7 @@ module.exports = {
           id
           name
           types
-          suggestion
+          tips
           description
           tags
           priceRange
@@ -153,7 +153,7 @@ module.exports = {
           id
           name
           types
-          suggestion
+          tips
           description
           tags
           priceRange

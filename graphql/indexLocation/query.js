@@ -31,5 +31,23 @@ module.exports = {
         sites_id{ ${Site} }
       }
     }`
+  },
+  findByDistrict: (location, page) => {
+    return ` {
+      findByNearMe(lat: ${location.lat}, lng: ${location.lng}, page: ${page}) {
+        id
+        activities_id{ ${Activity} }
+        bars_id{ ${Bar} }
+        clubs_id{ ${Club} }
+        events_id{ ${Event} }
+        exhibitions_id{ ${Exhibition} }
+        museums_id{ ${Museum} }
+        parcs_id{ ${Parc} }
+        restaurants_id{ ${Restaurant} }
+        shops_id{ ${Shop} }
+        shows_id{ ${Show} }
+        sites_id{ ${Site} }
+      }
+    }`
   }
 };

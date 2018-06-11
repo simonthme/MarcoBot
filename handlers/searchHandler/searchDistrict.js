@@ -51,7 +51,10 @@ module.exports = (senderID) => {
       }
     })
     .then(resp => {
-      console.log(resp.data);
+      messageData.message = product_data.selectionDistrictType4;
+      if(resp.status === 200) {
+        return apiMessenger.sendToFacebook(messageData)
+      }
     })
     .catch(err => {
       console.log(err.response.data);
