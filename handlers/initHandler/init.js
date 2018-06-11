@@ -1,4 +1,4 @@
-const apiGraphql = require("../../helpers/apiGraphql");
+const ApiGraphql = require("../../helpers/apiGraphql");
 const user = require("../../graphql/user/query");
 const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
@@ -77,6 +77,7 @@ module.exports = (senderID) => {
       });
 
   };
+  const apiGraphql = new ApiGraphql();
   apiGraphql.sendQuery(user.queryUserByAccountMessenger(senderID))
     .then(response => {
       console.log(response);
