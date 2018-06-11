@@ -22,12 +22,18 @@ app.use(bodyParser.json());
 app.get("/", verificationController);
 app.post("/", messageWebhookController);
 
-axios.post(Config.category[Config.indexCategory].authUrl, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
+axios.post(Config.category[Config.indexCategory].authUrlMarcoApi, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
   .then(res => {
-    Config.accessToken = res.data.token;
-    //Todo set token;
+    Config.accessTokenMarcoApi = res.data.token;
   })
   .catch(err => console.log(err));
+
+axios.post(Config.category[Config.indexCategory].authUrlRecommendationApi, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
+  .then(res => {
+    Config.accessTokenRecommendationApi = res.data.token;
+  })
+  .catch(err => console.log(err));
+
 app.get('/setup', (req, res) => {
   apiMessenger.callbackStartButton(product_data.getStartedData)
     .then(response => {

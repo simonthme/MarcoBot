@@ -2,7 +2,8 @@
 const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
 const helper = require("../../helpers/helper");
-const apiGraphql = require("../../helpers/apiGraphql");
+const ApiGraphql = require("../../helpers/apiGraphql");
+const config = require('../../config');
 const userMutation = require("../../graphql/user/mutation");
 module.exports = (senderID, travelType) => {
   let messageData = {
@@ -15,6 +16,7 @@ module.exports = (senderID, travelType) => {
     PSID: senderID,
     travelType: travelType
   };
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   apiGraphql.sendMutation(userMutation.updateUserByAccountMessenger(), user)
     .then(response => {
       if(response.updateUserByAccountMessenger !== null) {

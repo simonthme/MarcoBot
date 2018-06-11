@@ -4,6 +4,7 @@ const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
 const helper = require("../../helpers/helper");
 const messengerMethods = require("../../messenger/messengerMethods");
+const config = require('../../config');
 
 module.exports = (senderID) => {
   let messageData = {
@@ -75,12 +76,10 @@ module.exports = (senderID) => {
       .catch(err => {
         console.log(err.response.data);
       });
-
   };
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   apiGraphql.sendQuery(user.queryUserByAccountMessenger(senderID))
     .then(response => {
-      console.log(response);
       if (response.userByAccountMessenger === null) {
         messengerMethods.createUser(senderID)
           .then(response => {

@@ -1,10 +1,10 @@
 const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
-const recommandationApi = require('../../helpers/recommendationApi');
-const apiGraphql = require("../../helpers/apiGraphql");
+const ApiGraphql = require("../../helpers/apiGraphql");
 const restaurant = require('../../graphql/restaurant/query');
 const helper = require("../../helpers/helper");
 const userMutation = require('../../graphql/user/mutation');
+const config = require('../../config');
 
 module.exports = (type, price, senderID) => {
   let messageData = {
@@ -15,6 +15,8 @@ module.exports = (type, price, senderID) => {
   };
   let dataToSend = {};
   messageData.message = product_data.fetchRestaurantsMessage;
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
+  const recommandationApi = new ApiGraphql(config.category[config.indexCategory].recommendationApilUrl, config.accessTokenRecommendationApi);
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
       if (response.status === 200)
@@ -40,7 +42,6 @@ module.exports = (type, price, senderID) => {
     })
     .then(result => {
       dataToSend = Object.assign({}, result);
-      console.log(dataToSend);
       delete messageData.sender_action;
       messageData.message = dataToSend;
       return apiMessenger.sendToFacebook(messageData);

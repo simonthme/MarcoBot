@@ -2,14 +2,14 @@
  * Created by corentin on 02/05/2018.
  */
 const { GraphQLClient } = require('graphql-request');
-const Config = require('../config');
 
 class GraphQlClient {
-  constructor() {
-    console.log(Config.accessToken);
-    this.client = new GraphQLClient(Config.category[Config.indexCategory].apiGraphQlUrl, {
+  constructor(url, token) {
+    console.log(url);
+    console.log(token);
+    this.client = new GraphQLClient(url, {
       headers: {
-        Authorization: 'Bearer ' + Config.accessToken,
+        Authorization: 'Bearer ' + token,
       },
     });
   }
@@ -23,6 +23,6 @@ class GraphQlClient {
     return this.client.request(query,
       variables)
   }
-};
+}
 
 module.exports = GraphQlClient;
