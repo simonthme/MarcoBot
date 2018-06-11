@@ -2,7 +2,6 @@
  * Created by corentin on 17/05/2018.
  */
 const ApiGraphql = require("./apiGraphql");
-const apiGraphql = new ApiGraphql();
 const queryGoing = require("../graphql/going/query");
 const mutationUser = require("../graphql/user/mutation");
 const queryBar = require("../graphql/bar/query");
@@ -21,17 +20,17 @@ const product_data = require("../messenger/product_data");
 const helper = require("./helper");
 
 const events = {
-  "bar": (id) => apiGraphql.sendQuery(queryBar.queryBar(id)),
-  "activity": (id) => apiGraphql.sendQuery(queryActivity.queryActivity(id)),
-  "club": (id) => apiGraphql.sendQuery(queryClub.queryClub(id)),
-  "event": (id) => apiGraphql.sendQuery(queryEvent.queryEvent(id)),
-  "exhibition": (id) => apiGraphql.sendQuery(queryExhibition.queryExhibition(id)),
-  "museum": (id) => apiGraphql.sendQuery(queryMuseum.queryMuseum(id)),
-  "parc": (id) => apiGraphql.sendQuery(queryParc.queryParc(id)),
-  "restaurant": (id) => apiGraphql.sendQuery(queryRestaurant.queryRestaurant(id)),
-  "shop": (id) => apiGraphql.sendQuery(queryShop.queryShop(id)),
-  "show": (id) => apiGraphql.sendQuery(queryShow.queryShow(id)),
-  "site": (id) => apiGraphql.sendQuery(querySite.querySite(id))
+  "bar": (id) => queryBar.queryBar(id),
+  "activity": (id) => queryActivity.queryActivity(id),
+  "club": (id) => queryClub.queryClub(id),
+  "event": (id) => queryEvent.queryEvent(id),
+  "exhibition": (id) => queryExhibition.queryExhibition(id),
+  "museum": (id) => queryMuseum.queryMuseum(id),
+  "parc": (id) => queryParc.queryParc(id),
+  "restaurant": (id) => queryRestaurant.queryRestaurant(id),
+  "shop": (id) => queryShop.queryShop(id),
+  "show": (id) => queryShow.queryShow(id),
+  "site": (id) => querySite.querySite(id)
 };
 
 const sendMessage = (senderId, data, typeMessage) => {
@@ -48,6 +47,7 @@ const sendMessage = (senderId, data, typeMessage) => {
 };
 
 module.exports = (_event) => {
+  const apiGraphql = new ApiGraphql();
   const senderId = _event.sender.id;
   const nowDate = new Date();
   const location = _event.message.attachments[0].payload.coordinates;
@@ -79,7 +79,7 @@ module.exports = (_event) => {
             if (event === "activitie") event = "activity";
           }
         }
-        return events[event](eventID)
+        return apiGraphql.sendQuery(events[event](eventID))
       }
     })
     .then(res => {

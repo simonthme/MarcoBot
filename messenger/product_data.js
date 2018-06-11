@@ -31,11 +31,10 @@ const generateSubtitle = (elem, TODAY) => {
         break;
     }
     let schedule = "🕐 ";
-    const daySchedule = elem.schedule[ARRAYDAY[TODAY.getDay()]];
+    const daySchedule = elem.schedule ?  elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
     console.log(daySchedule);
     if (daySchedule.length > 0){
       daySchedule.map((day,i)  => {
-        const addToSchedule = [day.start, ' - ', day.end, ' '];
         schedule = schedule.concat(day.start, ' - ', day.end, ' ');
         if(i === daySchedule.length -1){
           resolve({schedule: schedule, money: money});

@@ -1,7 +1,7 @@
 /**
  * Created by corentin on 14/05/2018.
  */
-const apiGraphql = require("../../helpers/apiGraphql");
+const ApiGraphql = require("../../helpers/apiGraphql");
 const queryUser = require("../../graphql/user/query");
 const queryBar = require("../../graphql/bar/query");
 const queryActivity = require("../../graphql/activity/query");
@@ -23,17 +23,17 @@ const helper = require("../../helpers/helper");
 const LIMIT_HOUR_ASK_LOCATION = 2;
 
 const events = {
-  "BAR": (id) => apiGraphql.sendQuery(queryBar.queryBar(id)),
-  "ACTIVITY": (id) => apiGraphql.sendQuery(queryActivity.queryActivity(id)),
-  "CLUB": (id) => apiGraphql.sendQuery(queryClub.queryClub(id)),
-  "EVENT": (id) => apiGraphql.sendQuery(queryEvent.queryEvent(id)),
-  "EXHIBITION": (id) => apiGraphql.sendQuery(queryExhibition.queryExhibition(id)),
-  "MUSEUM": (id) => apiGraphql.sendQuery(queryMuseum.queryMuseum(id)),
-  "PARC": (id) => apiGraphql.sendQuery(queryParc.queryParc(id)),
-  "RESTAURANT": (id) => apiGraphql.sendQuery(queryRestaurant.queryRestaurant(id)),
-  "SHOP": (id) => apiGraphql.sendQuery(queryShop.queryShop(id)),
-  "SHOW": (id) => apiGraphql.sendQuery(queryShow.queryShow(id)),
-  "SITE": (id) => apiGraphql.sendQuery(querySite.querySite(id))
+  "BAR": (id) => queryBar.queryBar(id),
+  "ACTIVITY": (id) => queryActivity.queryActivity(id),
+  "CLUB": (id) => queryClub.queryClub(id),
+  "EVENT": (id) => queryEvent.queryEvent(id),
+  "EXHIBITION": (id) => queryExhibition.queryExhibition(id),
+  "MUSEUM": (id) => queryMuseum.queryMuseum(id),
+  "PARC": (id) => queryParc.queryParc(id),
+  "RESTAURANT": (id) => queryRestaurant.queryRestaurant(id),
+  "SHOP": (id) => queryShop.queryShop(id),
+  "SHOW": (id) => queryShow.queryShow(id),
+  "SITE": (id) => querySite.querySite(id)
 };
 
 const sendMessage = (senderId, data, typeMessage) => {
@@ -57,6 +57,7 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
   };
   let user = {};
   dataToSend[key] = eventID;
+  const apiGraphql = new ApiGraphql();
   return apiGraphql.sendMutation(mutationGoing.createGoing(), dataToSend)
     .then(res => {
       if(res.createGoing){
@@ -108,8 +109,8 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
               })
               .then(helper.delayPromise(2000))
               .then(response => {
-                if (response.status === 200 && resultat.suggestion !== null){
-                  return sendMessage(senderID, {text: resultat.suggestion}, "RESPONSE")
+                if (response.status === 200 && resultat.tips !== null){
+                  return sendMessage(senderID, {text: resultat.tips}, "RESPONSE")
                 } else {
                   return apiMessenger.sendToFacebook({
                     recipient: {id: senderID},
@@ -138,6 +139,7 @@ const _createLater = (senderID, userID, eventID, eventName, event) => {
     "eventName": eventName
   };
   dataToSend[`${eventName}s_id`] = eventID;
+  const apiGraphql = new ApiGraphql();
   return apiGraphql.sendMutation(mutationLater.createLater(), dataToSend)
     .then(res => {
       if(res){
@@ -191,11 +193,12 @@ module.exports = (payload, senderID) => {
   const event = payload.slice(payload.indexOf("_") + 1, payload.indexOf(":"));
   const eventID = payload.slice(payload.indexOf(":") + 1);
   let userId = "";
+  const apiGraphql = new ApiGraphql();
   return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderID))
     .then(res => {
       if (res.userByAccountMessenger) {
         userId = res.userByAccountMessenger.id;
-        return events[event](eventID)
+        return apiGraphql.sendQuery(events[event](eventID))
       }
     })
     .then(res => {

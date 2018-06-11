@@ -1,7 +1,7 @@
 /**
  * Created by corentin on 17/05/2018.
  */
-const apiGraphql = require("../../helpers/apiGraphql");
+const ApiGraphql = require("../../helpers/apiGraphql");
 const queryBar = require("../../graphql/bar/query");
 const queryActivity = require("../../graphql/activity/query");
 const queryClub = require("../../graphql/club/query");
@@ -19,17 +19,17 @@ const helper = require("../../helpers/helper");
 const queryUser = require("../../graphql/user/query");
 
 const events = {
-  "BAR": (id) => apiGraphql.sendQuery(queryBar.queryBar(id)),
-  "ACTIVITY": (id) => apiGraphql.sendQuery(queryActivity.queryActivity(id)),
-  "CLUB": (id) => apiGraphql.sendQuery(queryClub.queryClub(id)),
-  "EVENT": (id) => apiGraphql.sendQuery(queryEvent.queryEvent(id)),
-  "EXHIBITION": (id) => apiGraphql.sendQuery(queryExhibition.queryExhibition(id)),
-  "MUSEUM": (id) => apiGraphql.sendQuery(queryMuseum.queryMuseum(id)),
-  "PARC": (id) => apiGraphql.sendQuery(queryParc.queryParc(id)),
-  "RESTAURANT": (id) => apiGraphql.sendQuery(queryRestaurant.queryRestaurant(id)),
-  "SHOP": (id) => apiGraphql.sendQuery(queryShop.queryShop(id)),
-  "SHOW": (id) => apiGraphql.sendQuery(queryShow.queryShow(id)),
-  "SITE": (id) => apiGraphql.sendQuery(querySite.querySite(id))
+  "BAR": (id) => queryBar.queryBar(id),
+  "ACTIVITY": (id) => queryActivity.queryActivity(id),
+  "CLUB": (id) => queryClub.queryClub(id),
+  "EVENT": (id) => queryEvent.queryEvent(id),
+  "EXHIBITION": (id) => queryExhibition.queryExhibition(id),
+  "MUSEUM": (id) => queryMuseum.queryMuseum(id),
+  "PARC": (id) => queryParc.queryParc(id),
+  "RESTAURANT": (id) => queryRestaurant.queryRestaurant(id),
+  "SHOP": (id) => queryShop.queryShop(id),
+  "SHOW": (id) => queryShow.queryShow(id),
+  "SITE": (id) => querySite.querySite(id)
 };
 
 const sendMessage = (senderID, data, typeMessage) => {
@@ -47,7 +47,8 @@ const sendMessage = (senderID, data, typeMessage) => {
 
 const noLocation = (senderID, eventID, eventName) => {
   let event = {};
-  return events[eventName](eventID)
+  const apiGraphql = new ApiGraphql();
+  return apiGraphql.sendQuery(events[eventName](eventID))
     .then(res => {
       if (res[eventName.toLowerCase()]) {
         event = res[eventName.toLowerCase()];
@@ -127,11 +128,12 @@ const noLocation = (senderID, eventID, eventName) => {
 const oldLocation = (senderID, eventID, eventName) => {
   let event = {};
   let user = {};
+  const apiGraphql = new ApiGraphql();
   return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderID))
     .then((response) => {
       if (response.userByAccountMessenger) {
         user = response.userByAccountMessenger;
-        return events[eventName](eventID)
+        return apiGraphql.sendQuery(events[eventName](eventID))
       }
     })
     .then(res => {
