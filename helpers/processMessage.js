@@ -4,7 +4,7 @@
 const Config = require('../config');
 const apiAiClient = require("apiai")(Config.clientTokenDialogflow);
 const user = require("../graphql/user/query");
-const graphqlRequest = require('../helpers/apiGraphql');
+const ApiGraphql = require('../helpers/apiGraphql');
 const apiMessenger = require('../helpers/apiMessenger');
 const messengerMethods = require('../messenger/messengerMethods');
 const clientControl = require('../controllers/clientControl');
@@ -12,10 +12,11 @@ const product_data = require('../messenger/product_data');
 
 
 module.exports = (event) => {
+  const apiGraphql = new ApiGraphql();
   const senderId = event.sender.id;
   const message = event.message.text;
   const query = user.queryUserByAccountMessenger(senderId);
-  graphqlRequest.sendQuery(query)
+  apiGraphql.sendQuery(query)
     .then(res => {
       if (res.userByAccountMessenger === null) {
         messengerMethods.createUser(senderId)

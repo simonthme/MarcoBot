@@ -18,11 +18,12 @@ class GraphQlClient {
     return this.client.request(query)
   }
 
-
   sendMutation(query, variables) {
     return this.client.request(query,
       variables)
   }
+
+
 };
 
 module.exports = GraphQlClient;

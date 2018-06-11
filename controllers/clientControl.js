@@ -2,7 +2,7 @@
  * Created by corentin on 13/05/2018.
  */
 const apiMessenger = require('../helpers/apiMessenger');
-const apiGraphql = require('../helpers/apiGraphql');
+const ApiGraphql = require('../helpers/apiGraphql');
 const queryBar = require('../graphql/bar/query')
 const productData = require("../messenger/product_data");
 
@@ -22,6 +22,7 @@ const sendMessage = (senderId, data, typeMessage) => {
 
 module.exports = {
   checkDialogflow: (senderId, response) => {
+    const apiGraphql = new ApiGraphql();
     return new Promise((resolve, reject) => {
       if (response.result.parameters && response.result.parameters.eatdrink === ('bar' || 'drink')) {
         let dataToSend = {};

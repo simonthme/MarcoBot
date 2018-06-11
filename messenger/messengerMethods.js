@@ -2,7 +2,7 @@
  * Created by corentin on 02/05/2018.
  */
 const apiMessenger = require('../helpers/apiMessenger');
-const graphqlRequest = require('../helpers/apiGraphql');
+const ApiGraphql = require('../helpers/apiGraphql');
 const mutationAccountMessenger = require('../graphql/accountMessenger/mutation');
 const mutationUser = require('../graphql/user/mutation');
 module.exports = {
@@ -24,12 +24,13 @@ module.exports = {
             //   userToSave.locale, userToSave.timezone);
             const mutationCreateAccount = mutationAccountMessenger.createAccountMessenger();
             const mutationCreateUser = mutationUser.createUser();
-            graphqlRequest.sendMutation(mutationCreateAccount, userToSave)
+            const apiGraphql = new ApiGraphql();
+            apiGraphql.sendMutation(mutationCreateAccount, userToSave)
               .then(accountSaved => {
                 if (accountSaved) {
                   console.log(accountSaved);
                   userToSave.accountmessengers_id = accountSaved.createAccountMessenger.id;
-                    graphqlRequest.sendMutation(mutationCreateUser, userToSave)
+                    apiGraphql.sendMutation(mutationCreateUser, userToSave)
                     .then(userSaved=> {
                       return resolve(userSaved);
                     })
