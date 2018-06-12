@@ -19,7 +19,7 @@ const mutationLater = require("../../graphql/later/mutation");
 const apiMessenger = require("../../helpers/apiMessenger");
 const product_data = require("../product_data");
 const helper = require("../../helpers/helper");
-
+const config = require("../../config")
 const LIMIT_HOUR_ASK_LOCATION = 2;
 
 const events = {
@@ -57,7 +57,7 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
   };
   let user = {};
   dataToSend[key] = eventID;
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendMutation(mutationGoing.createGoing(), dataToSend)
     .then(res => {
       if(res.createGoing){
@@ -139,7 +139,7 @@ const _createLater = (senderID, userID, eventID, eventName, event) => {
     "eventName": eventName
   };
   dataToSend[`${eventName}s_id`] = eventID;
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendMutation(mutationLater.createLater(), dataToSend)
     .then(res => {
       if(res){
@@ -193,7 +193,7 @@ module.exports = (payload, senderID) => {
   const event = payload.slice(payload.indexOf("_") + 1, payload.indexOf(":"));
   const eventID = payload.slice(payload.indexOf(":") + 1);
   let userId = "";
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderID))
     .then(res => {
       if (res.userByAccountMessenger) {

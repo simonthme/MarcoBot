@@ -17,6 +17,7 @@ const apiMessenger = require("../../helpers/apiMessenger");
 const product_data = require("../product_data");
 const helper = require("../../helpers/helper");
 const queryUser = require("../../graphql/user/query");
+const config = require("../../config")
 
 const events = {
   "BAR": (id) => queryBar.queryBar(id),
@@ -47,7 +48,7 @@ const sendMessage = (senderID, data, typeMessage) => {
 
 const noLocation = (senderID, eventID, eventName) => {
   let event = {};
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(events[eventName](eventID))
     .then(res => {
       if (res[eventName.toLowerCase()]) {
@@ -128,7 +129,7 @@ const noLocation = (senderID, eventID, eventName) => {
 const oldLocation = (senderID, eventID, eventName) => {
   let event = {};
   let user = {};
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderID))
     .then((response) => {
       if (response.userByAccountMessenger) {

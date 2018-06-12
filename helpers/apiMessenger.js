@@ -14,7 +14,6 @@ module.exports = {
     }
   },
   sendToFacebook: (data) => {
-    console.log(data);
     return axios.post(`https://graph.facebook.com/v2.6/me/messages?access_token=${Config.tokenAppFacebook}`, data);
   },
 

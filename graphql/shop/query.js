@@ -42,7 +42,7 @@ module.exports = {
       }
       saturday {
         start
-        ends
+        end
       }
     }
   `,

@@ -7,7 +7,7 @@ const postbackDefault = require('../messenger/postbackBlocks/default');
 const initHandler = require('../handlers/initHandler/init');
 const priceHandlerRestaurant = require('../handlers/priceHandler/restaurantIndex');
 const priceHandlerBar = require('../handlers/priceHandler/barIndex');
-const aroundDistrictHandler = require('../handlers/priceHandler/barIndex');
+const aroundDistrictHandler = require('../handlers/searchHandler/aroundByDistrict');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');

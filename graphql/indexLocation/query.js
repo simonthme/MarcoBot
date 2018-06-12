@@ -32,9 +32,9 @@ module.exports = {
       }
     }`
   },
-  findByDistrict: (location, page) => {
+  findByDistrict: (district, page) => {
     return ` {
-      findByNearMe(lat: ${location.lat}, lng: ${location.lng}, page: ${page}) {
+      findByDistrict(district: "${district}", page: ${page}) {
         id
         activities_id{ ${Activity} }
         bars_id{ ${Bar} }

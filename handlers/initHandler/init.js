@@ -77,6 +77,7 @@ module.exports = (senderID) => {
         console.log(err.response.data);
       });
   };
+  console.log(config.category[config.indexCategory].apiGraphQlUrl);
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   apiGraphql.sendQuery(user.queryUserByAccountMessenger(senderID))
     .then(response => {

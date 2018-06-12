@@ -9,10 +9,10 @@ const apiMessenger = require('../helpers/apiMessenger');
 const messengerMethods = require('../messenger/messengerMethods');
 const clientControl = require('../controllers/clientControl');
 const product_data = require('../messenger/product_data');
-
+const config = require("../config")
 
 module.exports = (event) => {
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   const senderId = event.sender.id;
   const message = event.message.text;
   const query = user.queryUserByAccountMessenger(senderId);

@@ -5,7 +5,7 @@ const apiMessenger = require('../helpers/apiMessenger');
 const ApiGraphql = require('../helpers/apiGraphql');
 const queryBar = require('../graphql/bar/query')
 const productData = require("../messenger/product_data");
-
+const config = require("../config")
 
 const sendMessage = (senderId, data, typeMessage) => {
   return new Promise((resolve, reject) => {
@@ -22,7 +22,7 @@ const sendMessage = (senderId, data, typeMessage) => {
 
 module.exports = {
   checkDialogflow: (senderId, response) => {
-    const apiGraphql = new ApiGraphql();
+    const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
     return new Promise((resolve, reject) => {
       if (response.result.parameters && response.result.parameters.eatdrink === ('bar' || 'drink')) {
         let dataToSend = {};

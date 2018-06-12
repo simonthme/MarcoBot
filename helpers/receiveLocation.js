@@ -18,7 +18,7 @@ const querySite = require("../graphql/site/query");
 const apiMessenger = require("./apiMessenger");
 const product_data = require("../messenger/product_data");
 const helper = require("./helper");
-
+const config = require("../config")
 const events = {
   "bar": (id) => queryBar.queryBar(id),
   "activity": (id) => queryActivity.queryActivity(id),
@@ -47,7 +47,7 @@ const sendMessage = (senderId, data, typeMessage) => {
 };
 
 module.exports = (_event) => {
-  const apiGraphql = new ApiGraphql();
+  const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   const senderId = _event.sender.id;
   const nowDate = new Date();
   const location = _event.message.attachments[0].payload.coordinates;

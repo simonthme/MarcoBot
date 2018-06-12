@@ -6,9 +6,10 @@ const async = require("async");
 const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
 const generateSubtitle = (elem, TODAY) => {
+  console.log(elem);
   return new Promise((resolve, reject) => {
     let money = "";
-    switch(elem.priceRange){
+    switch (elem.priceRange) {
       case 0:
         money = "FREE";
         break;
@@ -29,12 +30,12 @@ const generateSubtitle = (elem, TODAY) => {
         break;
     }
     let schedule = "🕐 ";
-    const daySchedule = elem.schedule ?  elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
+    const daySchedule = elem.schedule ? elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
     console.log(daySchedule);
-    if (daySchedule.length > 0){
-      daySchedule.map((day,i)  => {
+    if (daySchedule.length > 0) {
+      daySchedule.map((day, i) => {
         schedule = schedule.concat(day.start, ' - ', day.end, ' ');
-        if(i === daySchedule.length -1){
+        if (i === daySchedule.length - 1) {
           resolve({schedule: schedule, money: money});
         }
       })
@@ -117,6 +118,53 @@ module.exports = {
                   "type": "postback",
                   "title": "View more",
                   "payload": `VIEWMORE_${kindElement}:${elem.id}`
+                },
+              ]
+            };
+            arrayOfElement.push(element);
+            callback()
+          })
+          .catch(() => callback("AILLE"))
+      }, (err) => {
+        if (err) return reject(err);
+        return resolve({
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": arrayOfElement
+            }
+          }
+        });
+      })
+    })
+  },
+  templateListFromDifferentEvent: (list) => {
+    return new Promise((resolve, reject) => {
+      const TODAY = new Date();
+      const arrayOfElement = [];
+      async.each(list, (elem, callback) => {
+        generateSubtitle(elem, TODAY)
+          .then(res => {
+            const element = {
+              "title": `${elem.name}`,
+              "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
+              "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Let's go!",
+                  "payload": `GOING_${elem.kindElement}:${elem.id}`
+                },
+                {
+                  "type": "postback",
+                  "title": "Later",
+                  "payload": `LATER_${elem.kindElement}:${elem.id}`
+                },
+                {
+                  "type": "postback",
+                  "title": "View more",
+                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id}`
                 },
               ]
             };
@@ -241,22 +289,22 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Visiting",
-        "payload": "EVENT_SITE",
+        "payload": "SEARCH_SITE",
       },
       {
         "content_type": "text",
         "title": "I'm hungry",
-        "payload": "EVENT_REST",
+        "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
         "title": "I'm thirsty",
-        "payload": "EVENT_BAR",
+        "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
         "title": "Districts",
-        "payload": "EVENT_DISTRICT",
+        "payload": "SEARCH_DISTRICT",
       }
     ]
   },
@@ -266,22 +314,22 @@ module.exports = {
       {
         "content_type": "text",
         "title": "Visiting",
-        "payload": "EVENT_SITE",
+        "payload": "SEARCH_SITE",
       },
       {
         "content_type": "text",
         "title": "I'm hungry",
-        "payload": "EVENT_REST",
+        "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
         "title": "I'm thirsty",
-        "payload": "EVENT_BAR",
+        "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
         "title": "Districts",
-        "payload": "EVENT_DISTRICT",
+        "payload": "SEARCH_DISTRICT",
       }
     ]
   },
@@ -363,7 +411,7 @@ module.exports = {
             {
               "type": "web_url",
               "url": `https://www.google.com/maps/dir//${destination.lat},${destination.lng}/`,
-              "title": `📍 ${eventName}` ,
+              "title": `📍 ${eventName}`,
               "webview_height_ratio": "full",
               "messenger_extensions": "false",
             }
@@ -402,10 +450,10 @@ module.exports = {
             "image_url": "https://api.marco-app.com/api/image/minArc.jpg",
             "subtitle": "Part of the french heritage.",
             "buttons": [
-             {
-                "type":"postback",
-                "title":"Historical",
-                "payload":"SITE_HISTORICAL"
+              {
+                "type": "postback",
+                "title": "Historical",
+                "payload": "SITE_HISTORICAL"
               }
             ]
           },
@@ -415,9 +463,9 @@ module.exports = {
             "subtitle": "Atypical and hidden places to discover the authentic Paris.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Secret",
-                "payload":"SITE_SECRET"
+                "type": "postback",
+                "title": "Secret",
+                "payload": "SITE_SECRET"
               }
             ]
           },
@@ -427,9 +475,9 @@ module.exports = {
             "subtitle": "All the must sees of Paris.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Famous",
-                "payload":"SITE_FAMOUS"
+                "type": "postback",
+                "title": "Famous",
+                "payload": "SITE_FAMOUS"
               }
             ]
           },
@@ -439,9 +487,9 @@ module.exports = {
             "subtitle": "Paris is full of beautiful churches.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Cultural",
-                "payload":"SITE_CULTURAL"
+                "type": "postback",
+                "title": "Cultural",
+                "payload": "SITE_CULTURAL"
               }
             ]
           },
@@ -453,7 +501,7 @@ module.exports = {
     "text": "Cheers! 🍸",
   },
   selectionBar2: {
-      "text": "But wait, what type of bars do you like? "
+    "text": "But wait, what type of bars do you like? "
   },
   selectionBarType: {
     "attachment": {
@@ -467,9 +515,9 @@ module.exports = {
             "subtitle": "Perfect for a saturday night.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Trendy",
-                "payload":"BAR_TRENDY"
+                "type": "postback",
+                "title": "Trendy",
+                "payload": "BAR_TRENDY"
               }
             ]
           },
@@ -479,9 +527,9 @@ module.exports = {
             "subtitle": "Perfect for discovering new places to drink a cocktail.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Atypical",
-                "payload":"BAR_ATYPICAL"
+                "type": "postback",
+                "title": "Atypical",
+                "payload": "BAR_ATYPICAL"
               }
             ]
           },
@@ -491,9 +539,9 @@ module.exports = {
             "subtitle": "The prettiest bars of Paris.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"High class",
-                "payload":"BAR_HIGHCLASS"
+                "type": "postback",
+                "title": "High class",
+                "payload": "BAR_HIGHCLASS"
               }
             ]
           },
@@ -503,9 +551,9 @@ module.exports = {
             "subtitle": "Let's go watch the wolrd cup tonight.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Pubs",
-                "payload":"BAR_PUB"
+                "type": "postback",
+                "title": "Pubs",
+                "payload": "BAR_PUB"
               }
             ]
           },
@@ -515,9 +563,9 @@ module.exports = {
             "subtitle": "Enjoy a terasse on a nice sunny afternoon.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Cafés",
-                "payload":"BAR_CAFE"
+                "type": "postback",
+                "title": "Cafés",
+                "payload": "BAR_CAFE"
               }
             ]
           },
@@ -527,9 +575,9 @@ module.exports = {
             "subtitle": "Perfect for tasting famous wines.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Wine bars",
-                "payload":"BAR_WINE"
+                "type": "postback",
+                "title": "Wine bars",
+                "payload": "BAR_WINE"
               }
             ]
           },
@@ -542,7 +590,7 @@ module.exports = {
     "text": "Yummy! 🍽",
   },
   selectionRestaurant2: {
-      "text": "But wait, tell me more about what type of place you’re looking for:"
+    "text": "But wait, tell me more about what type of place you’re looking for:"
   },
   selectionRestaurantType: {
     "attachment": {
@@ -556,9 +604,9 @@ module.exports = {
             "subtitle": "The finest french cuisine from incredible chefs.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gastronomic",
-                "payload":"RESTAURANT_GASTRONOMY"
+                "type": "postback",
+                "title": "Gastronomic",
+                "payload": "RESTAURANT_GASTRONOMY"
               }
             ]
           },
@@ -568,9 +616,9 @@ module.exports = {
             "subtitle": "The best of healthy food.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Atypical",
-                "payload":"RESTAURANT_VEGGIE"
+                "type": "postback",
+                "title": "Atypical",
+                "payload": "RESTAURANT_VEGGIE"
               }
             ]
           },
@@ -580,9 +628,9 @@ module.exports = {
             "subtitle": "A typical parisian sunday breakfast.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Brunch",
-                "payload":"RESTAURANT_BRUNCH"
+                "type": "postback",
+                "title": "Brunch",
+                "payload": "RESTAURANT_BRUNCH"
               }
             ]
           },
@@ -592,9 +640,9 @@ module.exports = {
             "subtitle": "The finest ready to eat parisian food.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Street food",
-                "payload":"RESTAURANT_STREET"
+                "type": "postback",
+                "title": "Street food",
+                "payload": "RESTAURANT_STREET"
               }
             ]
           },
@@ -604,9 +652,9 @@ module.exports = {
             "subtitle": "Typical french food and restaurants.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Traditional",
-                "payload":"RESTAURANT_TRADITIONAL"
+                "type": "postback",
+                "title": "Traditional",
+                "payload": "RESTAURANT_TRADITIONAL"
               }
             ]
           },
@@ -616,9 +664,9 @@ module.exports = {
             "subtitle": "Perfect for tasting famous wines.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Others",
-                "payload":"RESTAURANT_OTHER"
+                "type": "postback",
+                "title": "Others",
+                "payload": "RESTAURANT_OTHER"
               }
             ]
           },
@@ -631,7 +679,7 @@ module.exports = {
     "text": "‍Yay! 🚶‍️",
   },
   selectionDistrict2: {
-      "text": "But wait, I don't know where you'd like to go... Could you choose a district ?:"
+    "text": "But wait, I don't know where you'd like to go... Could you choose a district ?:"
   },
   selectionDistrictType: {
     "attachment": {
@@ -646,9 +694,9 @@ module.exports = {
             "subtitle": "Center of Paris.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_louvre"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_louvre"
               }
             ]
           },
@@ -658,9 +706,9 @@ module.exports = {
             "subtitle": "Historical disctrict of Paris full of high-end boutiques.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_marais"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_marais"
               }
             ]
           },
@@ -670,9 +718,9 @@ module.exports = {
             "subtitle": "The left bank's true student & intellectual center.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_latin_quarter"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_latin_quarter"
               }
             ]
           },
@@ -682,9 +730,9 @@ module.exports = {
             "subtitle": "Hidden behind walls you'll find embassies and institutional buildings.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_eiffel_tour"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_eiffel_tour"
               }
             ]
           },
@@ -705,9 +753,9 @@ module.exports = {
             "subtitle": "The golden triangle famous for its luxurious shops.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_champs_elysee"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_champs_elysee"
               }
             ]
           },
@@ -717,9 +765,9 @@ module.exports = {
             "subtitle": "Famous for being hype!",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_canal_st_martin"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_canal_st_martin"
               }
             ]
           },
@@ -729,9 +777,9 @@ module.exports = {
             "subtitle": "From nightfall to early morning streets are crowded with young people.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_bastille"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_bastille"
               }
             ]
           },
@@ -741,9 +789,9 @@ module.exports = {
             "subtitle": "The hottest neighbourhood of Paris.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_pigalle"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_pigalle"
               }
             ]
           },
@@ -764,9 +812,9 @@ module.exports = {
             "subtitle": "Famous artistic hill of Paris.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_montmartre"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_montmartre"
               }
             ]
           },
@@ -776,9 +824,9 @@ module.exports = {
             "subtitle": "Famous artistic hill of Paris.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_trocadero"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_trocadero"
               }
             ]
           },
@@ -788,9 +836,9 @@ module.exports = {
             "subtitle": "Historically the rural & working class neighbourhood.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_belleville"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_belleville"
               }
             ]
           },
@@ -800,9 +848,9 @@ module.exports = {
             "subtitle": "Famous for its theatres.",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_montparnasse"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_montparnasse"
               }
             ]
           }
@@ -823,15 +871,40 @@ module.exports = {
             "subtitle": "Famous for its asian streets and food",
             "buttons": [
               {
-                "type":"postback",
-                "title":"Gooooo! 🚀",
-                "payload":"AROUND_chinese_quarter"
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_chinese_quarter"
               }
             ]
           },
         ]
       }
     }
+  },
+  nothingInThisDistrict: {
+    "text": "Sorry I didn't find something 😔, but you can see other districts or do something else",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "🔙 other districts",
+        "payload": `SEARCH_DISTRICT`,
+      },
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "SEARCH_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "SEARCH_BAR",
+      },
+    ]
   },
   viewMore: (description, kindElement, eventID) => {
     return {
