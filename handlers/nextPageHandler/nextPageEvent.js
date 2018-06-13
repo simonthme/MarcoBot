@@ -75,7 +75,7 @@ module.exports = (payload, senderID) => {
           .then(helper.delayPromise(2000))
           .then((response) => {
             if (response.status === 200)
-              return sendMessage(senderID, product_data.question1MessageAfterDistrict, "RESPONSE")
+              return sendMessage(senderID, product_data.question1MessageListView, "RESPONSE")
           })
       } else {
         return sendMessage(senderID, product_data.nothingInThisDistrict, "RESPONSE")
