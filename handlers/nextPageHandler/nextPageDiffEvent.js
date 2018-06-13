@@ -1,5 +1,5 @@
 /**
- * Created by corentin on 11/06/2018.
+ * Created by corentin on 13/06/2018.
  */
 const async = require("async");
 const product_data = require("../../messenger/product_data");
@@ -22,10 +22,13 @@ const sendMessage = (senderId, data, typeMessage) => {
   });
 };
 
-module.exports = (_district, senderID) => {
+module.exports = (payload, senderID) => {
+  const newPayload = payload.split(':');
+  const _district = newPayload[0];
+  const page = newPayload[1];
   let dataToSend = {};
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
-  return apiGraphql.sendQuery(indexLocationQuery.findByDistrict(_district, 0))
+  return apiGraphql.sendQuery(indexLocationQuery.findByDistrict(_district, page))
     .then((response) => {
       if(response.findByDistrict !== null && response.findByDistrict.length > 0){
         let responses = [...response.findByDistrict];
@@ -44,21 +47,17 @@ module.exports = (_district, senderID) => {
         }, (err) => {
           if(err) return sendMessage(senderID,
             {text: "Ooops looks like something wrong, try again later"}, "RESPONSE");
-          return product_data.templateListFromDifferentEvent(newResponses, 0, _district, "mongo")
+          return product_data.templateListFromDifferentEvent(newResponses, page, _district, "mongo")
             .then(result => {
               if (result) {
                 dataToSend = Object.assign({}, result);
-                return sendMessage(senderID, {text: "Nice, I love this district 😉"}, "RESPONSE")
-              }
-            })
-            .then((response) => {
-              if (response.status === 200)
                 return apiMessenger.sendToFacebook({
                   recipient: {id: senderID},
                   sender_action: 'typing_on',
                   messaging_types: "RESPONSE",
                   message: ""
                 })
+              }
             })
             .then(helper.delayPromise(2000))
             .then((response) => {

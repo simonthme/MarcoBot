@@ -10,6 +10,9 @@ const priceHandlerBar = require('../handlers/priceHandler/barIndex');
 const aroundDistrictHandler = require('../handlers/searchHandler/aroundByDistrict');
 const searchHandler = require('../handlers/searchHandler/index');
 const nextPageEventHandler = require('../handlers/nextPageHandler/nextPageEvent');
+const nextPageDiffEventHandler = require('../handlers/nextPageHandler/nextPageDiffEvent');
+const nextPageRecommendationHandler = require('../handlers/nextPageHandler/nextPageRecommendation');
+const nextPageDiffEventRecommendationHandler = require('../handlers/nextPageHandler/nextPageDiffEventRecommendation');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -41,6 +44,15 @@ module.exports = (event) => {
         break;
       case 'NEXTPAGEEVENT':
         nextPageEventHandler(payloadType[1], senderID);
+        break;
+      case 'NEXTPAGENEO4J':
+        nextPageRecommendationHandler(payloadType[1], senderID);
+        break;
+      case 'NEXTPAGEDIFFEVENT':
+        nextPageDiffEventHandler(payloadType[1], senderID);
+        break;
+      case 'NEXTPAGEDIFFEVENTNEO4J':
+        nextPageDiffEventRecommendationHandler(payloadType[1], senderID);
         break;
       default :
         postbackDefault(senderID);
