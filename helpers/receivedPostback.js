@@ -10,6 +10,7 @@ const priceHandlerBar = require('../handlers/priceHandler/barIndex');
 const aroundDistrictHandler = require('../handlers/searchHandler/aroundByDistrict');
 const searchHandler = require('../handlers/searchHandler/index');
 const nextPageEventHandler = require('../handlers/nextPageHandler/nextPageEvent');
+const visitHandler = require('../handlers/visitHandler/typeIndex');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -39,6 +40,8 @@ module.exports = (event) => {
       case 'SEARCH':
         searchHandler(payloadType[1], senderID);
         break;
+      case 'SITE':
+        visitHandler(payloadType[1], senderID);
       case 'NEXTPAGEEVENT':
         nextPageEventHandler(payloadType[1], senderID);
         break;

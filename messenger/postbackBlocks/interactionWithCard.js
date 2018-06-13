@@ -33,7 +33,8 @@ const events = {
   "RESTAURANT": (id) => queryRestaurant.queryRestaurant(id),
   "SHOP": (id) => queryShop.queryShop(id),
   "SHOW": (id) => queryShow.queryShow(id),
-  "SITE": (id) => querySite.querySite(id)
+  "SITE": (id) => querySite.querySite(id),
+  "VISIT": (id) => q
 };
 
 const sendMessage = (senderId, data, typeMessage) => {

@@ -1,12 +1,11 @@
 const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
-const config = require('../../config');
 const ApiGraphql = require("../../helpers/apiGraphql");
-const bar = require('../../graphql/bar/query');
+const visit = require('../../graphql/visit/query');
 const helper = require("../../helpers/helper");
 const userMutation = require('../../graphql/user/mutation');
 
-module.exports = (type, price, senderID) => {
+module.exports = (type, senderID) => {
   let messageData = {
     recipient: {
       id: senderID
@@ -16,7 +15,7 @@ module.exports = (type, price, senderID) => {
   let dataToSend = {};
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   const recommandationApi = new ApiGraphql(config.category[config.indexCategory].recommendationApilUrl, config.accessTokenRecommendationApi);
-  messageData.message = product_data.fetchBarsMessage;
+  messageData.message = product_data.fetchVisitsMessage;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
       if (response.status === 200)
@@ -33,11 +32,11 @@ module.exports = (type, price, senderID) => {
     .then(helper.delayPromise(1000))
     .then(response => {
       if (response.status === 200)
-        return recommandationApi.sendQuery(bar.queryBarsByPriceAndType(senderID, type, price, 0));
+        return recommandationApi.sendQuery(visit.queryVisitsByPriceAndType(senderID, type, 0));
     })
     .then(res => {
       console.log(res);
-      return product_data.templateList(res.barsByPriceAndType, "BAR", 0)
+      return product_data.templateList(res.visitsByPriceAndType, "VISIT", 0)
     })
     .then(result => {
       dataToSend = Object.assign({}, result);

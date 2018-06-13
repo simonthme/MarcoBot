@@ -528,6 +528,18 @@ module.exports = {
               }
             ]
           },
+          {
+            "title": "Other",
+            "image_url": "https://api.marco-app.com/api/image/minStChap.jpg",
+            "subtitle": "So many other things to discover.",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Other",
+                "payload": "SITE_OTHER"
+              }
+            ]
+          },
         ]
       }
     }
@@ -1007,6 +1019,9 @@ module.exports = {
     }
   },
   fetchRestaurantsMessage: {
+    "text": "Check what I found for you: "
+  },
+  fetchVisitsMessage: {
     "text": "Check what I found for you: "
   },
   fetchBarsMessage: {
