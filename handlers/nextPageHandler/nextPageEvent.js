@@ -58,7 +58,7 @@ module.exports = (payload, senderID) => {
         "activities" : eventName.toLocaleLowerCase() + 's';
       const resultat = res[eventsNames];
       if(resultat !== null || resultat.length > 0){
-        return product_data.templateList(resultat, eventName, page)
+        return product_data.templateList(resultat, eventName, page, "mongo")
           .then(result => {
             dataToSend = Object.assign({}, result);
             return sendMessage(senderID, dataToSend, "RESPONSE")

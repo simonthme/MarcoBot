@@ -38,7 +38,7 @@ module.exports = (type, price, senderID) => {
     })
     .then(res => {
       console.log(res);
-      return product_data.templateList(res.restaurantsByPriceAndType, "RESTAURANT", 0)
+      return product_data.templateList(res.restaurantsByPriceAndType, "RESTAURANT", 0, "neo4j")
     })
     .then(result => {
       dataToSend = Object.assign({}, result);

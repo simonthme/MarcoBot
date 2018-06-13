@@ -88,7 +88,7 @@ module.exports = {
       }
     ]
   },
-  templateList: (list, kindElement, page) => {
+  templateList: (list, kindElement, page, whichApi) => {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
@@ -124,6 +124,7 @@ module.exports = {
       }, (err) => {
         if (err) return reject(err);
         if (arrayOfElement.length === 5){
+          const NEXT_PAGE = whichApi === "neo4j" ? "NEXTPAGENEO4J" : "NEXTPAGEEVENT";
           const morePage = {
             "title": `See more results`,
             "subtitle": `I can see you more results, if you want`,
@@ -131,7 +132,7 @@ module.exports = {
               {
                 "type": "postback",
                 "title": "View more results",
-                "payload": `NEXTPAGEEVENT_${kindElement}:${page+1}`
+                "payload": `${NEXT_PAGE}_${kindElement}:${page+1}`
               },
             ]
           };
@@ -149,7 +150,7 @@ module.exports = {
       })
     })
   },
-  templateListFromDifferentEvent: (list) => {
+  templateListFromDifferentEvent: (list, page, district, whichApi) => {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
@@ -184,6 +185,21 @@ module.exports = {
           .catch(() => callback("AILLE"))
       }, (err) => {
         if (err) return reject(err);
+        if (arrayOfElement.length === 5){
+          const NEXT_PAGE = whichApi === "neo4j" ? "NEXTPAGEDIFFEVENTNEO4J" : "NEXTPAGEDIFFEVENT";
+          const morePage = {
+            "title": `See more results`,
+            "subtitle": `I can see you more results, if you want`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "View more results",
+                "payload": `${NEXT_PAGE}_${district}:${page+1}`
+              },
+            ]
+          };
+          arrayOfElement.push(morePage)
+        }
         return resolve({
           "attachment": {
             "type": "template",
@@ -366,6 +382,31 @@ module.exports = {
         "title": "I'm thirsty",
         "payload": "SEARCH_BAR",
       }
+    ]
+  },
+  question1MessageListView: {
+    "text": "If you want something else do not hesitate to flag me",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "SEARCH_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "SEARCH_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "District",
+        "payload": "SEARCH_DISTRICT1",
+      },
     ]
   },
   rememberLocation: (eventID, kindEvent) => {
