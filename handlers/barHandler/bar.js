@@ -35,7 +35,7 @@ module.exports = (type, price, senderID) => {
     })
     .then(res => {
       console.log(res);
-      return product_data.templateList(res.barsByPriceAndType, "BAR")
+      return product_data.templateList(res.barsByPriceAndType, "BAR", 0)
     })
     .then(result => {
       dataToSend = Object.assign({}, result);

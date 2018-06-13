@@ -8,6 +8,8 @@ const initHandler = require('../handlers/initHandler/init');
 const priceHandlerRestaurant = require('../handlers/priceHandler/restaurantIndex');
 const priceHandlerBar = require('../handlers/priceHandler/barIndex');
 const aroundDistrictHandler = require('../handlers/searchHandler/aroundByDistrict');
+const searchHandler = require('../handlers/searchHandler/index');
+const nextPageEventHandler = require('../handlers/nextPageHandler/nextPageEvent');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -33,6 +35,12 @@ module.exports = (event) => {
         break;
       case 'AROUND':
         aroundDistrictHandler(payload.slice(7), senderID);
+        break;
+      case 'SEARCH':
+        searchHandler(payloadType[1], senderID);
+        break;
+      case 'NEXTPAGEEVENT':
+        nextPageEventHandler(payloadType[1], senderID);
         break;
       default :
         postbackDefault(senderID);

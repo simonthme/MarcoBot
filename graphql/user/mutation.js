@@ -38,6 +38,26 @@ module.exports = {
       }
     `
   },
+  updateLocationByAccountMessenger: () => {
+      return `mutation updateLocationByAccountMessenger($PSID: ID!, $firstName: String, $lastName: String, $gender: String, $profilePic: String, $travelType: String, $geoLocation: LocationInput){
+        updateLocationByAccountMessenger(PSID: $PSID, firstName: $firstName, lastName: $lastName, gender: $gender, profilePic: $profilePic, travelType: $travelType, geoLocation:$geoLocation) {
+           id
+          firstName,
+          lastName,
+          gender,
+          profilePic,
+          accountmessengers_id,
+          PSID,
+          travelType,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          }
+        }
+      }
+    `
+  },
   addCategoryByAccountMessenger: () => {
       return `mutation addCategoryByAccountMessenger($PSID: ID!, $category: String) {
         addCategoryByAccountMessenger(PSID: $PSID, category: $category) {

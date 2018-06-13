@@ -1,6 +1,6 @@
-const product_data = require("../../messenger/product_data");
-const apiMessenger = require("../../helpers/apiMessenger");
-const helper = require("../../helpers/helper");
+const product_data = require("../../../messenger/product_data");
+const apiMessenger = require("../../../helpers/apiMessenger");
+const helper = require("../../../helpers/helper");
 module.exports = (senderID) => {
   let messageData = {
     recipient: {
@@ -34,24 +34,6 @@ module.exports = (senderID) => {
     .then(resp => {
       delete messageData.sender_action;
       messageData.message = product_data.selectionDistrictType;
-      if(resp.status === 200) {
-        return apiMessenger.sendToFacebook(messageData)
-      }
-    })
-    .then(resp => {
-      messageData.message = product_data.selectionDistrictType2;
-      if(resp.status === 200) {
-        return apiMessenger.sendToFacebook(messageData)
-      }
-    })
-    .then(resp => {
-      messageData.message = product_data.selectionDistrictType3;
-      if(resp.status === 200) {
-        return apiMessenger.sendToFacebook(messageData)
-      }
-    })
-    .then(resp => {
-      messageData.message = product_data.selectionDistrictType4;
       if(resp.status === 200) {
         return apiMessenger.sendToFacebook(messageData)
       }

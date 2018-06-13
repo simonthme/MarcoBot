@@ -45,16 +45,45 @@ module.exports = (_district, senderID) => {
           if(err) return sendMessage(senderID,
             {text: "Ooops looks like something wrong, try again later"}, "RESPONSE");
           return product_data.templateListFromDifferentEvent(newResponses)
+            .then(result => {
+              if (result) {
+                dataToSend = Object.assign({}, result);
+                return sendMessage(senderID, {text: "Nice, I love this district 😉"}, "RESPONSE")
+              }
+            })
+            .then((response) => {
+              if (response.status === 200)
+                return apiMessenger.sendToFacebook({
+                  recipient: {id: senderID},
+                  sender_action: 'typing_on',
+                  messaging_types: "RESPONSE",
+                  message: ""
+                })
+            })
+            .then(helper.delayPromise(2000))
+            .then((response) => {
+              if (response.status === 200)
+                return sendMessage(senderID, dataToSend, "RESPONSE")
+            })
+            .then((response) => {
+              if (response.status === 200)
+                return apiMessenger.sendToFacebook({
+                  recipient: {id: senderID},
+                  sender_action: 'typing_on',
+                  messaging_types: "RESPONSE",
+                  message: ""
+                })
+            })
+            .then(helper.delayPromise(2000))
+            .then((response) => {
+              if (response.status === 200)
+                return sendMessage(senderID, product_data.question1MessageAfterDistrict, "RESPONSE")
+            })
         })
       } else {
         return sendMessage(senderID, product_data.nothingInThisDistrict, "RESPONSE")
       }
     })
-    .then(result => {
-      if (result){
-        dataToSend = Object.assign({}, result);
-        
-      }
-    })
+
     .catch(err => console.log(err))
 };

@@ -60,12 +60,12 @@ module.exports = (_event) => {
   let event = "";
   let eventID = "";
   let eventObject = {};
-  return apiGraphql.sendMutation(mutationUser.updateUserByAccountMessenger(),
+  return apiGraphql.sendMutation(mutationUser.updateLocationByAccountMessenger(),
     {PSID: senderId, geoLocation: geoLocation})
     .then(res => {
-      if (res.updateUserByAccountMessenger) {
-        userObject = res.updateUserByAccountMessenger;
-        return apiGraphql.sendQuery(queryGoing.queryGoings(res.updateUserByAccountMessenger.id, 1))
+      if (res.updateLocationByAccountMessenger) {
+        userObject = res.updateLocationByAccountMessenger;
+        return apiGraphql.sendQuery(queryGoing.queryGoings(res.updateLocationByAccountMessenger.id, 1))
       }
     })
     .then(res => {

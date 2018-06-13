@@ -28,7 +28,7 @@ module.exports = {
         let dataToSend = {};
         apiGraphql.sendQuery(queryBar.queryBars(0))
           .then((res) => {
-            return productData.templateList(res.bars, "BAR")
+            return productData.templateList(res.bars, "BAR", 0)
           })
           .then(result => {
             dataToSend = Object.assign({}, result);

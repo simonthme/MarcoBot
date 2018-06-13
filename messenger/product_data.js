@@ -6,7 +6,6 @@ const async = require("async");
 const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
 const generateSubtitle = (elem, TODAY) => {
-  console.log(elem);
   return new Promise((resolve, reject) => {
     let money = "";
     switch (elem.priceRange) {
@@ -31,7 +30,6 @@ const generateSubtitle = (elem, TODAY) => {
     }
     let schedule = "🕐 ";
     const daySchedule = elem.schedule ? elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
-    console.log(daySchedule);
     if (daySchedule.length > 0) {
       daySchedule.map((day, i) => {
         schedule = schedule.concat(day.start, ' - ', day.end, ' ');
@@ -90,15 +88,13 @@ module.exports = {
       }
     ]
   },
-  templateList: (list, kindElement) => {
+  templateList: (list, kindElement, page) => {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
-            console.log('SUB TITLE GENERATED');
-            console.log(res);
             const element = {
               "title": `${elem.name}`,
               "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
@@ -127,6 +123,20 @@ module.exports = {
           .catch(() => callback("AILLE"))
       }, (err) => {
         if (err) return reject(err);
+        if (arrayOfElement.length === 5){
+          const morePage = {
+            "title": `See more results`,
+            "subtitle": `I can see you more results, if you want`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "View more results",
+                "payload": `NEXTPAGEEVENT_${kindElement}:${page+1}`
+              },
+            ]
+          };
+          arrayOfElement.push(morePage)
+        }
         return resolve({
           "attachment": {
             "type": "template",
@@ -330,6 +340,31 @@ module.exports = {
         "content_type": "text",
         "title": "Districts",
         "payload": "SEARCH_DISTRICT",
+      }
+    ]
+  },
+  question1MessageAfterDistrict: {
+    "text": "If you want something else do not hesitate to flag me",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "🔙 other districts",
+        "payload": "SEARCH_DISTRICT1",
+      },
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "SEARCH_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "SEARCH_BAR",
       }
     ]
   },
@@ -701,18 +736,6 @@ module.exports = {
             ]
           },
           {
-            "title": "Le Marais district",
-            "image_url": "https://api.marco-app.com/api/image/minMarais.jpg",
-            "subtitle": "Historical disctrict of Paris full of high-end boutiques.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_marais"
-              }
-            ]
-          },
-          {
             "title": "Latin quarter",
             "image_url": "https://api.marco-app.com/api/image/minLatin.jpg",
             "subtitle": "The left bank's true student & intellectual center.",
@@ -736,6 +759,13 @@ module.exports = {
               }
             ]
           },
+        ],
+        "buttons": [
+          {
+            "title": "View more ➕",
+            "type": "postback",
+            "payload": "SEARCH_DISTRICT2"
+          }
         ]
       }
     }
@@ -772,29 +802,24 @@ module.exports = {
             ]
           },
           {
-            "title": "Around Bastille",
-            "image_url": "https://api.marco-app.com/api/image/minBastille.jpg",
-            "subtitle": "From nightfall to early morning streets are crowded with young people.",
+            "title": "Le Marais district",
+            "image_url": "https://api.marco-app.com/api/image/minMarais.jpg",
+            "subtitle": "Historical disctrict of Paris full of high-end boutiques.",
             "buttons": [
               {
                 "type": "postback",
                 "title": "Gooooo! 🚀",
-                "payload": "AROUND_bastille"
+                "payload": "AROUND_marais"
               }
             ]
           },
+        ],
+        "buttons": [
           {
-            "title": "Pigalle",
-            "image_url": "https://api.marco-app.com/api/image/minPigalle.jpg",
-            "subtitle": "The hottest neighbourhood of Paris.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_pigalle"
-              }
-            ]
-          },
+            "title": "View more ➕",
+            "type": "postback",
+            "payload": "SEARCH_DISTRICT3"
+          }
         ]
       }
     }
@@ -842,17 +867,12 @@ module.exports = {
               }
             ]
           },
+        ],
+        "buttons": [
           {
-            "title": "Montparnasse & surroundings",
-            "image_url": "https://api.marco-app.com/api/image/minMontpar.jpg",
-            "subtitle": "Famous for its theatres.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_montparnasse"
-              }
-            ]
+            "title": "View more ➕",
+            "type": "postback",
+            "payload": "SEARCH_DISTRICT4"
           }
         ]
       }
@@ -866,6 +886,42 @@ module.exports = {
         "top_element_style": "compact",
         "elements": [
           {
+            "title": "Around Bastille",
+            "image_url": "https://api.marco-app.com/api/image/minBastille.jpg",
+            "subtitle": "From nightfall to early morning streets are crowded with young people.",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_bastille"
+              }
+            ]
+          },
+          {
+            "title": "Pigalle",
+            "image_url": "https://api.marco-app.com/api/image/minPigalle.jpg",
+            "subtitle": "The hottest neighbourhood of Paris.",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_pigalle"
+              }
+            ]
+          },
+          {
+            "title": "Montparnasse & surroundings",
+            "image_url": "https://api.marco-app.com/api/image/minMontpar.jpg",
+            "subtitle": "Famous for its theatres.",
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Gooooo! 🚀",
+                "payload": "AROUND_montparnasse"
+              }
+            ]
+          },
+          {
             "title": "Chinese quarter",
             "image_url": "https://api.marco-app.com/api/image/minChinese.jpg",
             "subtitle": "Famous for its asian streets and food",
@@ -876,8 +932,8 @@ module.exports = {
                 "payload": "AROUND_chinese_quarter"
               }
             ]
-          },
-        ]
+          }
+        ],
       }
     }
   },
@@ -887,7 +943,7 @@ module.exports = {
       {
         "content_type": "text",
         "title": "🔙 other districts",
-        "payload": `SEARCH_DISTRICT`,
+        "payload": `SEARCH_OTHERDISTRICT`,
       },
       {
         "content_type": "text",
