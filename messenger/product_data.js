@@ -411,7 +411,7 @@ module.exports = {
   },
   rememberLocation: (eventID, kindEvent) => {
     return {
-      "text": "So, can you remember me your location? It has been a long time 🙈",
+      "text": "So, can you remind me your location? It has been a long time 🙈",
       "quick_replies": [
         {
           "content_type": "location",
