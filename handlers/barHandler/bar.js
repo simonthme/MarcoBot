@@ -36,29 +36,23 @@ module.exports = (type, price, senderID) => {
         return recommandationApi.sendQuery(bar.queryBarsByPriceAndType(senderID, type, price, 0));
     })
     .then(res => {
-      console.log(res);
-      return product_data.templateList(res.barsByPriceAndType, "BAR", 0, "neo4j")
+      console.log(res.barsByPriceAndType.length);
+      if (res.barsByPriceAndType.length > 0 && res.barsByPriceAndType !== null ) {
+        return product_data.templateList(res.barsByPriceAndType, "BAR", 0,
+          "neo4j")
+      } else {
+        return product_data.jokeMarco;
+      }
     })
     .then(result => {
-      dataToSend = Object.assign({}, result);
       delete messageData.sender_action;
-      messageData.message = dataToSend;
+      messageData.message = result;
+      console.log(messageData);
       return apiMessenger.sendToFacebook(messageData);
     })
-    .then((response) => {
-      if (response.status === 200)
-        return apiMessenger.sendToFacebook({
-          recipient: {id: senderID},
-          sender_action: 'typing_on',
-          messaging_types: "RESPONSE",
-          message: ""
-        })
+    .then(res => {
+      console.log('end bar');
     })
-    .then((response) => {
-      if (response.status === 200)
-        return apiMessenger.sendToFacebook(senderID, dataToSend, "RESPONSE")
-    })
-    .then(() => resolve())
     .catch(err => {
       console.log(err.response.data.error);
     });

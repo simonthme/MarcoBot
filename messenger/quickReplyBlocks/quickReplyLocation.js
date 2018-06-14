@@ -192,7 +192,8 @@ const oldLocation = (senderID, eventID, eventName) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      if (response.status === 200 && event.tips !== null) {
+      if (response.status === 200 && event.tips !== null && typeof event.tips !== 'undefined') {
+
         return sendMessage(senderID, {text: event.tips}, "RESPONSE")
       } else {
         return apiMessenger.sendToFacebook({
@@ -208,7 +209,7 @@ const oldLocation = (senderID, eventID, eventName) => {
       if (response.status === 200)
         return sendMessage(senderID, product_data.question1MessageAfterLocation, "RESPONSE")
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err.response.data))
 };
 module.exports = (payload, senderID) => {
   const newPayload = payload.slice(0, payload.indexOf("_"));

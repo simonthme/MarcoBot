@@ -110,7 +110,7 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
               })
               .then(helper.delayPromise(2000))
               .then(response => {
-                if (response.status === 200 && resultat.tips !== null){
+                if (response.status === 200 && resultat.tips !== null && typeof resultat.tips !== 'undefined'){
                   return sendMessage(senderID, {text: resultat.tips}, "RESPONSE")
                 } else {
                   return apiMessenger.sendToFacebook({

@@ -88,7 +88,7 @@ module.exports = {
       }
     ]
   },
-  templateList: (list, kindElement, page, whichApi) => {
+  templateList: (list, kindElement, page, whichApi, category = '', price = 0) => {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
@@ -103,17 +103,17 @@ module.exports = {
                 {
                   "type": "postback",
                   "title": "Let's go!",
-                  "payload": `GOING_${kindElement}:${elem.id}`
+                  "payload": `GOING_${kindElement}:${elem.id || elem._id}`
                 },
                 {
                   "type": "postback",
                   "title": "Later",
-                  "payload": `LATER_${kindElement}:${elem.id}`
+                  "payload": `LATER_${kindElement}:${elem.id || elem._id}`
                 },
                 {
                   "type": "postback",
                   "title": "View more",
-                  "payload": `VIEWMORE_${kindElement}:${elem.id}`
+                  "payload": `VIEWMORE_${kindElement}:${elem.id || elem._id}`
                 },
               ]
             };
@@ -124,7 +124,7 @@ module.exports = {
       }, (err) => {
         if (err) return reject(err);
         if (arrayOfElement.length === 5){
-          const NEXT_PAGE = whichApi === "neo4j" ? "NEXTPAGENEO4J" : "NEXTPAGEEVENT";
+          const NEXT_PAGE = whichApi === "neo4j" ? `NEXTPAGENEO4J_${category}_${price}` : "NEXTPAGEEVENT";
           const morePage = {
             "title": `See more results`,
             "subtitle": `I can see you more results, if you want`,
@@ -150,11 +150,12 @@ module.exports = {
       })
     })
   },
-  templateListFromDifferentEvent: (list, page, district, whichApi) => {
+  templateListFromDifferentEvent: (list, page, district, whichApi, category = '') => {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
       async.each(list, (elem, callback) => {
+        console.log(elem);
         generateSubtitle(elem, TODAY)
           .then(res => {
             const element = {
@@ -165,17 +166,17 @@ module.exports = {
                 {
                   "type": "postback",
                   "title": "Let's go!",
-                  "payload": `GOING_${elem.kindElement}:${elem.id}`
+                  "payload": `GOING_${elem.kindElement}:${elem.id || elem._id}`
                 },
                 {
                   "type": "postback",
                   "title": "Later",
-                  "payload": `LATER_${elem.kindElement}:${elem.id}`
+                  "payload": `LATER_${elem.kindElement}:${elem.id || elem._id}`
                 },
                 {
                   "type": "postback",
                   "title": "View more",
-                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id}`
+                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id || elem._id}`
                 },
               ]
             };
@@ -186,7 +187,7 @@ module.exports = {
       }, (err) => {
         if (err) return reject(err);
         if (arrayOfElement.length === 5){
-          const NEXT_PAGE = whichApi === "neo4j" ? "NEXTPAGEDIFFEVENTNEO4J" : "NEXTPAGEDIFFEVENT";
+          const NEXT_PAGE = whichApi === "neo4j" ? `NEXTPAGEDIFFEVENTNEO4J_${category}` : `NEXTPAGEDIFFEVENT_${district}`;
           const morePage = {
             "title": `See more results`,
             "subtitle": `I can see you more results, if you want`,
@@ -194,7 +195,7 @@ module.exports = {
               {
                 "type": "postback",
                 "title": "View more results",
-                "payload": `${NEXT_PAGE}_${district}:${page+1}`
+                "payload": `${NEXT_PAGE}:${page+1}`
               },
             ]
           };

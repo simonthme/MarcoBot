@@ -1,6 +1,6 @@
 
 module.exports = {
-  queryVisitsByPriceAndType: (PSID, type, price, page) => {
+  queryVisitsByPriceAndType: (PSID, type, page) => {
     return `{
       visitsByPriceAndType(PSID: ${PSID}, type: "${type}", page: ${page}) 
       {
@@ -10,6 +10,7 @@ module.exports = {
     photos
     tags
     types
+    kindElement
     priceRange
     location {
       name

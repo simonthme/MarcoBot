@@ -37,29 +37,21 @@ module.exports = (type, price, senderID) => {
         return recommandationApi.sendQuery(restaurant.queryRestaurantsByPriceAndType(senderID, type, price, 0));
     })
     .then(res => {
-      console.log(res);
-      return product_data.templateList(res.restaurantsByPriceAndType, "RESTAURANT", 0, "neo4j")
+      if (res.restaurantsByPriceAndType.length > 0 && res.restaurantsByPriceAndType !== null) {
+        return product_data.templateList(res.restaurantsByPriceAndType,
+          "RESTAURANT", 0, "neo4j", type, price)
+      } else {
+        return product_data.jokeMarco;
+      }
     })
     .then(result => {
-      dataToSend = Object.assign({}, result);
       delete messageData.sender_action;
-      messageData.message = dataToSend;
+      messageData.message = result;
       return apiMessenger.sendToFacebook(messageData);
     })
-    .then((response) => {
-      if (response.status === 200)
-        return apiMessenger.sendToFacebook({
-          recipient: {id: senderID},
-          sender_action: 'typing_on',
-          messaging_types: "RESPONSE",
-          message: ""
-        })
+    .then(res => {
+      console.log('end restaurants');
     })
-    .then((response) => {
-      if (response.status === 200)
-        return apiMessenger.sendToFacebook(senderID, dataToSend, "RESPONSE")
-    })
-    .then(() => resolve())
     .catch(err => {
       console.log(err.response.data.error);
     });
