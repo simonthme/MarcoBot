@@ -1003,6 +1003,31 @@ module.exports = {
       },
     ]
   },
+  findNothing: {
+    "text": "Sorry I didn't understand, but you can ask me something else",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "SEARCH_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "SEARCH_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "district",
+        "payload": `SEARCH_DISTRICT`,
+      },
+    ]
+  },
   viewMore: (description, kindElement, eventID) => {
     return {
       "text": `${description}`,

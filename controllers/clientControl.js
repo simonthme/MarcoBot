@@ -4,9 +4,13 @@
 const apiMessenger = require('../helpers/apiMessenger');
 const ApiGraphql = require('../helpers/apiGraphql');
 const queryBar = require('../graphql/bar/query');
-const productData = require("../messenger/product_data");
+
+const product_data = require("../messenger/product_data");
 const config = require("../config");
 const helper = require("../helpers/helper");
+const visitHandler = require("../handlers/dialogflowHandler/visit")
+const eatHandler = require("../handlers/dialogflowHandler/eat")
+const drinkHandler = require("../handlers/dialogflowHandler/drink")
 
 const sendMessage = (senderId, data, typeMessage) => {
   return new Promise((resolve, reject) => {
@@ -23,54 +27,19 @@ const sendMessage = (senderId, data, typeMessage) => {
 
 module.exports = {
   checkDialogflow: (senderId, response) => {
-    const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
-    return new Promise((resolve, reject) => {
-      if (response.result.parameters && response.result.parameters.eatdrink === ('bar' || 'drink')) {
-        let dataToSend = {};
-        apiGraphql.sendQuery(queryBar.queryBars(0))
-          .then((res) => {
-            return productData.templateList(res.bars, "BAR", 0, "mongo")
-          })
-          .then(result => {
-            dataToSend = Object.assign({}, result);
-            return sendMessage(senderId, {text: response.result.fulfillment.speech}, "RESPONSE")
-          })
-          .then((response) => {
-            if (response.status === 200)
-              return apiMessenger.sendToFacebook({
-                recipient: {id: senderId},
-                sender_action: 'typing_on',
-                messaging_types: "RESPONSE",
-                message: ""
-              })
-          })
-          .then((response) => {
-            if (response.status === 200)
-              return sendMessage(senderId, dataToSend, "RESPONSE")
-          })
-          .then(() => {
-            if (response.status === 200)
-              return apiMessenger.sendToFacebook({
-                recipient: {id: senderId},
-                sender_action: 'typing_on',
-                messaging_types: "RESPONSE",
-                message: ""
-              })
-          })
-          .then(helper.delayPromise(2000))
-          .then(() => {
-            return sendMessage(senderId, productData.question1MessageListView, "RESPONSE")
-          })
-          .then(() => resolve())
-          .catch(err => {
-            console.log(err);
-          });
-      } else {
-        const result = {text: response.result.fulfillment.speech};
-        sendMessage(senderId, result, "RESPONSE")
-          .then(() => resolve())
-          .catch((err) => reject(err))
+      const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
+      const parameters = response.result.parameters ? response.result.parameters : null;
+      const intent = response.result.metadata ?
+        (response.result.metadata.intentName ? response.result.metadata.intentName : null) : null;
+      switch (intent) {
+        case 'visit_out':
+          return visitHandler(parameters, senderId);
+        case 'drink_out':
+          return drinkHandler(parameters, senderId);
+        case 'eating_out':
+          return eatHandler(parameters, senderId);
+        default:
+          return sendMessage(senderId, product_data.findNothing, "RESPONSE");
       }
-    })
   }
 };
