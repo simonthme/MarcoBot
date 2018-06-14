@@ -11,6 +11,19 @@ const clientControl = require('../controllers/clientControl');
 const product_data = require('../messenger/product_data');
 const config = require("../config")
 
+const sendMessage = (senderId, data, typeMessage) => {
+  return new Promise((resolve, reject) => {
+    const objectToSend = {
+      recipient: {id: senderId},
+      messaging_types: typeMessage,
+      message: data
+    };
+    apiMessenger.sendToFacebook(objectToSend)
+      .then((res) => resolve(res))
+      .catch(err => reject(err));
+  });
+};
+
 module.exports = (event) => {
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   const senderId = event.sender.id;
@@ -30,13 +43,13 @@ module.exports = (event) => {
       apiaiSession.on("response", (response) => {
         //TODO: FAIRE FONCTION QUI CHECK LA REPONSE DU DIALOGFLOW ET DONC DE LA DEMANDE DE L'UTILISATEUR
         console.log("RESPONSE ===> ", response.result);
-        clientControl.checkDialogflow(senderId, response)
-          .then(() => console.log("CHECKING DONE !"))
-          .catch(err => console.log(err));
+        return clientControl.checkDialogflow(senderId, response)
       });
-      apiaiSession.on("error", error => console.log("ERROR dialogflow ===>", error));
+      apiaiSession.on("error", error => {
+        console.log("ERROR dialogflow ===>", error)
+        return sendMessage(senderId, product_data.question1MessageListView, "RESPONSE")
+      });
       apiaiSession.end();
-
     })
     .catch(err => console.log(err));
 };
