@@ -92,6 +92,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
+
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
@@ -132,7 +133,7 @@ module.exports = {
               {
                 "type": "postback",
                 "title": "View more results",
-                "payload": `${NEXT_PAGE}_${kindElement}:${page+1}`
+                "payload": `${NEXT_PAGE}_${kindElement}:${parseInt(page)+1}`
               },
             ]
           };
@@ -195,7 +196,7 @@ module.exports = {
               {
                 "type": "postback",
                 "title": "View more results",
-                "payload": `${NEXT_PAGE}:${page+1}`
+                "payload": `${NEXT_PAGE}:${parseInt(page)+1}`
               },
             ]
           };
@@ -287,6 +288,31 @@ module.exports = {
   },
   question1Message: {
     "text": "So, what's your mood?",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "SEARCH_VISIT",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "SEARCH_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "Districts",
+        "payload": "SEARCH_DISTRICT",
+      }
+    ]
+  },
+  backQuestion: {
+    "text": "Do not hesitate to try something else :",
     "quick_replies": [
       {
         "content_type": "text",

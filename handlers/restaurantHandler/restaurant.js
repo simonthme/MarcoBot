@@ -13,12 +13,13 @@ module.exports = (type, price, senderID) => {
     },
     message: ''
   };
-  let dataToSend = {};
   messageData.message = product_data.fetchRestaurantsMessage;
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   const recommandationApi = new ApiGraphql(config.category[config.indexCategory].recommendationApilUrl, config.accessTokenRecommendationApi);
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
+      console.log(type);
+      console.log(price);
       if (response.status === 200)
         return apiGraphql.sendMutation(userMutation.addCategoryByAccountMessenger(), {
           PSID: senderID.toString(),
@@ -50,7 +51,13 @@ module.exports = (type, price, senderID) => {
       return apiMessenger.sendToFacebook(messageData);
     })
     .then(res => {
-      console.log('end restaurants');
+      if (res.status === 200) {
+        messageData.message = product_data.backQuestion;
+        return apiMessenger.sendToFacebook(messageData);
+      }
+    })
+    .then(res => {
+     console.log('end restaurant');
     })
     .catch(err => {
       console.log(err.response.data.error);

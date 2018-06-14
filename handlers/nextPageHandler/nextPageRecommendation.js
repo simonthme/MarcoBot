@@ -1,24 +1,32 @@
 /**
  * Created by corentin on 13/06/2018.
  */
-module.exports = (params, senderID) => {
+const product_data = require("../../messenger/product_data");
+const apiMessenger = require("../../helpers/apiMessenger");
+const ApiGraphql = require("../../helpers/apiGraphql");
+const restaurant = require('../../graphql/restaurant/query');
+const bar = require('../../graphql/bar/query');
+const config = require('../../config');
+module.exports = (type, price, params, senderID) => {
   let messageData = {
     recipient: {
       id: senderID
     },
     message: ''
   };
-  const tempParams = params.split("_");
-  const type = tempParams[0];
-  const tempParams2 = tempParams[1].split(":");
-  const price = tempParams2[0];
-  const page  = tempParams2[1];
+  console.log('PARAMS');
+  console.log(params);
+  const tempParams = params.split(":");
+  const event = tempParams[0].toLowerCase();
+  const page = tempParams[1];
+  const queryType = event === 'restaurant' ? restaurant.queryRestaurantsByPriceAndType(senderID, type, price, page) : bar.queryBarsByPriceAndType(senderID, type, price, 0)
   const recommandationApi = new ApiGraphql(config.category[config.indexCategory].recommendationApilUrl, config.accessTokenRecommendationApi);
-  recommandationApi.sendQuery(restaurant.queryRestaurantsByPriceAndType(senderID, type, price, page));
-  then(res => {
-    if (res.restaurantsByPriceAndType.length > 0 && res.restaurantsByPriceAndType !== null) {
-      return product_data.templateList(res.restaurantsByPriceAndType,
-        "RESTAURANT", 0, "neo4j", type, price)
+  const conditionType = event === 'restaurant' ? 'restaurantsByPriceAndType' : 'barsByPriceAndType';
+  recommandationApi.sendQuery(queryType)
+   .then(res => {
+    if (res[conditionType].length > 0 && res[conditionType] !== null) {
+      return product_data.templateList(res[conditionType],
+        tempParams[0], page, "neo4j", type, price)
     } else {
       return product_data.jokeMarco;
     }

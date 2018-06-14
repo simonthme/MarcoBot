@@ -50,7 +50,9 @@ module.exports = (event) => {
         nextPageEventHandler(payloadType[1], senderID);
         break;
       case 'NEXTPAGENEO4J':
-        nextPageRecommendationHandler(payloadType[1], senderID);
+        console.log('PAyLOdgjsdkg');
+          console.log(payloadType[1]);
+        nextPageRecommendationHandler(payloadType[1], payloadType[2], payloadType[3], senderID);
         break;
       case 'NEXTPAGEDIFFEVENT':
         nextPageDiffEventHandler(payload.slice(18), senderID);
