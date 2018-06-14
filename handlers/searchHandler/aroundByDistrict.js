@@ -84,6 +84,5 @@ module.exports = (_district, senderID) => {
         return sendMessage(senderID, product_data.nothingInThisDistrict, "RESPONSE")
       }
     })
-
     .catch(err => console.log(err))
 };

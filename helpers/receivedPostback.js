@@ -53,10 +53,10 @@ module.exports = (event) => {
         nextPageRecommendationHandler(payloadType[1], senderID);
         break;
       case 'NEXTPAGEDIFFEVENT':
-        nextPageDiffEventHandler(payloadType[1], senderID);
+        nextPageDiffEventHandler(payload.slice(18), senderID);
         break;
       case 'NEXTPAGEDIFFEVENTNEO4J':
-        nextPageDiffEventRecommendationHandler(payloadType[1], senderID);
+        nextPageDiffEventRecommendationHandler(payload.slice(24), senderID);
         break;
       default :
         postbackDefault(senderID);
