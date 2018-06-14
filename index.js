@@ -38,7 +38,7 @@ axios.post(Config.category[Config.indexCategory].authUrlMarcoApi, {clientId: Con
 app.get('/setup', (req, res) => {
   apiMessenger.callbackStartButton(product_data.getStartedData)
     .then(response => {
-      console.log(response.data);
+      console.log('ALLOOOO', response.data);
       return apiMessenger.callbackStartButton(product_data.menuData)
     })
     .then(response => {
