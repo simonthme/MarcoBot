@@ -10,6 +10,7 @@ module.exports = {
           timezone,
           createAt,
           deleted,
+          subscribe,
           locale
         }
     }`

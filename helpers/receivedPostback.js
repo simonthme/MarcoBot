@@ -1,8 +1,3 @@
-const product_data = require('../messenger/product_data');
-const apiMessenger = require('./apiMessenger');
-const apiGraphql = require('./apiGraphql');
-const userMessenger = require('../graphql/accountMessenger/query');
-const helper = require('../helpers/helper');
 const postbackDefault = require('../messenger/postbackBlocks/default');
 const initHandler = require('../handlers/initHandler/init');
 const priceHandlerRestaurant = require('../handlers/priceHandler/restaurantIndex');
@@ -15,6 +10,9 @@ const nextPageDiffEventHandler = require('../handlers/nextPageHandler/nextPageDi
 const nextPageRecommendationHandler = require('../handlers/nextPageHandler/nextPageRecommendation');
 const nextPageDiffEventRecommendationHandler = require('../handlers/nextPageHandler/nextPageDiffEventRecommendation');
 const laterViewHandler = require('../handlers/laterViewHandler/laterView');
+const helpHandler = require('../handlers/helpHandler/help');
+const unsubscribeHandler = require('../handlers/unsubscribeHandler/unsubscribe');
+const shareHandler = require('../handlers/shareHandler/share');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -51,8 +49,6 @@ module.exports = (event) => {
         nextPageEventHandler(payloadType[1], senderID);
         break;
       case 'NEXTPAGENEO4J':
-        console.log('PAyLOdgjsdkg');
-          console.log(payloadType[1]);
         nextPageRecommendationHandler(payloadType[1], payloadType[2], payloadType[3], senderID);
         break;
       case 'NEXTPAGEDIFFEVENT':
@@ -63,6 +59,15 @@ module.exports = (event) => {
         break;
       case 'MYFAVORITE':
         laterViewHandler(payloadType[1], senderID);
+        break;
+      case 'HELP':
+        helpHandler(senderID);
+        break;
+      case  'UNSUBSCRIBE':
+        unsubscribeHandler(senderID);
+        break;
+        case  'INVITE':
+        shareHandler(senderID);
         break;
       default :
         postbackDefault(senderID);

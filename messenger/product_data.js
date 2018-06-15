@@ -3,7 +3,8 @@
  */
 const Config = require("../config");
 const async = require("async");
-const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday",
+  "friday", "saturday"];
 
 const generateSubtitle = (elem, TODAY) => {
   return new Promise((resolve, reject) => {
@@ -29,7 +30,8 @@ const generateSubtitle = (elem, TODAY) => {
         break;
     }
     let schedule = "🕐 ";
-    const daySchedule = elem.schedule ? elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
+    const daySchedule = elem.schedule ?
+      elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
     if (daySchedule.length > 0) {
       daySchedule.map((day, i) => {
         schedule = schedule.concat(day.start, ' - ', day.end, ' ');
@@ -103,7 +105,8 @@ module.exports = {
       }
     ]
   },
-  templateList: (list, kindElement, page, whichApi, category = '', price = 0) => {
+  templateList: (list, kindElement, page, whichApi, category = '',
+                 price = 0) => {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
@@ -139,8 +142,9 @@ module.exports = {
           .catch(() => callback("AILLE"))
       }, (err) => {
         if (err) return reject(err);
-        if (arrayOfElement.length === 5){
-          const NEXT_PAGE = whichApi === "neo4j" ? `NEXTPAGENEO4J_${category}_${price}` : "NEXTPAGEEVENT";
+        if (arrayOfElement.length === 5) {
+          const NEXT_PAGE = whichApi === "neo4j" ?
+            `NEXTPAGENEO4J_${category}_${price}` : "NEXTPAGEEVENT";
           const morePage = {
             "title": `See more results`,
             "subtitle": `I can see you more results, if you want`,
@@ -148,7 +152,7 @@ module.exports = {
               {
                 "type": "postback",
                 "title": "View more results",
-                "payload": `${NEXT_PAGE}_${kindElement}:${parseInt(page)+1}`
+                "payload": `${NEXT_PAGE}_${kindElement}:${parseInt(page) + 1}`
               },
             ]
           };
@@ -166,7 +170,8 @@ module.exports = {
       })
     })
   },
-  templateListFromDifferentEvent: (list, page, district, whichApi, category = '') => {
+  templateListFromDifferentEvent: (list, page, district, whichApi,
+                                   category = '') => {
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
@@ -192,7 +197,8 @@ module.exports = {
                 {
                   "type": "postback",
                   "title": "View more",
-                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id || elem._id}`
+                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id ||
+                  elem._id}`
                 },
               ]
             };
@@ -202,8 +208,10 @@ module.exports = {
           .catch(() => callback("AILLE"))
       }, (err) => {
         if (err) return reject(err);
-        if (arrayOfElement.length === 5){
-          const NEXT_PAGE = whichApi === "neo4j" ? `NEXTPAGEDIFFEVENTNEO4J_${category}` : `NEXTPAGEDIFFEVENT_${district}`;
+        if (arrayOfElement.length === 5) {
+          const NEXT_PAGE = whichApi === "neo4j" ?
+            `NEXTPAGEDIFFEVENTNEO4J_${category}` :
+            `NEXTPAGEDIFFEVENT_${district}`;
           const morePage = {
             "title": `See more results`,
             "subtitle": `I can see you more results, if you want`,
@@ -211,7 +219,7 @@ module.exports = {
               {
                 "type": "postback",
                 "title": "View more results",
-                "payload": `${NEXT_PAGE}:${parseInt(page)+1}`
+                "payload": `${NEXT_PAGE}:${parseInt(page) + 1}`
               },
             ]
           };
@@ -249,7 +257,8 @@ module.exports = {
                 {
                   "type": "postback",
                   "title": "View more",
-                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id || elem._id}`
+                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id ||
+                  elem._id}`
                 },
               ]
             };
@@ -259,7 +268,7 @@ module.exports = {
           .catch(() => callback("AILLE"))
       }, (err) => {
         if (err) return reject(err);
-        if (arrayOfElement.length === 5){
+        if (arrayOfElement.length === 5) {
           const morePage = {
             "title": `See more results`,
             "subtitle": `I can see you more results, if you want`,
@@ -267,7 +276,7 @@ module.exports = {
               {
                 "type": "postback",
                 "title": "View more results",
-                "payload": `MYFAVORITE_${parseInt(page)+1}`
+                "payload": `MYFAVORITE_${parseInt(page) + 1}`
               },
             ]
           };
@@ -287,14 +296,14 @@ module.exports = {
   },
   initialMessage(user) {
     return {
-      "text": `Hi ${user.firstName} ! 👋 \nI'm Marco your parisian travel assistant. 🙂`
+      "text": `Hi ${user.firstName} ! 👋 \nI’m Marco your own personal travel assistant. My goal is to make your trip an authentic experience by giving you the best insider tips, making sure you don’t miss out on anything and stay away from tourist traps. 🙂`
     }
   },
   missionMessage: {
-    "text": `My mission is to make feel like a local in this amazing city. 🇫🇷 `
+    "text": `Before we go any further, I’d like to optimize your experience by getting to know you a little bit better. `
   },
   experienceMessage: {
-    "text": `With me, your trip becomes a unique experience! ❤️`
+    "text": `Great ! 🎉 ️`
   },
   myWorkMessage: {
     "text": 'Even before you think about it, I’ll instantly show you the best of Paris. You’ll be sure not to miss out on anything and stay away from tourist traps.'
@@ -304,12 +313,12 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Yes let's go!",
+        "title": "Yes",
         "payload": "EXCITEMENT_CONFIRM",
       },
       {
         "content_type": "text",
-        "title": "No I don't need you",
+        "title": "No",
         "payload": "EXCITEMENT_CANCEL",
       }
     ]
@@ -333,7 +342,7 @@ module.exports = {
     "text": "Could you tell me? "
   },
   preQuestionMessage: {
-    "text": "Just before starting with your personalized travel experience, I'd like to ask you some questions. 🤓 Just between you and me, 🤫 with who are you traveling?",
+    "text": "Would you mind telling me with whom you are traveling ? 🤫",
     "quick_replies": [
       {
         "content_type": "text",
@@ -358,61 +367,61 @@ module.exports = {
     ]
   },
   question1Message: {
-    "text": "So, what's your mood?",
+    "text": "Now tell me, what do you feel like doing today?",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Visiting",
+        "title": "📸 Visit",
         "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
-        "title": "Districts",
+        "title": "🚶‍♂️ Walk around",
         "payload": "SEARCH_DISTRICT",
       }
     ]
   },
   backQuestion(EVENT) {
-   return {
-     "text": "Do not hesitate to try something else :",
-     "quick_replies": [
-       {
-         "content_type": "text",
-         "title": "🔙 Change category",
-         "payload": `CATEGORY_${EVENT}`,
-       },
-       {
-         "content_type": "text",
-         "title": "Visiting",
-         "payload": "SEARCH_VISIT",
-       },
-       {
-         "content_type": "text",
-         "title": "I'm hungry",
-         "payload": "SEARCH_RESTAURANT",
-       },
-       {
-         "content_type": "text",
-         "title": "I'm thirsty",
-         "payload": "SEARCH_BAR",
-       },
-       {
-         "content_type": "text",
-         "title": "Districts",
-         "payload": "SEARCH_DISTRICT",
-       }
-     ]
-   }
+    return {
+      "text": "Do not hesitate to try something else :",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "🔙 Change category",
+          "payload": `CATEGORY_${EVENT}`,
+        },
+        {
+          "content_type": "text",
+          "title": "Visiting",
+          "payload": "SEARCH_VISIT",
+        },
+        {
+          "content_type": "text",
+          "title": "I'm hungry",
+          "payload": "SEARCH_RESTAURANT",
+        },
+        {
+          "content_type": "text",
+          "title": "I'm thirsty",
+          "payload": "SEARCH_BAR",
+        },
+        {
+          "content_type": "text",
+          "title": "Districts",
+          "payload": "SEARCH_DISTRICT",
+        }
+      ]
+    }
   },
   question1MessageAfterLocation: {
     "text": "I'm sure that you will enjoy it ☺, if you want something else do not hesitate to flag me",
@@ -1225,5 +1234,56 @@ module.exports = {
   },
   jokeMarco: {
     "text": "I stepped on a Corn Flake, now I'm a Cereal Killer"
+  },
+  helpMessage: {
+    "text": "You're lost? \nMarco is a personal travel assistant giving the best insider tips just for you.\n\nYou can manage your account by checking out the menu. 😉"
+  },
+  unsubscribeMessage: {
+    "text": "Done! ✅ Could you tell me in a few words why? It will help me getting better. 🙂 \n\n\nNevertheless if you want to delete your account, email us at hello@marcobot.io "
+  },
+  unsubscribeMessageError: {
+    "text": "Oops! Something wrong happened... Please email at hello@marcobot.io"
+  },
+  shareMessage: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "Share",
+            "image_url": "https://api.marco-app.com/api/image/minArc.jpg",
+            "subtitle": "Marco bot",
+            "buttons": [
+              {
+                "type": "element_share",
+                "share_contents": {
+                  "attachment": {
+                    "type": "template",
+                    "payload": {
+                      "template_type": "generic",
+                      "elements": [
+                        {
+                          "title": "Marco",
+                          "image_url": "https://api.marco-app.com/api/image/minArc.jpg",
+                          "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
+                          "buttons": [{
+                            "type": "web_url",
+                            "url": "http://m.me/marco.bot.paris",
+                            "title": "Start me"
+                          }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
   }
-};
+}
+;

@@ -20,6 +20,20 @@ module.exports = (senderID, travelType) => {
   apiGraphql.sendMutation(userMutation.updateUserByAccountMessenger(), user)
     .then(response => {
       if(response.updateUserByAccountMessenger !== null) {
+        messageData.message = product_data.letsGoMessage;
+        return apiMessenger.sendToFacebook(messageData)
+      }
+    })
+    .then(response => {
+      delete messageData.message;
+      messageData.sender_action = 'typing_on';
+      if (response.status === 200)
+        return apiMessenger.sendToFacebook(messageData);
+    })
+    .then(helper.delayPromise(1000))
+    .then(response => {
+      if(response.status === 200) {
+        delete messageData.sender_action;
         messageData.message = product_data.question1Message;
         return apiMessenger.sendToFacebook(messageData)
       }

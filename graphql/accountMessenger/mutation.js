@@ -11,6 +11,16 @@ module.exports = {
         }
       }
     `
+  },
+  updateSubAccountMessenger: () => {
+    return `mutation updateSubscription($PSID: ID!, $subscribe: Boolean){
+        updateSubscription(PSID: $PSID, subscribe: $subscribe) {
+          PSID,
+          id
+          subscribe
+        }
+      }
+    `
   }
 };
 

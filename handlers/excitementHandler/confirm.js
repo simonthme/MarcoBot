@@ -8,15 +8,20 @@ module.exports = (senderID) => {
     },
     message: ''
   };
-  messageData.message = product_data.letsGoMessage;
+  messageData.message = product_data.experienceMessage;
   apiMessenger.sendToFacebook(messageData)
+    .then(response => {
+      messageData.message = product_data.missionMessage;
+      if (response.status === 200)
+        return  apiMessenger.sendToFacebook(messageData);
+    })
     .then(response => {
       delete messageData.message;
       messageData.sender_action = 'typing_on';
       if (response.status === 200)
         return apiMessenger.sendToFacebook(messageData);
     })
-    .then(helper.delayPromise(1000))
+    .then(helper.delayPromise(2000))
     .then(response => {
       delete messageData.sender_action;
       messageData.message = product_data.preQuestionMessage;
