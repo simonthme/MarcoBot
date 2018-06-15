@@ -66,13 +66,18 @@ module.exports = {
                 "payload": "EVENT_INFO"
               },
               {
+                "title": "My later view",
+                "type": "postback",
+                "payload": "MYFAVORITE_0"
+              },
+              {
                 "type": "web_url",
                 "title": "More about Marco",
                 "url": "https://www.marco-app.com/",
                 "webview_height_ratio": "full"
-              }
+              },
             ]
-          }
+          },
         ]
       }
     ]
@@ -197,6 +202,62 @@ module.exports = {
                 "type": "postback",
                 "title": "View more results",
                 "payload": `${NEXT_PAGE}:${parseInt(page)+1}`
+              },
+            ]
+          };
+          arrayOfElement.push(morePage)
+        }
+        return resolve({
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": arrayOfElement
+            }
+          }
+        });
+      })
+    })
+  },
+  templateLaterView: (list, page) => {
+    return new Promise((resolve, reject) => {
+      const TODAY = new Date();
+      const arrayOfElement = [];
+      async.each(list, (elem, callback) => {
+        generateSubtitle(elem, TODAY)
+          .then(res => {
+            const element = {
+              "title": `${elem.name}`,
+              "image_url": `${Config.category[1].apiUrl}/image/${elem.photos[0]}`,
+              "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Let's go!",
+                  "payload": `GOING_${elem.kindElement}:${elem.id || elem._id}`
+                },
+                {
+                  "type": "postback",
+                  "title": "View more",
+                  "payload": `VIEWMORE_${elem.kindElement}:${elem.id || elem._id}`
+                },
+              ]
+            };
+            arrayOfElement.push(element);
+            callback()
+          })
+          .catch(() => callback("AILLE"))
+      }, (err) => {
+        if (err) return reject(err);
+        if (arrayOfElement.length === 5){
+          const morePage = {
+            "title": `See more results`,
+            "subtitle": `I can see you more results, if you want`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "View more results",
+                "payload": `MYFAVORITE_${parseInt(page)+1}`
               },
             ]
           };
@@ -413,6 +474,31 @@ module.exports = {
   },
   question1MessageListView: {
     "text": "If you want something else do not hesitate to flag me",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Visiting",
+        "payload": "SEARCH_SITE",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm hungry",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "I'm thirsty",
+        "payload": "SEARCH_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "District",
+        "payload": "SEARCH_DISTRICT1",
+      },
+    ]
+  },
+  nothingMore: {
+    "text": "Sorry, it's look like there are no more, if you want something else do not hesitate to flag me",
     "quick_replies": [
       {
         "content_type": "text",

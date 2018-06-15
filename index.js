@@ -29,16 +29,16 @@ axios.post(Config.category[Config.indexCategory].authUrlMarcoApi, {clientId: Con
   .catch(err => console.log(err));
 
 //TODO: décommenter quand api recommendation sera disponible
-axios.post(Config.category[Config.indexCategory].authUrlRecommendationApi, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
-  .then(res => {
-    Config.accessTokenRecommendationApi = res.data.token;
-  })
-  .catch(err => console.log(err));
+// axios.post(Config.category[Config.indexCategory].authUrlRecommendationApi, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
+//   .then(res => {
+//     Config.accessTokenRecommendationApi = res.data.token;
+//   })
+//   .catch(err => console.log(err));
 
 app.get('/setup', (req, res) => {
   apiMessenger.callbackStartButton(product_data.getStartedData)
     .then(response => {
-      console.log(response.data);
+      console.log('ALLOOOO', response.data);
       return apiMessenger.callbackStartButton(product_data.menuData)
     })
     .then(response => {

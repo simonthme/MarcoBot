@@ -21,7 +21,7 @@ const sendMessage = (senderId, data, typeMessage) => {
   });
 };
 
-module.exports = (parameters,senderId) => {
+module.exports = (parameters, senderId) => {
   let dataToSend = {};
   console.log("PARAMETERS ==> " , parameters);
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);

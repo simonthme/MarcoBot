@@ -14,6 +14,7 @@ const visitHandler = require('../handlers/visitHandler/typeIndex');
 const nextPageDiffEventHandler = require('../handlers/nextPageHandler/nextPageDiffEvent');
 const nextPageRecommendationHandler = require('../handlers/nextPageHandler/nextPageRecommendation');
 const nextPageDiffEventRecommendationHandler = require('../handlers/nextPageHandler/nextPageDiffEventRecommendation');
+const laterViewHandler = require('../handlers/laterViewHandler/laterView');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -59,6 +60,9 @@ module.exports = (event) => {
         break;
       case 'NEXTPAGEDIFFEVENTNEO4J':
         nextPageDiffEventRecommendationHandler(payload.slice(24), senderID);
+        break;
+      case 'MYFAVORITE':
+        laterViewHandler(payloadType[1], senderID);
         break;
       default :
         postbackDefault(senderID);

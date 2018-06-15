@@ -1,4 +1,5 @@
 const visitHandler = require('./visit');
+
 module.exports = (payload, senderID) => {
   switch (payload) {
     case 'HISTORICAL':
