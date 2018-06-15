@@ -646,13 +646,13 @@ module.exports = {
     }
   },
   selectionSite: {
-    "text": "Great choice! 🎉",
+    "text": "Perfect! 🎉",
   },
   saveLater: {
     "text": "Ok, no problem I will save it for you !🎉",
   },
   selectionSite2: {
-    "text": "But wait, what type of visits are you interested in? "
+    "text": "I just need you to tell the kind of places  you’re looking forward to visiting.\n "
   },
   selectionSiteType: {
     "attachment": {
@@ -1227,13 +1227,13 @@ module.exports = {
     "text": "Check what I found for you: "
   },
   fetchVisitsMessage: {
-    "text": "Check what I found for you: "
+    "text": "Sure thing!! This is what I found for you:: "
   },
   fetchBarsMessage: {
     "text": "Check that out: "
   },
   jokeMarco: {
-    "text": "I stepped on a Corn Flake, now I'm a Cereal Killer"
+    "text": "Sorry! There's nothing left in stock... \nBut here's a joke for you while we work on it:\nWhat do you call a spider working in IT ?\n\n...\n\n\nA web designer. 😂"
   },
   helpMessage: {
     "text": "You're lost? \nMarco is a personal travel assistant giving the best insider tips just for you.\n\nYou can manage your account by checking out the menu. 😉"
