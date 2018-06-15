@@ -52,7 +52,7 @@ module.exports = (type, price, senderID) => {
     })
     .then(res => {
       if (res.status === 200) {
-        messageData.message = product_data.backQuestion;
+        messageData.message = product_data.backQuestion("RESTAURANT");
         return apiMessenger.sendToFacebook(messageData);
       }
     })

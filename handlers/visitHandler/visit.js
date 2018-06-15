@@ -49,6 +49,15 @@ module.exports = (type, senderID) => {
       messageData.message = result;
       return apiMessenger.sendToFacebook(messageData);
     })
+    .then(res => {
+      if (res.status === 200) {
+        messageData.message = product_data.backQuestion("RESTAURANT");
+        return apiMessenger.sendToFacebook(messageData);
+      }
+    })
+    .then(() => {
+      console.log('end visit');
+    })
     .catch(err => {
       console.log(err.response.data.error);
     });

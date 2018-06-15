@@ -57,27 +57,37 @@ module.exports = {
         "composer_input_disabled": false,
         "call_to_actions": [
           {
-            "title": "My Account",
+            "title": "👤 My account",
             "type": "nested",
             "call_to_actions": [
               {
-                "title": "Info",
+                "title": "Help",
                 "type": "postback",
-                "payload": "EVENT_INFO"
+                "payload": "HELP"
               },
               {
-                "title": "My later view",
+                "title": "Unsubscribe",
                 "type": "postback",
-                "payload": "MYFAVORITE_0"
+                "payload": "UNSUBSCRIBE"
               },
               {
-                "type": "web_url",
-                "title": "More about Marco",
-                "url": "https://www.marco-app.com/",
-                "webview_height_ratio": "full"
-              },
+                "title": "Restart",
+                "type": "postback",
+                "payload": "INIT"
+              }
             ]
           },
+          {
+            "title": "🧡 Favorites",
+            "type": "postback",
+            "payload": "MYFAVORITE_0"
+          },
+          {
+            "title": "💌 Invite a friend",
+            "type": "postback",
+            "payload": "INVITE"
+          },
+
         ]
       }
     ]
@@ -372,30 +382,37 @@ module.exports = {
       }
     ]
   },
-  backQuestion: {
-    "text": "Do not hesitate to try something else :",
-    "quick_replies": [
-      {
-        "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_VISIT",
-      },
-      {
-        "content_type": "text",
-        "title": "I'm hungry",
-        "payload": "SEARCH_RESTAURANT",
-      },
-      {
-        "content_type": "text",
-        "title": "I'm thirsty",
-        "payload": "SEARCH_BAR",
-      },
-      {
-        "content_type": "text",
-        "title": "Districts",
-        "payload": "SEARCH_DISTRICT",
-      }
-    ]
+  backQuestion(EVENT) {
+   return {
+     "text": "Do not hesitate to try something else :",
+     "quick_replies": [
+       {
+         "content_type": "text",
+         "title": "🔙 Change category",
+         "payload": `CATEGORY_${EVENT}`,
+       },
+       {
+         "content_type": "text",
+         "title": "Visiting",
+         "payload": "SEARCH_VISIT",
+       },
+       {
+         "content_type": "text",
+         "title": "I'm hungry",
+         "payload": "SEARCH_RESTAURANT",
+       },
+       {
+         "content_type": "text",
+         "title": "I'm thirsty",
+         "payload": "SEARCH_BAR",
+       },
+       {
+         "content_type": "text",
+         "title": "Districts",
+         "payload": "SEARCH_DISTRICT",
+       }
+     ]
+   }
   },
   question1MessageAfterLocation: {
     "text": "I'm sure that you will enjoy it ☺, if you want something else do not hesitate to flag me",

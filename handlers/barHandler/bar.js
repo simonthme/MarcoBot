@@ -47,8 +47,13 @@ module.exports = (type, price, senderID) => {
     .then(result => {
       delete messageData.sender_action;
       messageData.message = result;
-      console.log(messageData);
       return apiMessenger.sendToFacebook(messageData);
+    })
+    .then(res => {
+      if (res.status === 200) {
+        messageData.message = product_data.backQuestion("BAR");
+        return apiMessenger.sendToFacebook(messageData);
+      }
     })
     .then(res => {
       console.log('end bar');
