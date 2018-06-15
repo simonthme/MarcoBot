@@ -24,7 +24,7 @@ const sendMessage = (senderId, data, typeMessage) => {
 };
 
 module.exports = (page, senderID) => {
-  let dataToSend = {}
+  let dataToSend = {};
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(userQuery.queryUserByAccountMessenger(senderID))
     .then(res => {
@@ -49,7 +49,7 @@ module.exports = (page, senderID) => {
           }
         }, (err) => {
           if (err) return sendMessage(senderID,
-            {text: "Ooops looks like something wrong, try again later"}, "RESPONSE");
+            {text: "Hmmm... I think the machine's gone crazy! Try again later."}, "RESPONSE");
           return product_data.templateLaterView(newResponses, page)
             .then(results => {
               dataToSend = Object.assign({}, results);

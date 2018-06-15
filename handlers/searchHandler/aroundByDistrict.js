@@ -7,7 +7,7 @@ const apiMessenger = require("../../helpers/apiMessenger");
 const helper = require("../../helpers/helper");
 const config = require("../../config");
 const ApiGraphql = require("../../helpers/apiGraphql");
-const indexLocationQuery = require("../../graphql/indexLocation/query")
+const indexLocationQuery = require("../../graphql/indexLocation/query");
 
 const sendMessage = (senderId, data, typeMessage) => {
   return new Promise((resolve, reject) => {
@@ -43,12 +43,12 @@ module.exports = (_district, senderID) => {
           }
         }, (err) => {
           if(err) return sendMessage(senderID,
-            {text: "Ooops looks like something wrong, try again later"}, "RESPONSE");
+            {text: "Hmmm... I think the machine's gone crazy! Try again later."}, "RESPONSE");
           return product_data.templateListFromDifferentEvent(newResponses, 0, _district, "mongo")
             .then(result => {
               if (result) {
                 dataToSend = Object.assign({}, result);
-                return sendMessage(senderID, {text: "Nice, I love this district 😉"}, "RESPONSE")
+                return sendMessage(senderID, {text: "Good choice, I love this district! 😉"}, "RESPONSE")
               }
             })
             .then((response) => {

@@ -46,7 +46,7 @@ module.exports = (payload, senderID) => {
           }
         }, (err) => {
           if(err) return sendMessage(senderID,
-            {text: "Ooops looks like something wrong, try again later"}, "RESPONSE");
+            {text: "Hmmm... I think the machine's gone crazy! Try again later."}, "RESPONSE");
           return product_data.templateListFromDifferentEvent(newResponses, page, _district, "mongo")
             .then(result => {
               if (result) {

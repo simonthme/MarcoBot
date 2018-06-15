@@ -101,7 +101,7 @@ module.exports = {
         "text": "Marco is your personal travel assistant available 24h/24h on Facebook Messenger! ✈️ "
       }, {
         "locale": "en_US",
-        "text": "Greeting text for en_US local !"
+        "text": "Marco is your personal travel assistant available 24h/24h on Facebook Messenger! ✈"
       }
     ]
   },
@@ -146,12 +146,12 @@ module.exports = {
           const NEXT_PAGE = whichApi === "neo4j" ?
             `NEXTPAGENEO4J_${category}_${price}` : "NEXTPAGEEVENT";
           const morePage = {
-            "title": `See more results`,
-            "subtitle": `I can see you more results, if you want`,
+            "title": `See more`,
+            "subtitle": `Let me show you more results.`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "View more results",
+                "title": "Show more results",
                 "payload": `${NEXT_PAGE}_${kindElement}:${parseInt(page) + 1}`
               },
             ]
@@ -213,12 +213,12 @@ module.exports = {
             `NEXTPAGEDIFFEVENTNEO4J_${category}` :
             `NEXTPAGEDIFFEVENT_${district}`;
           const morePage = {
-            "title": `See more results`,
-            "subtitle": `I can see you more results, if you want`,
+            "title": `See more`,
+            "subtitle": `Let me show you more results.`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "View more results",
+                "title": "Show more results",
                 "payload": `${NEXT_PAGE}:${parseInt(page) + 1}`
               },
             ]
@@ -270,12 +270,12 @@ module.exports = {
         if (err) return reject(err);
         if (arrayOfElement.length === 5) {
           const morePage = {
-            "title": `See more results`,
-            "subtitle": `I can see you more results, if you want`,
+            "title": `See more`,
+            "subtitle": `Let me show you more results.`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "View more results",
+                "title": "Show more results",
                 "payload": `MYFAVORITE_${parseInt(page) + 1}`
               },
             ]
@@ -330,7 +330,7 @@ module.exports = {
     "text": "Awesome!! 👌🚀"
   },
   letsGoMessage2: {
-    "text": "So we're going there, my dear friend 🧐"
+    "text": "Ok then! We're on the way there. 🧐"
   },
   noNeedMessage: {
     "text": "Oh! That's a shame! 😢"
@@ -402,79 +402,79 @@ module.exports = {
         },
         {
           "content_type": "text",
-          "title": "Visiting",
+          "title": "📸 Visit",
           "payload": "SEARCH_VISIT",
         },
         {
           "content_type": "text",
-          "title": "I'm hungry",
+          "title": "🍽 Eat",
           "payload": "SEARCH_RESTAURANT",
         },
         {
           "content_type": "text",
-          "title": "I'm thirsty",
+          "title": "🍸 Drink",
           "payload": "SEARCH_BAR",
         },
         {
           "content_type": "text",
-          "title": "Districts",
+          "title": "🚶‍♂️ Walk around",
           "payload": "SEARCH_DISTRICT",
         }
       ]
     }
   },
   question1MessageAfterLocation: {
-    "text": "I'm sure that you will enjoy it ☺, if you want something else do not hesitate to flag me",
+    "text": "I’m sure you’ll enjoy yourself here! 🙂 If you have any further queries, don’t hesitate to tell me. ",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_SITE",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
-        "title": "Districts",
+        "title": "🚶‍♂️ Walk around",
         "payload": "SEARCH_DISTRICT",
       }
     ]
   },
   question1MessageAfterLater: {
-    "text": "Meanwhile, if you want something else do not hesitate to flag me ",
+    "text": "Enjoy yourself in the meantime and if you have any further queries, don’t hesitate to tell me. ",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_SITE",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
-        "title": "Districts",
+        "title": "🚶‍♂️ Walk around",
         "payload": "SEARCH_DISTRICT",
       }
     ]
   },
   question1MessageAfterDistrict: {
-    "text": "If you want something else do not hesitate to flag me",
+    "text": "If you have any further queries, don’t hesitate to tell me",
     "quick_replies": [
       {
         "content_type": "text",
@@ -483,81 +483,81 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_SITE",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       }
     ]
   },
   question1MessageListView: {
-    "text": "If you want something else do not hesitate to flag me",
+    "text": "If you have any further queries, don’t hesitate to tell me.",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_SITE",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
-        "title": "District",
-        "payload": "SEARCH_DISTRICT1",
-      },
+        "title": "🚶‍♂️ Walk around",
+        "payload": "SEARCH_DISTRICT",
+      }
     ]
   },
   nothingMore: {
-    "text": "Sorry, it's look like there are no more, if you want something else do not hesitate to flag me",
+    "text": "Sorry! There's nothing left in stock... If you have any other queries, don’t hesitate to tell me.",
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_SITE",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
-        "title": "District",
-        "payload": "SEARCH_DISTRICT1",
-      },
+        "title": "🚶‍♂️ Walk around",
+        "payload": "SEARCH_DISTRICT",
+      }
     ]
   },
   rememberLocation: (eventID, kindEvent) => {
     return {
-      "text": "So, can you remind me your location? It has been a long time 🙈",
+      "text": "Could you just help me remember your location? We haven't talked in a while. 🙈",
       "quick_replies": [
         {
           "content_type": "location",
         },
         {
           "content_type": "text",
-          "title": "No, use my old position",
+          "title": "No, use my old location",
           "payload": `USEOLDLOCATIONEVENT_${kindEvent}:${eventID}`,
         }
       ]
@@ -565,7 +565,7 @@ module.exports = {
   },
   updateLocation: () => {
     return {
-      "text": "You can update your location if you want by clicking the button",
+      "text": "You can update your location, if you want, by clicking the button.",
       "quick_replies": [
         {
           "content_type": "location",
@@ -580,7 +580,7 @@ module.exports = {
   },
   askLocation: (nameUser, eventID, kindEvent) => {
     return {
-      "text": `I like your determination 👊, but before can you send me your location? \nDon't worry ${nameUser} I will do nothing with it, It's just to help you to get the easiest way to go there.`,
+      "text": `I love your determination! 👊. Don’t worry though ${nameUser}, your data is safe with me and won’t be used any other way.`,
       "quick_replies": [
         {
           "content_type": "location",
@@ -601,7 +601,7 @@ module.exports = {
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "Let's go ! I let you press on the button to see the itinerary👇‍️",
+          "text": "Just click on the button to see the itinerary. 👇‍️",
           "buttons": [
             {
               "type": "web_url",
@@ -621,7 +621,7 @@ module.exports = {
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text": "On the map it's there 👇‍️",
+          "text": "It's here, on the map 👇‍️",
           "buttons": [
             {
               "type": "web_url",
@@ -637,7 +637,7 @@ module.exports = {
   },
   noLocationEvent: (eventName) => {
     return {
-      "text": `Ok , I understand ☺️, nevertheless let me give you the address of ${eventName}`
+      "text": `I understand. ☺️ Let me still give you the address for ${eventName}.  You can also directly see it on the map by clicking here.`
     }
   },
   noLocationEvent2: (eventAddress) => {
@@ -649,10 +649,10 @@ module.exports = {
     "text": "Perfect! 🎉",
   },
   saveLater: {
-    "text": "Ok, no problem I will save it for you !🎉",
+    "text": "That’s fine, no problem ! I’ll keep it somewhere safe for later then! ❤️",
   },
   selectionSite2: {
-    "text": "I just need you to tell the kind of places  you’re looking forward to visiting.\n "
+    "text": "I just need you to tell the kind of places you’re looking forward to visiting.\n "
   },
   selectionSiteType: {
     "attachment": {
@@ -725,10 +725,10 @@ module.exports = {
     }
   },
   selectionBar: {
-    "text": "Cheers! 🍸",
+    "text": "Awesome! 👌",
   },
   selectionBar2: {
-    "text": "But wait, what type of bars do you like? "
+    "text": "Just tell me, what vibe are you into? "
   },
   selectionBarType: {
     "attachment": {
@@ -814,10 +814,10 @@ module.exports = {
     }
   },
   selectionRestaurant: {
-    "text": "Yummy! 🍽",
+    "text": "Perfect! 👌",
   },
   selectionRestaurant2: {
-    "text": "But wait, tell me more about what type of place you’re looking for:"
+    "text": "What type of meal do you feel like having ?"
   },
   selectionRestaurantType: {
     "attachment": {
@@ -838,7 +838,7 @@ module.exports = {
             ]
           },
           {
-            "title": "Veggie",
+            "title": "Healthy",
             "image_url": "https://api.marco-app.com/api/image/minVeggie.jpg",
             "subtitle": "The best of healthy food.",
             "buttons": [
@@ -888,7 +888,7 @@ module.exports = {
           {
             "title": "Others",
             "image_url": "https://api.marco-app.com/api/image/minRestaurant.jpg",
-            "subtitle": "Perfect for tasting famous wines.",
+            "subtitle": "Let(s start the discovery.",
             "buttons": [
               {
                 "type": "postback",
@@ -903,10 +903,10 @@ module.exports = {
     }
   },
   selectionDistrict: {
-    "text": "‍Yay! 🚶‍️",
+    "text": "‍Great! 🚀‍️",
   },
   selectionDistrict2: {
-    "text": "But wait, I don't know where you'd like to go... Could you choose a district ?:"
+    "text": " Oh but wait, I don’t know where you’d like to to go. Would you mind telling me?"
   },
   selectionDistrictType: {
     "attachment": {
@@ -1130,7 +1130,7 @@ module.exports = {
     }
   },
   nothingInThisDistrict: {
-    "text": "Sorry I didn't find something 😔, but you can see other districts or do something else",
+    "text": "Sorry, I have nothing to show 😔, though, you can always check out other districts or do something else.",
     "quick_replies": [
       {
         "content_type": "text",
@@ -1155,7 +1155,7 @@ module.exports = {
     ]
   },
   findNothing: {
-    "text": "Sorry I didn't understand, but you can ask me something else",
+    "text": "Sorry I'm very young and still learning. I did not quite understand. Maybe something else? ",
     "quick_replies": [
       {
         "content_type": "text",
@@ -1198,7 +1198,7 @@ module.exports = {
   },
   priceMessage(type, tag) {
     return {
-      "text": "What about the price?",
+      "text": type === 'RESTAURANT' ? "Yummy !! 😋\nNow, what price range do you have in mind?" : "Cheers! 🍻\nNow, how much are planning on spending?",
       "quick_replies": [
         {
           "content_type": "text",
@@ -1224,13 +1224,13 @@ module.exports = {
     }
   },
   fetchRestaurantsMessage: {
-    "text": "Check what I found for you: "
+    "text": "Ok! Check out what I found for you:"
   },
   fetchVisitsMessage: {
-    "text": "Sure thing!! This is what I found for you:: "
+    "text": "Sure thing!! This is what I found for you: "
   },
   fetchBarsMessage: {
-    "text": "Check that out: "
+    "text": "Thanks! Look at what I found just for you:"
   },
   jokeMarco: {
     "text": "Sorry! There's nothing left in stock... \nBut here's a joke for you while we work on it:\nWhat do you call a spider working in IT ?\n\n...\n\n\nA web designer. 😂"
