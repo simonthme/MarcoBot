@@ -9,7 +9,7 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - $HOME/Marco/MarcoBot:/usr/src/api
+      - /etc/api/MarcoBotDev:/usr/src/api
     network_mode: "env-net"
     external_links:
       - "api:api"
