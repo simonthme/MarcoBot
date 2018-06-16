@@ -192,10 +192,7 @@ const oldLocation = (senderID, eventID, eventName) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      console.log('EVENT INDEX');
-      console.log(event);
       if (response.status === 200 && event.tips !== null && typeof event.tips !== 'undefined') {
-        console.log('IN INDEX');
         return sendMessage(senderID, {text: event.tips}, "RESPONSE")
       } else {
         return apiMessenger.sendToFacebook({

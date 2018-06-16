@@ -39,7 +39,7 @@ module.exports = (senderID) => {
       }
     })
     .then(resp => {
-      console.log(resp);
+      console.log("end visit");
     })
     .catch(err => {
       console.log(err);

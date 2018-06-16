@@ -36,7 +36,6 @@ module.exports = (type, price, senderID) => {
         return recommandationApi.sendQuery(bar.queryBarsByPriceAndType(senderID, type, price, 0));
     })
     .then(res => {
-      console.log(res.barsByPriceAndType.length);
       if (res.barsByPriceAndType.length > 0 && res.barsByPriceAndType !== null ) {
         return product_data.templateList(res.barsByPriceAndType, "BAR", 0,
           "neo4j")

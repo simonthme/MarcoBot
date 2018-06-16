@@ -5,8 +5,6 @@ const { GraphQLClient } = require('graphql-request');
 
 class GraphQlClient {
   constructor(url, token) {
-    console.log(url);
-    console.log(token);
     this.client = new GraphQLClient(url, {
       headers: {
         Authorization: 'Bearer ' + token,

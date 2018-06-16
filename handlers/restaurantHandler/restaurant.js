@@ -18,8 +18,6 @@ module.exports = (type, price, senderID) => {
   const recommandationApi = new ApiGraphql(config.category[config.indexCategory].recommendationApilUrl, config.accessTokenRecommendationApi);
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
-      console.log(type);
-      console.log(price);
       if (response.status === 200)
         return apiGraphql.sendMutation(userMutation.addCategoryByAccountMessenger(), {
           PSID: senderID.toString(),
@@ -27,7 +25,6 @@ module.exports = (type, price, senderID) => {
         });
     })
     .then(response => {
-      console.log(response);
       delete messageData.message;
       messageData.sender_action = 'typing_on';
       return apiMessenger.sendToFacebook(messageData);

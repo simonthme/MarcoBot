@@ -14,8 +14,6 @@ module.exports = (type, price, params, senderID) => {
     },
     message: ''
   };
-  console.log('PARAMS');
-  console.log(params);
   const tempParams = params.split(":");
   const event = tempParams[0].toLowerCase();
   const page = tempParams[1];
