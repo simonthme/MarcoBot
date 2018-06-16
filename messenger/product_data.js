@@ -148,6 +148,7 @@ module.exports = {
           const morePage = {
             "title": `See more`,
             "subtitle": `Let me show you more results.`,
+            "image_url": `${Config.category[1].apiUrl}/image/FBProfileRe.png`,
             "buttons": [
               {
                 "type": "postback",
@@ -215,6 +216,7 @@ module.exports = {
           const morePage = {
             "title": `See more`,
             "subtitle": `Let me show you more results.`,
+            "image_url": `${Config.category[1].apiUrl}/image/FBProfileRe.png`,
             "buttons": [
               {
                 "type": "postback",
@@ -272,6 +274,7 @@ module.exports = {
           const morePage = {
             "title": `See more`,
             "subtitle": `Let me show you more results.`,
+            "image_url": `${Config.category[1].apiUrl}/image/FBProfileRe.png`,
             "buttons": [
               {
                 "type": "postback",
