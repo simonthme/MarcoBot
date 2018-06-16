@@ -1115,7 +1115,7 @@ module.exports = {
           },
           {
             "title": "Chinese quarter",
-            "image_url": "https://api.marco-app.com/api/image/minChinese.jpg",
+            "image_url": "https://api.marco-app.com/api/image/minChinatown.jpg",
             "subtitle": "Famous for its asian streets and food",
             "buttons": [
               {
