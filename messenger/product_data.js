@@ -389,7 +389,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🚶‍♂️ Walk around",
+        "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
       }
     ]
@@ -420,7 +420,7 @@ module.exports = {
         },
         {
           "content_type": "text",
-          "title": "🚶‍♂️ Walk around",
+          "title": "🚶‍️ Walk around",
           "payload": "SEARCH_DISTRICT",
         }
       ]
@@ -446,7 +446,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🚶‍♂️ Walk around",
+        "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
       }
     ]
@@ -471,7 +471,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🚶‍♂️ Walk around",
+        "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
       }
     ]
@@ -521,7 +521,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🚶‍♂️ Walk around",
+        "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
       }
     ]
@@ -1254,9 +1254,9 @@ module.exports = {
         "template_type": "generic",
         "elements": [
           {
-            "title": "Share",
-            "image_url": "https://api.marco-app.com/api/image/minArc.jpg",
-            "subtitle": "Marco bot",
+            "title": "Marco",
+            "image_url": `${Config.category[1].apiUrl}/image/FBProfileRe.png`,
+            "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
             "buttons": [
               {
                 "type": "element_share",
@@ -1268,7 +1268,7 @@ module.exports = {
                       "elements": [
                         {
                           "title": "Marco",
-                          "image_url": "https://api.marco-app.com/api/image/minArc.jpg",
+                          "image_url": `${Config.category[1].apiUrl}/image/FBProfileRe.png`,
                           "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
                           "buttons": [{
                             "type": "web_url",
