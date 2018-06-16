@@ -193,7 +193,6 @@ const oldLocation = (senderID, eventID, eventName) => {
     .then(helper.delayPromise(2000))
     .then(response => {
       if (response.status === 200 && event.tips !== null && typeof event.tips !== 'undefined') {
-
         return sendMessage(senderID, {text: event.tips}, "RESPONSE")
       } else {
         return apiMessenger.sendToFacebook({

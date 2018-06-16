@@ -41,11 +41,9 @@ app.get('/setup', (req, res) => {
       return apiMessenger.callbackStartButton(product_data.menuData)
     })
     .then(response => {
-      console.log(response.data);
       return apiMessenger.callbackStartButton(product_data.welcomeMessage)
     })
     .then(response => {
-      console.log(response.data);
       res.send(response.data);
     })
     .catch(err => {

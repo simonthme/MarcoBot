@@ -23,7 +23,6 @@ const sendMessage = (senderId, data, typeMessage) => {
 
 module.exports = (parameters, senderId) => {
   let dataToSend = {};
-  console.log("PARAMETERS ==> " , parameters);
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   if (typeof parameters.drink !== "undefined" && parameters.drink !== null
     && parameters.drink.length > 0 && parameters.drink[0] !== 'drink' && parameters.drink.length > 0){
