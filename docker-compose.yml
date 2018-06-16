@@ -4,10 +4,8 @@ services:
     container_name: marco_bot
     restart: always
     build: .
-    volumes:
-          - $HOME/Marco/MarcoBot:/usr/src/api
     ports:
-      - "4000:4000"
+      - "4003:4003"
     volumes:
       - /etc/api/MarcoBotDev:/usr/src/api
     network_mode: "env-net"
