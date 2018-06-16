@@ -46,7 +46,7 @@ module.exports = (event) => {
         return clientControl.checkDialogflow(senderId, response)
       });
       apiaiSession.on("error", error => {
-        console.log("ERROR dialogflow ===>", error)
+        console.log("ERROR dialogflow ===>", error);
         return sendMessage(senderId, product_data.question1MessageListView, "RESPONSE")
       });
       apiaiSession.end();

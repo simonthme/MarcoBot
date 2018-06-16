@@ -701,7 +701,7 @@ module.exports = {
           },
           {
             "title": "Cultural",
-            "image_url": "https://api.marco-app.com/api/image/minStChap.jpg",
+            "image_url": "https://api.marco-app.com/api/image/minLouvre.jpg",
             "subtitle": "Paris is full of beautiful churches.",
             "buttons": [
               {

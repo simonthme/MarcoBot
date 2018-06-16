@@ -39,7 +39,9 @@ module.exports = {
         case 'eating_out':
           return eatHandler(parameters, senderId);
         default:
-          return sendMessage(senderId, product_data.findNothing, "RESPONSE");
+          console.log('DIALOG FLOW');
+          console.log(response);
+          return sendMessage(senderId, {"text" : response.result.fulfillment.speech}, "RESPONSE");
       }
   }
 };
