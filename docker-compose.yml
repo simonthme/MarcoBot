@@ -1,7 +1,7 @@
 version: "3"
 services:
-  marco_bot:
-    container_name: marco_bot
+  marco_bot_dev:
+    container_name: marco_bot_dev
     restart: always
     build: .
     ports:
@@ -11,7 +11,7 @@ services:
     network_mode: "env-net"
     external_links:
       - "api:api"
-      - "recommandation_api:recommandation_api"
+      - "recommendation_api:recommendation_api"
 networks:
   default:
     external:
