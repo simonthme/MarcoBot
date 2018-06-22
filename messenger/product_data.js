@@ -116,7 +116,7 @@ module.exports = {
           .then(res => {
             const element = {
               "title": `${elem.name}`,
-              "image_url": `https://api.marco-app.com/image/${elem.photos[0]}`,
+              "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
               "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
               "buttons": [
                 {
@@ -148,7 +148,7 @@ module.exports = {
           const morePage = {
             "title": `See more`,
             "subtitle": `Let me show you more results.`,
-            "image_url": `https://api.marco-app.com/image/FBProfileRe.png`,
+            "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
             "buttons": [
               {
                 "type": "postback",
@@ -182,7 +182,7 @@ module.exports = {
           .then(res => {
             const element = {
               "title": `${elem.name}`,
-              "image_url": `https://api.marco-app.com/image/${elem.photos[0]}`,
+              "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
               "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
               "buttons": [
                 {
@@ -216,7 +216,7 @@ module.exports = {
           const morePage = {
             "title": `See more`,
             "subtitle": `Let me show you more results.`,
-            "image_url": `https://api.marco-app.com/image/FBProfileRe.png`,
+            "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
             "buttons": [
               {
                 "type": "postback",
@@ -248,7 +248,7 @@ module.exports = {
           .then(res => {
             const element = {
               "title": `${elem.name}`,
-              "image_url": `https://api.marco-app.com/image/${elem.photos[0]}`,
+              "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
               "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
               "buttons": [
                 {
@@ -274,7 +274,7 @@ module.exports = {
           const morePage = {
             "title": `See more`,
             "subtitle": `Let me show you more results.`,
-            "image_url": `https://api.marco-app.com/image/FBProfileRe.png`,
+            "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
             "buttons": [
               {
                 "type": "postback",
@@ -1255,7 +1255,7 @@ module.exports = {
         "elements": [
           {
             "title": "Marco",
-            "image_url": `https://api.marco-app.com/image/FBProfileRe.png`,
+            "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
             "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
             "buttons": [
               {
@@ -1268,7 +1268,7 @@ module.exports = {
                       "elements": [
                         {
                           "title": "Marco",
-                          "image_url": `https://api.marco-app.com/image/FBProfileRe.png`,
+                          "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
                           "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
                           "buttons": [{
                             "type": "web_url",

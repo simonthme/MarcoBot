@@ -25,7 +25,7 @@ module.exports = (parameters, senderId) => {
   let dataToSend = {};
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   if (typeof parameters.drink !== "undefined" && parameters.drink !== null
-    && parameters.drink.length > 0 && parameters.drink[0] !== 'drink' && parameters.drink.length > 0){
+    && parameters.drink.length > 0 && (parameters.drink[0] !== 'drink' && parameters.drink[0] !== 'bar') && parameters.drink.length > 0){
     return sendMessage(senderId, product_data.priceMessage('BAR', parameters.drink[0]), "RESPONSE")
   } else {
     return apiGraphql.sendQuery(queryBar.queryBars(0))
