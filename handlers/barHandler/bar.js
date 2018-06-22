@@ -58,6 +58,7 @@ module.exports = (type, price, senderID) => {
       console.log('end bar');
     })
     .catch(err => {
+      console.log(err);
       console.log(err.response.data.error);
     });
 };
