@@ -1,22 +1,25 @@
 /**
  * Created by corentin on 02/05/2018.
  */
-const {request} = require('graphql-request');
-const Config = require('../config');
+const { GraphQLClient } = require('graphql-request');
 
-module.exports = {
-  sendQuery: (query) => {
-    return new Promise((resolve, reject) => {
-      request(Config.category[Config.indexCategory].apiGraphQlUrl, query)
-        .then(res => resolve(res))
-        .catch(err => reject(err))
-    });
-  },
-  sendMutation: (query, variables) => {
-    return new Promise((resolve, reject) => {
-      request(Config.category[Config.indexCategory].apiGraphQlUrl, query, variables)
-        .then(res => resolve(res))
-        .catch(err => reject(err))
+class GraphQlClient {
+  constructor(url, token) {
+    this.client = new GraphQLClient(url, {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
     });
   }
+
+  sendQuery(query) {
+    return this.client.request(query)
+  }
+
+  sendMutation(query, variables) {
+    return this.client.request(query,
+      variables)
+  }
 };
+
+module.exports = GraphQlClient;
