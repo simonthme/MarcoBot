@@ -7,11 +7,11 @@ services:
     ports:
       - "4003:4003"
     volumes:
-      - /etc/api/MarcoBotDev:/usr/src/api
+      - $HOME/Marco/MarcoBot:/usr/src/api
     network_mode: "env-net"
     external_links:
       - "api:api"
-      - "recommandation_api:recommandation_api"
+      - "recommendation_api:recommendation_api"
 networks:
   default:
     external:

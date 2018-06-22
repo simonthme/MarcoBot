@@ -34,7 +34,7 @@ module.exports = (parameters, senderId) => {
       })
       .then(result => {
         dataToSend = Object.assign({}, result);
-        return sendMessage(senderId, {text: response.result.fulfillment.speech}, "RESPONSE")
+        return sendMessage(senderId, {text: "Just a second!"}, "RESPONSE")
       })
       .then((response) => {
         if (response.status === 200)
