@@ -31,20 +31,22 @@ const generateSubtitle = (elem, TODAY) => {
     }
     console.log(elem);
     let schedule = "🕐 ";
-    const daySchedule = elem.schedule ?
+    const daySchedule = (elem.schedule && elem.schedule[ARRAYDAY[TODAY.getDay()]] !== null) ?
       elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
     console.log('OK schedule ' + daySchedule);
-    if (daySchedule.length > 0) {
+    if (daySchedule.length > 0 && daySchedule) {
       daySchedule.map((day, i) => {
         schedule = schedule.concat(day.start, ' - ', day.end, ' ');
         if (i === daySchedule.length - 1) {
+          console.log('resolve schedule');
           console.log({schedule: schedule, money: money});
           resolve({schedule: schedule, money: money});
         }
       })
     } else {
+      console.log('resolve close');
       schedule = "❌ CLOSE";
-      console.log({schedule: schedule, money: money});
+      console.log("CLOSE" + {schedule: schedule, money: money});
       resolve({schedule: schedule, money: money});
     }
   });
