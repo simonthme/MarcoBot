@@ -29,18 +29,22 @@ const generateSubtitle = (elem, TODAY) => {
         money = "FREE";
         break;
     }
+    console.log(elem);
     let schedule = "🕐 ";
     const daySchedule = elem.schedule ?
       elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
+    console.log('OK schedule ' + daySchedule);
     if (daySchedule.length > 0) {
       daySchedule.map((day, i) => {
         schedule = schedule.concat(day.start, ' - ', day.end, ' ');
         if (i === daySchedule.length - 1) {
+          console.log({schedule: schedule, money: money});
           resolve({schedule: schedule, money: money});
         }
       })
     } else {
       schedule = "❌ CLOSE";
+      console.log({schedule: schedule, money: money});
       resolve({schedule: schedule, money: money});
     }
   });
@@ -180,6 +184,8 @@ module.exports = {
         console.log(elem);
         generateSubtitle(elem, TODAY)
           .then(res => {
+            console.log('EACH RESP');
+            console.log(res);
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
