@@ -177,11 +177,8 @@ module.exports = {
       const TODAY = new Date();
       const arrayOfElement = [];
       async.each(list, (elem, callback) => {
-        console.log(elem);
         generateSubtitle(elem, TODAY)
           .then(res => {
-            console.log('EACH RESP');
-            console.log(res);
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
@@ -690,13 +687,13 @@ module.exports = {
             ]
           },
           {
-            "title": "Must sees",
+            "title": "Must see",
             "image_url": "https://api.marco-app.com/api/image/minTourEiffel.jpg",
-            "subtitle": "All the must sees of Paris.",
+            "subtitle": "All the must see of Paris.",
             "buttons": [
               {
                 "type": "postback",
-                "title": "Famous",
+                "title": "Must see",
                 "payload": "SITE_FAMOUS"
               }
             ]
@@ -704,7 +701,7 @@ module.exports = {
           {
             "title": "Cultural",
             "image_url": "https://api.marco-app.com/api/image/minLouvre.jpg",
-            "subtitle": "Paris is full of beautiful churches.",
+            "subtitle": "Paris will share some of its culture.",
             "buttons": [
               {
                 "type": "postback",
