@@ -36,7 +36,6 @@ module.exports = (type, senderID) => {
         return recommandationApi.sendQuery(visit.queryVisitsByPriceAndType(senderID, type, 0));
     })
     .then(res => {
-      console.log(res);
       if (res.visitsByPriceAndType.length > 0 && res.visitsByPriceAndType !== null) {
         return product_data.templateListFromDifferentEvent(
           res.visitsByPriceAndType, 0, '', "neo4j", type);
@@ -45,6 +44,7 @@ module.exports = (type, senderID) => {
       }
     })
     .then(result => {
+      console.log(result);
       delete messageData.sender_action;
       messageData.message = result;
       return apiMessenger.sendToFacebook(messageData);
@@ -59,6 +59,7 @@ module.exports = (type, senderID) => {
       console.log('end visit');
     })
     .catch(err => {
+      console.log(err);
       console.log(err.response.data.error);
     });
 };
