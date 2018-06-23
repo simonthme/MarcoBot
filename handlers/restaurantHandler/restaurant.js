@@ -39,7 +39,7 @@ module.exports = (type, price, senderID) => {
         return product_data.templateList(res.restaurantsByPriceAndType,
           "RESTAURANT", 0, "neo4j", type, price)
       } else {
-        return product_data.jokeMarco;
+        return product_data.jokeMarco("RESTAURANT");
       }
     })
     .then(result => {

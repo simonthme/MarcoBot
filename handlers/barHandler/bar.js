@@ -40,7 +40,7 @@ module.exports = (type, price, senderID) => {
         return product_data.templateList(res.barsByPriceAndType, "BAR", 0,
           "neo4j")
       } else {
-        return product_data.jokeMarco;
+        return product_data.jokeMarco("BAR");
       }
     })
     .then(result => {

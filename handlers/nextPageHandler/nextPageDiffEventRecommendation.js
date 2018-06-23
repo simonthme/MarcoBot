@@ -28,7 +28,7 @@ module.exports = (params, senderID) => {
         return product_data.templateListFromDifferentEvent(
           res.visitsByPriceAndType, page, '', "neo4j", type);
       } else {
-        return product_data.jokeMarco;
+        return product_data.jokeMarco(type);
       }
     })
     .then(result => {

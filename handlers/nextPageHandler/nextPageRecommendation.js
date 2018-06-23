@@ -26,7 +26,7 @@ module.exports = (type, price, params, senderID) => {
       return product_data.templateList(res[conditionType],
         tempParams[0], page, "neo4j", type, price)
     } else {
-      return product_data.jokeMarco;
+      return product_data.jokeMarco(tempParams[0]);
     }
   })
     .then(result => {

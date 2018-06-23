@@ -40,7 +40,7 @@ module.exports = (type, senderID) => {
         return product_data.templateListFromDifferentEvent(
           res.visitsByPriceAndType, 0, '', "neo4j", type);
       } else {
-        return product_data.jokeMarco;
+        return product_data.jokeMarco("VISIT");
       }
     })
     .then(result => {
@@ -51,7 +51,7 @@ module.exports = (type, senderID) => {
     })
     .then(res => {
       if (res.status === 200) {
-        messageData.message = product_data.backQuestion("RESTAURANT");
+        messageData.message = product_data.backQuestion("VISIT");
         return apiMessenger.sendToFacebook(messageData);
       }
     })

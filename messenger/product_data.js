@@ -29,24 +29,18 @@ const generateSubtitle = (elem, TODAY) => {
         money = "FREE";
         break;
     }
-    console.log(elem);
     let schedule = "🕐 ";
     const daySchedule = (elem.schedule && elem.schedule[ARRAYDAY[TODAY.getDay()]] !== null) ?
       elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
-    console.log('OK schedule ' + daySchedule);
-    if (daySchedule.length > 0 && daySchedule) {
+    if (daySchedule.length > 0) {
       daySchedule.map((day, i) => {
         schedule = schedule.concat(day.start, ' - ', day.end, ' ');
         if (i === daySchedule.length - 1) {
-          console.log('resolve schedule');
-          console.log({schedule: schedule, money: money});
           resolve({schedule: schedule, money: money});
         }
       })
     } else {
-      console.log('resolve close');
       schedule = "❌ CLOSE";
-      console.log("CLOSE" + {schedule: schedule, money: money});
       resolve({schedule: schedule, money: money});
     }
   });
@@ -137,7 +131,7 @@ module.exports = {
                 },
                 {
                   "type": "postback",
-                  "title": "View more",
+                  "title": "Tell me more",
                   "payload": `VIEWMORE_${kindElement}:${elem.id || elem._id}`
                 },
               ]
@@ -205,7 +199,7 @@ module.exports = {
                 },
                 {
                   "type": "postback",
-                  "title": "View more",
+                  "title": "Tell me more",
                   "payload": `VIEWMORE_${elem.kindElement}:${elem.id ||
                   elem._id}`
                 },
@@ -266,7 +260,7 @@ module.exports = {
                 },
                 {
                   "type": "postback",
-                  "title": "View more",
+                  "title": "Tell me more",
                   "payload": `VIEWMORE_${elem.kindElement}:${elem.id ||
                   elem._id}`
                 },
@@ -1166,7 +1160,7 @@ module.exports = {
     ]
   },
   findNothing: {
-    "text": "Sorry I'm very young and still learning. I did not quite understand. Maybe something else? ",
+    "text": "Sorry I'm actually very young and still learning some things. Maybe try something else? ",
     "quick_replies": [
       {
         "content_type": "text",
@@ -1243,8 +1237,37 @@ module.exports = {
   fetchBarsMessage: {
     "text": "Thanks! Look at what I found just for you:"
   },
-  jokeMarco: {
-    "text": "Sorry! There's nothing left in stock... \nBut here's a joke for you while we work on it:\nWhat do you call a spider working in IT ?\n\n...\n\n\nA web designer. 😂"
+  jokeMarco(EVENT) {
+    return {
+      "text": "Sorry! There's nothing left in stock... \nBut here's a joke for you while we work on it:\nWhat do you call a spider working in IT ?\n\n...\n\n\nA web designer. 😂",
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "🔙 Change category",
+          "payload": `CATEGORY_${EVENT}`,
+        },
+        {
+          "content_type": "text",
+          "title": "📸 Visit",
+          "payload": "SEARCH_VISIT",
+        },
+        {
+          "content_type": "text",
+          "title": "🍽 Eat",
+          "payload": "SEARCH_RESTAURANT",
+        },
+        {
+          "content_type": "text",
+          "title": "🍸 Drink",
+          "payload": "SEARCH_BAR",
+        },
+        {
+          "content_type": "text",
+          "title": "🚶‍️ Walk around",
+          "payload": "SEARCH_DISTRICT",
+        }
+      ]
+    }
   },
   helpMessage: {
     "text": "You're lost? \nMarco is a personal travel assistant giving the best insider tips just for you.\n\nYou can manage your account by checking out the menu. 😉"
