@@ -55,7 +55,8 @@ module.exports = (event) => {
         nextPageDiffEventHandler(payload.slice(18), senderID);
         break;
       case 'NEXTPAGEDIFFEVENTNEO4J':
-        nextPageDiffEventRecommendationHandler(payload.slice(24), senderID);
+        console.log(payload);
+        nextPageDiffEventRecommendationHandler(payloadType[1], senderID);
         break;
       case 'MYFAVORITE':
         laterViewHandler(payloadType[1], senderID);
