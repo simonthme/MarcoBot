@@ -17,7 +17,6 @@ module.exports = (params, senderID) => {
   const tempParam = params.split(':');
   const type = tempParam[0];
   const page = tempParam[1];
-  console.log(visit.queryVisitsByPriceAndType(senderID, type, page));
   const recommandationApi = new ApiGraphql(
     config.category[config.indexCategory].recommendationApilUrl,
     config.accessTokenRecommendationApi);
