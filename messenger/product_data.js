@@ -14,13 +14,13 @@ const generateSubtitle = (elem, TODAY) => {
         money = "FREE";
         break;
       case 1:
-        money = "💸 - 💸💸";
+        money = "💸";
         break;
       case 2:
         money = "💸💸 - 💸💸💸";
         break;
       case 3:
-        money = "💸💸💸 - 💸💸💸💸";
+        money = "💸💸 - 💸💸💸";
         break;
       case 4:
         money = "💸💸💸💸";
@@ -34,7 +34,8 @@ const generateSubtitle = (elem, TODAY) => {
       elem.schedule[ARRAYDAY[TODAY.getDay()]] : [];
     if (daySchedule.length > 0) {
       daySchedule.map((day, i) => {
-        schedule = schedule.concat(day.start, ' - ', day.end, ' ');
+        schedule = (day.start === "12:00 am" && day.end === "12:00 pm") ? schedule.concat("Always open")
+          : schedule.concat(day.start, ' - ', day.end, ' ');
         if (i === daySchedule.length - 1) {
           resolve({schedule: schedule, money: money});
         }
@@ -908,7 +909,7 @@ module.exports = {
     "text": "‍Great! 🚀‍️",
   },
   selectionDistrict2: {
-    "text": " Oh but wait, I don’t know where you’d like to to go. Would you mind telling me?"
+    "text": " Oh but wait, I don’t know where you’d like to go. Would you mind telling me?"
   },
   selectionDistrictType: {
     "attachment": {

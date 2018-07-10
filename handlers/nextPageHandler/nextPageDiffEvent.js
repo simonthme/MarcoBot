@@ -27,10 +27,11 @@ module.exports = (payload, senderID) => {
   const _district = newPayload[0];
   const page = newPayload[1];
   let dataToSend = {};
+  console.log(_district, ' ', page);
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(indexLocationQuery.findByDistrict(_district, page))
     .then((response) => {
-      if(response.findByDistrict !== null && response.findByDistrict.length > 0){
+      if (response.findByDistrict !== null && response.findByDistrict.length > 0) {
         let responses = [...response.findByDistrict];
         let newResponses = [];
         async.each(responses, (elem, callback) => {
@@ -45,7 +46,7 @@ module.exports = (payload, senderID) => {
             }
           }
         }, (err) => {
-          if(err) return sendMessage(senderID,
+          if (err) return sendMessage(senderID,
             {text: "Hmmm... I think the machine's gone crazy! Try again later."}, "RESPONSE");
           return product_data.templateListFromDifferentEvent(newResponses, page, _district, "mongo")
             .then(result => {

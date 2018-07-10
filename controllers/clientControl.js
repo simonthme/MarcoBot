@@ -39,9 +39,20 @@ module.exports = {
         case 'eating_out':
           return eatHandler(parameters, senderId);
         default:
-          console.log('DIALOG FLOW');
-          console.log(response);
-          return sendMessage(senderId, {"text" : response.result.fulfillment.speech}, "RESPONSE");
+          return sendMessage(senderId, {"text" : response.result.fulfillment.speech}, "RESPONSE")
+            .then((response) => {
+              if (response.status === 200)
+                return apiMessenger.sendToFacebook({
+                  recipient: {id: senderId},
+                  sender_action: 'typing_on',
+                  messaging_types: "RESPONSE",
+                  message: ""
+                })
+            })
+            .then(helper.delayPromise(2000))
+            .then(() => {
+              return sendMessage(senderId, product_data.question1MessageListView, "RESPONSE")
+            })
       }
   }
 };
