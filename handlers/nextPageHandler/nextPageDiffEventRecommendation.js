@@ -36,6 +36,14 @@ module.exports = (params, senderID) => {
       messageData.message = result;
       return apiMessenger.sendToFacebook(messageData);
     })
+    .then(res => {
+      console.log(type);
+      messageData.message = product_data.backQuestion("VISIT");
+      return apiMessenger.sendToFacebook(messageData);
+    })
+    .then(res => {
+      console.log('next event recommendation');
+    })
     .catch(err => {
       console.log(err.response.data.error);
     });

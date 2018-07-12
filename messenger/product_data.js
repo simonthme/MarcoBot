@@ -985,7 +985,7 @@ module.exports = {
             ]
           },
           {
-            "title": "Canal st martin district",
+            "title": "Canal St. Martin district",
             "image_url": "https://api.marco-app.com/api/image/minCanal.jpg",
             "subtitle": "Famous for being hype!",
             "buttons": [
@@ -999,7 +999,7 @@ module.exports = {
           {
             "title": "Le Marais district",
             "image_url": "https://api.marco-app.com/api/image/minMarais.jpg",
-            "subtitle": "Historical disctrict of Paris full of high-end boutiques.",
+            "subtitle": "Historical district of Paris full of high-end boutiques.",
             "buttons": [
               {
                 "type": "postback",
