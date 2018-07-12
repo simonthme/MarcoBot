@@ -35,7 +35,12 @@ module.exports = (type, price, params, senderID) => {
       return apiMessenger.sendToFacebook(messageData);
     })
     .then(res => {
-      console.log('end restaurants');
+      console.log(type);
+      messageData.message = product_data.backQuestion(tempParams[0]);
+      return apiMessenger.sendToFacebook(messageData);
+    })
+    .then(res => {
+      console.log('end recommendation');
     })
     .catch(err => {
       console.log(err.response.data.error);
