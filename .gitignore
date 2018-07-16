@@ -7,3 +7,6 @@ config.js
 yarn.lock
 
 config.js
+docker-compose.yml
+Dockerfile
+
