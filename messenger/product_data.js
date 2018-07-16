@@ -14,16 +14,16 @@ const generateSubtitle = (elem, TODAY) => {
         money = "FREE";
         break;
       case 1:
-        money = "💸";
+        money = "💰";
         break;
       case 2:
-        money = "💸💸 - 💸💸💸";
+        money = "💰💰- 💰💰💰";
         break;
       case 3:
-        money = "💸💸 - 💸💸💸";
+        money = "💰💰 - 💰💰💰";
         break;
       case 4:
-        money = "💸💸💸💸";
+        money = "💰💰💰💰";
         break;
       default:
         money = "FREE";
@@ -1205,22 +1205,22 @@ module.exports = {
       "quick_replies": [
         {
           "content_type": "text",
-          "title": "💸",
+          "title": "💰",
           "payload": `PRICE${type}_${tag}_ONE`,
         },
         {
           "content_type": "text",
-          "title": "💸💸",
-          "payload": `PRICE${type}_${tag}_TWO`,
+          "title": "💰💰-💰💰💰",
+          "payload": `PRICE${type}_${tag}_TWO-THREE`,
         },
+        // {
+        //   "content_type": "text",
+        //   "title": "💸💸💸",
+        //   "payload": `PRICE${type}_${tag}_`,
+        // },
         {
           "content_type": "text",
-          "title": "💸💸💸",
-          "payload": `PRICE${type}_${tag}_THREE`,
-        },
-        {
-          "content_type": "text",
-          "title": "💸💸💸💸",
+          "title": "💰💰💰💰",
           "payload": `PRICE${type}_${tag}_FOUR`,
         }
       ]
