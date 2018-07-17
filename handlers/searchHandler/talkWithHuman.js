@@ -25,7 +25,7 @@ module.exports = (senderID) => {
   {PSID: senderID, isTalkingToHuman: true})
   .then((response) => {
     if (response.updateIsTalkingWithHuman) {
-        return sendMessage(senderID, product_data.startTalkingWithHuman, "RESPONSE")
+        return sendMessage(senderID, product_data.startTalkingWithHuman2, "RESPONSE")
     }
   })
   .catch(err => console.log(err))
