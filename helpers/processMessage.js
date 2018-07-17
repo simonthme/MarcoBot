@@ -21,6 +21,7 @@ const messageToStopTalkingWithHuman = [
   "start marcobot",
   "stop human",
   "i want marco",
+  "stop chat",
 ];
 
 const sendMessage = (senderId, data, typeMessage) => {
@@ -51,8 +52,7 @@ module.exports = (event) => {
           .catch(err => console.log("Error to create USER: ", err))
       }
       if(res.userByAccountMessenger !== null && res.userByAccountMessenger.isTalkingToHuman){
-        if(messageToStopTalkingWithHuman.some(elem => elem.toUpperCase() === message.toUpperCase())){
-          console.log('STOP HUMAN');
+        if(messageToStopTalkingWithHuman.some(elem => elem.toUpperCase() === message.toUpperCase())) {
           return stopTalking(senderId);
         } else {
           return null;

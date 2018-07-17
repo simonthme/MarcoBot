@@ -1327,8 +1327,30 @@ module.exports = {
     "text": "Oops! Something wrong happened... Please email at hello@marcobot.io"
   },
   startTalkingWithHuman: {
-    "text": "Okay, an awesome Parisian will answer you as soon as possible.\n You can stop talking to him by typing \"Start Marco\" or just \"Stop\". \nI\'ll come back for you. See you soon 🙂 "
+    "text": "Okay, an awesome Parisian will answer you as soon as possible.\n You can stop talking to him by typing \"Start Marco\" or just \"Stop\". \nI\'ll come back for you. See you soon 🙂 ",
   },
+  startTalkingWithHuman2: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": `You start chat with an awesome Parisian who will answer you as soon as possible`,
+            "subtitle": `You can stop talking to him by typing \"Start Marco\", \"Stop\" or clicking button.`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Stop Chat",
+                "payload": "STOPTALKING_"
+              },
+            ]
+          }
+        ]
+      }
+    }
+  },
+
   stopTalkingWithHuman(name){
     return {
       "text": `Hey ${name}, I missed you. I\'m really happy to talk to you again 🙂. How can I help you ?`,

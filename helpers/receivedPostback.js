@@ -6,6 +6,7 @@ const aroundDistrictHandler = require('../handlers/searchHandler/aroundByDistric
 const searchHandler = require('../handlers/searchHandler/index');
 const nextPageEventHandler = require('../handlers/nextPageHandler/nextPageEvent');
 const visitHandler = require('../handlers/visitHandler/typeIndex');
+const stopTalkingWithHuman = require('../messenger/quickReplyBlocks/stopTalkingWithHuman');
 const nextPageDiffEventHandler = require('../handlers/nextPageHandler/nextPageDiffEvent');
 const nextPageRecommendationHandler = require('../handlers/nextPageHandler/nextPageRecommendation');
 const nextPageDiffEventRecommendationHandler = require('../handlers/nextPageHandler/nextPageDiffEventRecommendation');
@@ -44,6 +45,9 @@ module.exports = (event) => {
         break;
       case 'SITE':
         visitHandler(payloadType[1], senderID);
+        break;
+      case 'STOPTALKING':
+        stopTalkingWithHuman(senderID);
         break;
       case 'NEXTPAGEEVENT':
         nextPageEventHandler(payloadType[1], senderID);
