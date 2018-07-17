@@ -7,10 +7,7 @@ config.js
 yarn.lock
 
 config.js
-<<<<<<< HEAD
 docker-compose.yml
 Dockerfile
-=======
->>>>>>> 9e5d83c9c1305b10276623ddfdb6abc3235ffd01
 
 .tern-project
