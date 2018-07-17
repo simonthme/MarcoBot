@@ -9,6 +9,7 @@ module.exports = {
           PSID,
           accountmessengers_id,
           profilePic,
+          isTalkingToHuman,
           geoLocation {
             lat,
             lng,
@@ -29,6 +30,7 @@ module.exports = {
           accountmessengers_id,
           PSID,
           travelType,
+          isTalkingToHuman,
           geoLocation {
             lat,
             lng,
@@ -49,6 +51,7 @@ module.exports = {
           accountmessengers_id,
           PSID,
           travelType,
+          isTalkingToHuman,
           geoLocation {
             lat,
             lng,
@@ -66,6 +69,31 @@ module.exports = {
           lastName,
           gender,
           profilePic,
+          PSID,
+          travelType,
+          isTalkingToHuman,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          },
+          categories {
+          name,
+          weight
+        }
+      }
+     }
+    `
+  },
+  updateIsTalkingWithHuman: () => {
+      return `mutation updateIsTalkingWithHuman($PSID: ID!, $isTalkingToHuman: Boolean) {
+        updateIsTalkingWithHuman(PSID: $PSID, isTalkingToHuman: $isTalkingToHuman) {
+           id
+          firstName,
+          lastName,
+          gender,
+          profilePic,
+          isTalkingToHuman,
           PSID,
           travelType,
           geoLocation {

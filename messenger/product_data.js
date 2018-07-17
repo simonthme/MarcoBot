@@ -391,6 +391,11 @@ module.exports = {
         "content_type": "text",
         "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
       }
     ]
   },
@@ -422,6 +427,11 @@ module.exports = {
           "content_type": "text",
           "title": "🚶‍️ Walk around",
           "payload": "SEARCH_DISTRICT",
+        },
+        {
+          "content_type": "text",
+          "title": "🗣 Chat with human",
+          "payload": "SEARCH_HUMAN",
         }
       ]
     }
@@ -448,6 +458,11 @@ module.exports = {
         "content_type": "text",
         "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
       }
     ]
   },
@@ -473,6 +488,11 @@ module.exports = {
         "content_type": "text",
         "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
       }
     ]
   },
@@ -498,6 +518,11 @@ module.exports = {
         "content_type": "text",
         "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
       }
     ]
   },
@@ -523,6 +548,11 @@ module.exports = {
         "content_type": "text",
         "title": "🚶‍️ Walk around",
         "payload": "SEARCH_DISTRICT",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
       }
     ]
   },
@@ -548,6 +578,11 @@ module.exports = {
         "content_type": "text",
         "title": "🚶‍♂️ Walk around",
         "payload": "SEARCH_DISTRICT",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
       }
     ]
   },
@@ -1155,6 +1190,11 @@ module.exports = {
         "title": "I'm thirsty",
         "payload": "SEARCH_BAR",
       },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
+      }
     ]
   },
   findNothing: {
@@ -1180,6 +1220,11 @@ module.exports = {
         "title": "district",
         "payload": `SEARCH_DISTRICT`,
       },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
+      }
     ]
   },
   viewMore: (description, kindElement, eventID) => {
@@ -1263,6 +1308,11 @@ module.exports = {
           "content_type": "text",
           "title": "🚶‍️ Walk around",
           "payload": "SEARCH_DISTRICT",
+        },
+        {
+          "content_type": "text",
+          "title": "🗣 Chat with human",
+          "payload": "SEARCH_HUMAN",
         }
       ]
     }
@@ -1275,6 +1325,41 @@ module.exports = {
   },
   unsubscribeMessageError: {
     "text": "Oops! Something wrong happened... Please email at hello@marcobot.io"
+  },
+  startTalkingWithHuman: {
+    "text": "Okay, an awesome Parisian will answer you as soon as possible.\n You can stop talking to him by typing \"Start Marco\" or just \"Stop\". \nI\'ll come back for you. See you soon 🙂 "
+  },
+  stopTalkingWithHuman(name){
+    return {
+      "text": `Hey ${name}, I missed you. I\'m really happy to talk to you again 🙂. How can I help you ?`,
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Visiting",
+          "payload": "SEARCH_SITE",
+        },
+        {
+          "content_type": "text",
+          "title": "I'm hungry",
+          "payload": "SEARCH_RESTAURANT",
+        },
+        {
+          "content_type": "text",
+          "title": "I'm thirsty",
+          "payload": "SEARCH_BAR",
+        },
+        {
+          "content_type": "text",
+          "title": "district",
+          "payload": `SEARCH_DISTRICT`,
+        },
+        {
+          "content_type": "text",
+          "title": "🗣 Chat with human",
+          "payload": "SEARCH_HUMAN",
+        }
+      ]
+    }
   },
   shareMessage: {
     "attachment": {

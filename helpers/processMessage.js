@@ -10,6 +10,18 @@ const messengerMethods = require('../messenger/messengerMethods');
 const clientControl = require('../controllers/clientControl');
 const product_data = require('../messenger/product_data');
 const config = require("../config")
+const stopTalking = require('../messenger/quickReplyBlocks/stopTalkingWithHuman')
+
+const messageToStopTalkingWithHuman = [
+  "start marco",
+  "stop talking with human",
+  "stop talking",
+  "stop",
+  "start bot",
+  "start marcobot",
+  "stop human",
+  "i want marco",
+];
 
 const sendMessage = (senderId, data, typeMessage) => {
   return new Promise((resolve, reject) => {
@@ -38,17 +50,26 @@ module.exports = (event) => {
           })
           .catch(err => console.log("Error to create USER: ", err))
       }
-      const apiaiSession = apiAiClient.textRequest(message,
-        {sessionId: Config.projectIDDialogflow});
-      apiaiSession.on("response", (response) => {
-        console.log("RESPONSE ===> ", response.result);
-        return clientControl.checkDialogflow(senderId, response)
-      });
-      apiaiSession.on("error", error => {
-        console.log("ERROR dialogflow ===>", error);
-        return sendMessage(senderId, product_data.question1MessageListView, "RESPONSE")
-      });
-      apiaiSession.end();
+      if(res.userByAccountMessenger !== null && res.userByAccountMessenger.isTalkingToHuman){
+        if(messageToStopTalkingWithHuman.some(elem => elem.toUpperCase() === message.toUpperCase())){
+          console.log('STOP HUMAN');
+          return stopTalking(senderId);
+        } else {
+          return null;
+        }
+      } else {
+        const apiaiSession = apiAiClient.textRequest(message,
+          {sessionId: Config.projectIDDialogflow});
+          apiaiSession.on("response", (response) => {
+            console.log("RESPONSE ===> ", response.result);
+            return clientControl.checkDialogflow(senderId, response)
+          });
+          apiaiSession.on("error", error => {
+            console.log("ERROR dialogflow ===>", error);
+            return sendMessage(senderId, product_data.question1MessageListView, "RESPONSE")
+          });
+          apiaiSession.end();
+      }
     })
     .catch(err => console.log(err));
 };
