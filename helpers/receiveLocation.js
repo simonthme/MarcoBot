@@ -120,7 +120,8 @@ module.exports = (_event) => {
     })
     .then(helper.delayPromise(2000))
     .then(response => {
-      if (response.status === 200 && eventObject.tips !== null && typeof eventObject.tips !== 'undefined') {
+      if (response.status === 200 && eventObject.tips !== null
+        && typeof eventObject.tips !== 'undefined' && eventObject.tips.length > 0) {
         return sendMessage(senderId, {text: eventObject.tips}, "RESPONSE")
       } else {
         return apiMessenger.sendToFacebook({

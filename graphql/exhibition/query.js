@@ -6,6 +6,7 @@ module.exports = {
       id
       name
       types
+      tips
       tags
       description
       priceRange
@@ -22,6 +23,7 @@ module.exports = {
           types
           tags
           description
+          tips
           priceRange
           photos
           dateStart
@@ -38,6 +40,7 @@ module.exports = {
           types
           tags
           description
+          tips
           priceRange
           photos
           dateStart
