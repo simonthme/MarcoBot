@@ -110,7 +110,6 @@ const _createGoing = (senderID, userID, eventID, eventName, resultat) => {
               })
               .then(helper.delayPromise(2000))
               .then(response => {
-              
                 if (response.status === 200 && resultat.tips !== null
                   && typeof resultat.tips !== 'undefined' && resultat.tips.length > 0){
                   return sendMessage(senderID, {text: resultat.tips}, "RESPONSE")
