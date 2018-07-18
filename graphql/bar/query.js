@@ -98,7 +98,7 @@ module.exports = {
   },
   queryBarsByPriceAndType: (PSID, type, price, page) => {
     return `{
-      barsByPriceAndType(PSID: ${PSID}, type: "${type}", priceRange: ${price}, page: ${page}) 
+      barsByPriceAndType(PSID: ${PSID}, type: "${type}", priceRange: ${price}, page: ${page})
       {
        _id
     name

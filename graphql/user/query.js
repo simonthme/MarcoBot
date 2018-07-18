@@ -9,6 +9,7 @@ module.exports = {
           createAt,
           gender,
           deleted,
+          isTalkingToHuman,
           geoLocation {
             lat,
             lng,
@@ -27,6 +28,7 @@ module.exports = {
           createAt,
           gender,
           deleted,
+          isTalkingToHuman,
           geoLocation {
             lat,
             lng,

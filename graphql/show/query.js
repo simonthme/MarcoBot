@@ -7,6 +7,7 @@ module.exports = {
     name
     types
     category
+    tips
     description
     tags
     priceRange
@@ -61,6 +62,7 @@ module.exports = {
           priceRange
           photos
           dateStart
+          tips
           dateEnd
           location{
             lat
@@ -108,6 +110,7 @@ module.exports = {
           types
           category
           description
+          tips
           tags
           priceRange
           photos

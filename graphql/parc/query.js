@@ -8,6 +8,7 @@ module.exports = {
     types
     description
     tags
+    tips
     priceRange
     photos
     location{
@@ -44,7 +45,7 @@ module.exports = {
         start
         end
       }
-    } 
+    }
   `,
   queryParcs: (page) => {
     return `{
@@ -56,6 +57,7 @@ module.exports = {
           tags
           priceRange
           photos
+          tips
           location{
             lat
             lng
@@ -100,6 +102,7 @@ module.exports = {
           id
           name
           types
+          tips
           description
           tags
           priceRange

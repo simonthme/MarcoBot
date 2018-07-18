@@ -8,6 +8,7 @@ const postbackDefault = require('../messenger/postbackBlocks/default');
 const noUpdateLocation = require('../messenger/quickReplyBlocks/noUpdateLocation');
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const backQuestionHandler = require('../handlers/backQuestionHandler/backQuestion');
+
 module.exports = (event) => {
   const senderID = event.sender.id;
   const recipientID = event.recipient.id;

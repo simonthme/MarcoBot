@@ -8,6 +8,7 @@ module.exports = {
     types
     description
     tags
+    tips
     priceRange
     photos
     location{
@@ -54,6 +55,7 @@ module.exports = {
           types
           description
           tags
+          tips
           priceRange
           photos
           location{
@@ -102,6 +104,7 @@ module.exports = {
           types
           description
           tags
+          tips
           priceRange
           photos
           location{

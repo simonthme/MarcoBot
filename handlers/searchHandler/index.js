@@ -7,6 +7,7 @@ const searchDistrict4 = require('./searchDistrict/searchDistrict4');
 const searchDistrict5 = require('./searchDistrict/searchDistrict5');
 const searchOtherDistrict = require('./searchDistrict/searchOtherDistrict');
 const searchBar = require('./searchBar');
+const searchTalkingWithHuman = require('./talkWithHuman');
 const searchVisit = require('./searchVisit');
 
 module.exports = (payload, senderID) => {
@@ -19,6 +20,9 @@ module.exports = (payload, senderID) => {
       break;
     case 'BAR':
       searchBar(senderID);
+      break;
+    case 'HUMAN':
+      searchTalkingWithHuman(senderID);
       break;
     case 'DISTRICT':
       searchDistrict(senderID);
