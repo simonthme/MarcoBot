@@ -1357,23 +1357,23 @@ module.exports = {
       "quick_replies": [
         {
           "content_type": "text",
-          "title": "Visiting",
-          "payload": "SEARCH_SITE",
+          "title": "📸 Visit",
+          "payload": "SEARCH_VISIT",
         },
         {
           "content_type": "text",
-          "title": "I'm hungry",
+          "title": "🍽 Eat",
           "payload": "SEARCH_RESTAURANT",
         },
         {
           "content_type": "text",
-          "title": "I'm thirsty",
+          "title": "🍸 Drink",
           "payload": "SEARCH_BAR",
         },
         {
           "content_type": "text",
-          "title": "district",
-          "payload": `SEARCH_DISTRICT`,
+          "title": "🚶‍️ Walk around",
+          "payload": "SEARCH_DISTRICT",
         },
         {
           "content_type": "text",
