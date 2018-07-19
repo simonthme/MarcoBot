@@ -144,7 +144,7 @@ const _createLater = (senderID, userID, eventID, eventName, event) => {
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendMutation(mutationLater.createLater(), dataToSend)
     .then(res => {
-      if(res){
+      if(res) {
         return apiMessenger.sendToFacebook({
           recipient: {id: senderID},
           sender_action: 'typing_on',

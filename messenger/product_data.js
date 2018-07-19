@@ -159,6 +159,20 @@ module.exports = {
             ]
           };
           arrayOfElement.push(morePage)
+        } else {
+          const talkWithHuman = {
+            "title": `We have nothing left in stock, but ask for a local`,
+            "subtitle": `If you want any information on Paris, request a local by clicking button below.`,
+            "image_url": `https://api.marco-app.com/api/image/askInformation.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Chat with human",
+                "payload": `SEARCH_HUMAN`
+              },
+            ]
+          };
+          arrayOfElement.push(talkWithHuman)
         }
         return resolve({
           "attachment": {
@@ -226,6 +240,20 @@ module.exports = {
             ]
           };
           arrayOfElement.push(morePage)
+        }else {
+          const talkWithHuman = {
+            "title": `We have nothing left in stock, but ask for a local`,
+            "subtitle": `If you want any information on Paris, request a local by clicking button below.`,
+            "image_url": `https://api.marco-app.com/api/image/askInformation.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Chat with human",
+                "payload": `SEARCH_HUMAN`
+              },
+            ]
+          };
+          arrayOfElement.push(talkWithHuman)
         }
         return resolve({
           "attachment": {
