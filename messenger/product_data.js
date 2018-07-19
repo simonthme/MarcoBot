@@ -115,6 +115,7 @@ module.exports = {
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
+            const elemLocationGoogleMap = elem.location.name.replace(" ", "+")
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
@@ -126,9 +127,34 @@ module.exports = {
                   "payload": `GOING_${kindElement}:${elem.id || elem._id}`
                 },
                 {
-                  "type": "postback",
-                  "title": "Later",
-                  "payload": `LATER_${kindElement}:${elem.id || elem._id}`
+                  "type": "element_share",
+                  "share_contents": {
+                    "attachment": {
+                      "type": "template",
+                      "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                          {
+                            "title": `${elem.name}`,
+                            "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
+                            "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
+                            "default_action": {
+                              "type": "web_url",
+                              "url": "https://www.messenger.com/t/marco.bot.paris",
+
+                            },
+                            "buttons": [
+                              {
+                                "type": "web_url",
+                                "url": `https://www.google.fr/maps/place/${elemLocationGoogleMap}`,
+                                "title": "Where is it? 📍"
+                              },
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
                 },
                 {
                   "type": "postback",
@@ -194,6 +220,7 @@ module.exports = {
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
+            const elemLocationGoogleMap = elem.location.name.replace(" ", "+")
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
@@ -205,9 +232,34 @@ module.exports = {
                   "payload": `GOING_${elem.kindElement}:${elem.id || elem._id}`
                 },
                 {
-                  "type": "postback",
-                  "title": "Later",
-                  "payload": `LATER_${elem.kindElement}:${elem.id || elem._id}`
+                  "type": "element_share",
+                  "share_contents": {
+                    "attachment": {
+                      "type": "template",
+                      "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                          {
+                            "title": `${elem.name}`,
+                            "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
+                            "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
+                            "default_action": {
+                              "type": "web_url",
+                              "url": "https://www.messenger.com/t/marco.bot.paris",
+
+                            },
+                            "buttons": [
+                              {
+                                "type": "web_url",
+                                "url": `https://www.google.fr/maps/place/${elemLocationGoogleMap}`,
+                                "title": "Where is it? 📍"
+                              },
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
                 },
                 {
                   "type": "postback",
@@ -274,6 +326,7 @@ module.exports = {
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
+            const elemLocationGoogleMap = elem.location.name.replace(" ", "+")
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
@@ -283,6 +336,36 @@ module.exports = {
                   "type": "postback",
                   "title": "Let's go!",
                   "payload": `GOING_${elem.kindElement}:${elem.id || elem._id}`
+                },
+                {
+                  "type": "element_share",
+                  "share_contents": {
+                    "attachment": {
+                      "type": "template",
+                      "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                          {
+                            "title": `${elem.name}`,
+                            "subtitle": `📍 ${elem.location.name} \n${res.money}\n ${res.schedule}`,
+                            "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
+                            "default_action": {
+                              "type": "web_url",
+                              "url": "https://www.messenger.com/t/marco.bot.paris",
+
+                            },
+                            "buttons": [
+                              {
+                                "type": "web_url",
+                                "url": `https://www.google.fr/maps/place/${elemLocationGoogleMap}`,
+                                "title": "Where is it? 📍"
+                              },
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
                 },
                 {
                   "type": "postback",
@@ -1266,7 +1349,7 @@ module.exports = {
         },
         {
           "content_type": "text",
-          "title": "Later",
+          "title": "Later ❤️",
           "payload": `LATER_${kindElement}:${eventID}`,
         },
       ]
