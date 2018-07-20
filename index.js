@@ -35,6 +35,7 @@ axios.post(Config.category[Config.indexCategory].authUrlRecommendationApi, {clie
   })
   .catch(err => console.log(err));
 
+
 app.get('/setup', (req, res) => {
   apiMessenger.callbackStartButton(product_data.getStartedData)
     .then(response => {
