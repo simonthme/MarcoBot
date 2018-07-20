@@ -3,6 +3,7 @@
  */
 const Config = require("../config");
 const async = require("async");
+const anecdotes = require('./anecdote')
 const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday",
   "friday", "saturday"];
 
@@ -1392,14 +1393,48 @@ module.exports = {
     "text": "Thanks! Look at what I found just for you:"
   },
   jokeMarco(EVENT) {
+    const indexJoke = Math.floor(Math.random() * Math.floor(anecdotes.length - 1));
     return {
-      "text": "Sorry! There's nothing left in stock... \nBut here's a joke for you while we work on it:\nWhat do you call a spider working in IT ?\n\n...\n\n\nA web designer. 😂",
+      "text": `Sorry! There's nothing left in stock... \nBut here's an anecdote for you while we work on it: \n${anecdotes[indexJoke]}`,
       "quick_replies": [
         {
           "content_type": "text",
           "title": "🔙 Change category",
           "payload": `CATEGORY_${EVENT}`,
         },
+        {
+          "content_type": "text",
+          "title": "📸 Visit",
+          "payload": "SEARCH_VISIT",
+        },
+        {
+          "content_type": "text",
+          "title": "🍽 Eat",
+          "payload": "SEARCH_RESTAURANT",
+        },
+        {
+          "content_type": "text",
+          "title": "🍸 Drink",
+          "payload": "SEARCH_BAR",
+        },
+        {
+          "content_type": "text",
+          "title": "🚶‍️ Walk around",
+          "payload": "SEARCH_DISTRICT",
+        },
+        {
+          "content_type": "text",
+          "title": "🗣 Chat with human",
+          "payload": "SEARCH_HUMAN",
+        }
+      ]
+    }
+  },
+  jokeMarco2() {
+    const indexJoke = Math.floor(Math.random() * Math.floor(anecdotes.length - 1));
+    return {
+      "text": `Sorry! There's nothing left in stock... \nBut here's an anecdote for you while we work on it: \n${anecdotes[indexJoke]}`,
+      "quick_replies": [
         {
           "content_type": "text",
           "title": "📸 Visit",

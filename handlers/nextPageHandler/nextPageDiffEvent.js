@@ -81,7 +81,7 @@ module.exports = (payload, senderID) => {
             })
         })
       } else {
-        return sendMessage(senderID, product_data.nothingInThisDistrict, "RESPONSE")
+        return sendMessage(senderID, product_data.jokeMarco2(), "RESPONSE")
       }
     })
 

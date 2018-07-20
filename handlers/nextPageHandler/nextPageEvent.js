@@ -78,7 +78,7 @@ module.exports = (payload, senderID) => {
               return sendMessage(senderID, product_data.question1MessageListView, "RESPONSE")
           })
       } else {
-        return sendMessage(senderID, product_data.nothingInThisDistrict, "RESPONSE")
+        return sendMessage(senderID, product_data.jokeMarco2(), "RESPONSE")
       }
     })
     .catch(err => {
