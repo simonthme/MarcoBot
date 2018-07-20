@@ -1473,7 +1473,7 @@ module.exports = {
     "text": "Oops! Something wrong happened... Please email at hello@marcobot.io"
   },
   startTalkingWithHuman: {
-    "text": "Okay! An awesome Parisian is gonna answer your request ASAP!\n You can stop talking to him by typing \"I want Marco back\" or just \"Stop\". \nI\'ll come back for you. See you soon 🙂 ",
+    "text": "Okay! An awesome Parisian is gonna answer your request ASAP!\n To stop chatting just type \"I want Marco back\" or \"Stop\". \nI\'ll come back for you. See you soon 🙂 ",
   },
   startTalkingWithHuman2: {
     "attachment": {
@@ -1482,8 +1482,8 @@ module.exports = {
         "template_type": "generic",
         "elements": [
           {
-            "title": `You started a chat session with an awesome Parisian who will answer your requests ASAP! 🙂`,
-            "subtitle": `You can stop talking to him by typing \"I want Marco back\", \"Stop\" or by clicking the button.`,
+            "title": `You started to chat with an awesome Parisian that'll answer your requests ASAP! 🙂`,
+            "subtitle": `To stop chatting just type \"I want Marco back\", \"Stop\" or click the button.`,
             "buttons": [
               {
                 "type": "postback",
