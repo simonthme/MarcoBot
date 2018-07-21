@@ -42,7 +42,7 @@ const generateSubtitle = (elem, TODAY) => {
         }
       })
     } else {
-      schedule = "❌ CLOSE";
+      schedule = "❌ CLOSED";
       resolve({schedule: schedule, money: money});
     }
   });
@@ -994,7 +994,7 @@ module.exports = {
             "buttons": [
               {
                 "type": "postback",
-                "title": "Atypical",
+                "title": "Healthy",
                 "payload": "RESTAURANT_VEGGIE"
               }
             ]
@@ -1537,7 +1537,7 @@ module.exports = {
         "elements": [
           {
             "title": "Marco",
-            "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
+            "image_url": `https://api.marco-app.com/api/image/marcoSharePhoto.jpg`,
             "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
             "buttons": [
               {
@@ -1550,7 +1550,7 @@ module.exports = {
                       "elements": [
                         {
                           "title": "Marco",
-                          "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
+                          "image_url": `https://api.marco-app.com/api/image/marcoSharePhoto.jpg`,
                           "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
                           "buttons": [{
                             "type": "web_url",
