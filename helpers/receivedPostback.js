@@ -14,6 +14,7 @@ const laterViewHandler = require('../handlers/laterViewHandler/laterView');
 const helpHandler = require('../handlers/helpHandler/help');
 const unsubscribeHandler = require('../handlers/unsubscribeHandler/unsubscribe');
 const shareHandler = require('../handlers/shareHandler/share');
+const cityHandler = require('../handlers/cityHandler/city');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -30,6 +31,9 @@ module.exports = (event) => {
     switch (payloadType[0]) {
       case 'INIT':
         initHandler(senderID);
+        break;
+      case 'TRAVELINGTO':
+        cityHandler(payloadType[1], senderID);
         break;
       case 'RESTAURANT':
         priceHandlerRestaurant(payloadType[1], senderID);

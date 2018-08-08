@@ -19,6 +19,49 @@ module.exports = (senderID) => {
       product_data.initialMessage(userMessenger);
     apiMessenger.sendToFacebook(messageData)
       .then(response => {
+        if (response.status === 200) {
+          return apiMessenger.sendToFacebook({
+            recipient: {id: senderID},
+            sender_action: 'typing_on',
+            messaging_types: "RESPONSE",
+            message: ""
+          })
+        }
+      })
+      .then(helper.delayPromise(1000))
+      .then(response => {
+        messageData.message = product_data.initialMessage2;
+        if (response.status === 200)
+        return apiMessenger.sendToFacebook(messageData);
+      })
+      .then(response => {
+        if (response.status === 200) {
+          return apiMessenger.sendToFacebook({
+            recipient: {id: senderID},
+            sender_action: 'typing_on',
+            messaging_types: "RESPONSE",
+            message: ""
+          })
+        }
+      })
+      .then(helper.delayPromise(1000))
+      .then(response => {
+        messageData.message = product_data.initialMessage3;
+        if (response.status === 200)
+        return apiMessenger.sendToFacebook(messageData);
+      })
+      .then(response => {
+        if (response.status === 200) {
+          return apiMessenger.sendToFacebook({
+            recipient: {id: senderID},
+            sender_action: 'typing_on',
+            messaging_types: "RESPONSE",
+            message: ""
+          })
+        }
+      })
+      .then(helper.delayPromise(1000))
+      .then(response => {
         messageData.message = product_data.excitementMessage;
         if (response.status === 200)
           return apiMessenger.sendToFacebook(messageData);
