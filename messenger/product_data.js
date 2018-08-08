@@ -293,7 +293,7 @@ module.exports = {
             ]
           };
           arrayOfElement.push(morePage)
-        }else {
+        } else {
           const talkWithHuman = {
             "title": `I have nothing left in stock, but ask for a Parisian. 😉`,
             "subtitle": `If you want more information on Paris, request a local by clicking the button below.`,
@@ -327,7 +327,7 @@ module.exports = {
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
-            const elemLocationGoogleMap = elem.location.name.replace(" ", "+")
+            const elemLocationGoogleMap = elem.location.name.replace(" ", "+");
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
@@ -414,8 +414,157 @@ module.exports = {
       "text": `Hi ${user.firstName} ! 👋 \nI’m Marco your own personal travel assistant. My goal is to make your trip an authentic experience by giving you the best insider tips, making sure you don’t miss out on anything and stay away from tourist traps. 🙂`
     }
   },
+  initialMessage2: {
+    "text": `I got tired of spending hours planning my visits, finding an authentic restaurant and looking for the trendiest bar of the city …`
+  },
+  initialMessage3: {
+    "text": `So, every day I’ll send you a message with all the sightseeing you need to do for the day, what to eat on the go for lunch, and suggestions of amazing nights in the city your traveling.`
+  },
   missionMessage: {
     "text": `Before we go any further, I’d like to optimize your experience by getting to know you a little bit better. `
+  },
+  missionMessage2: {
+    "text": `For that I just need to know a little more about the details of your trip to be able to offer you relevant things to do.`
+  },
+  whichCity: {
+    "text": `So which city did you choose for your unforgettable vacation?`,
+  },
+  whichCity2: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "🇫🇷🇫🇷",
+            "image_url": `https://api.marco-app.com/api/image/paris.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Paris",
+                "payload": `TRAVELINGTO_PARIS`
+              },
+            ]
+          },
+          {
+            "title": "🇬🇧🇬🇧",
+            "image_url": `https://api.marco-app.com/api/image/london.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "London",
+                "payload": `TRAVELINGTO_LONDON`
+              },
+            ]
+          },
+          {
+            "title": "🇪🇸🇪🇸",
+            "image_url": `https://api.marco-app.com/api/image/barcelona.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Barcelona",
+                "payload": `TRAVELINGTO_BARCELONA`
+              },
+            ]
+          },
+          {
+            "title": "🇩🇪🇩🇪",
+            "image_url": `https://api.marco-app.com/api/image/berlin.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Berlin",
+                "payload": `TRAVELINGTO_BERLIN`
+              },
+            ]
+          },
+        ]
+      }
+    }
+  },
+  forgetCity: {
+    "text": `Excuse me, you forget to tell me which city you choose for your unforgettable vacation`,
+  },
+  isItFirstTime(city) {
+    return {
+      "text": `Great choice! I love this city! Is it your fist time in ${city}?`,
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "Yes",
+          "payload": `FIRSTTIME_YES`,
+        },
+        {
+          "content_type": "text",
+          "title": "No",
+          "payload": "FIRSTTIME_NO",
+        },
+      ]
+    };
+  },
+  whenAreYouArriving(boolean, city) {
+    return {
+      "text": (boolean) ? `First time for everything! It will be a pleasure to help you to discover this beautiful city 😇.\nWhen will you arrive ? (you have 2 options) \n\nOption A - If you\'re not at ${city} now, Type the date (ex: 03/14/19 or 14 March 2019)\n\nOption B - If you\'re already at ${city}, please to click the button below inside to type the date`
+        : `So let me show you more about this city, When will you arrive ? (you have 2 options) \n\nOption A - If you\'re not at ${city} now, Type the date (ex: 03/14/19 or 14 March 2019)\n\nOption B - If you\'re already at ${city}, please to click the button below inside to type the date`,
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": `Already at ${city}`,
+          "payload": "ALREADYINCITY",
+        },
+      ]
+    };
+  },
+  whenAreYouArriving2(city) {
+    return {
+      "text": `Excuse me but you didn't tell me when you'll arrive to ${city} (you have 2 options)! \n\nOption A - If you\'re not at ${city} now, Type the date (ex: 03/14/19 or 14 March 2019)\n\nOption B - If you\'re already at ${city}, please to click the button below inside to type the date`,
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": `Already at ${city}`,
+          "payload": "ALREADYINCITY",
+        },
+      ]
+    };
+  },
+  howManyDayAreStaying(city) {
+    return {
+      "text": `How many day will you stay in ${city}? (Type the duration)`,
+    }
+  },
+  arrivalLater: {
+    "text": 'Nice! Thanks, I\'ll get back to you the day before your arrival then. In the meantime you can already chack out what to do down there to give you some ideas.',
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
+      },
+      {
+        "content_type": "text",
+        "title": "🍽 Eat",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "🍸 Drink",
+        "payload": "SEARCH_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "🚶‍️ Walk around",
+        "payload": "SEARCH_DISTRICT",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
+      }
+    ]
+  },
+  isHereNow: {
+    "text": "Thank you, you’re perfect! Now as promised here is your program for the day: "
   },
   experienceMessage: {
     "text": `Great ! 🎉 ️`

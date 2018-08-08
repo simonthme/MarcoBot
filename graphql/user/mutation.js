@@ -7,8 +7,12 @@ module.exports = {
           lastName,
           gender,
           PSID,
+          cityTraveling,
           accountmessengers_id,
           profilePic,
+          isItFirstTimeCity,
+          departureDateToCity,
+          arrivalDateToCity,
           isTalkingToHuman,
           geoLocation {
             lat,
@@ -29,6 +33,10 @@ module.exports = {
           profilePic,
           accountmessengers_id,
           PSID,
+          cityTraveling,
+          isItFirstTimeCity,
+          departureDateToCity,
+          arrivalDateToCity,
           travelType,
           isTalkingToHuman,
           geoLocation {
@@ -50,6 +58,10 @@ module.exports = {
           profilePic,
           accountmessengers_id,
           PSID,
+          cityTraveling,
+          isItFirstTimeCity,
+          departureDateToCity,
+          arrivalDateToCity,
           travelType,
           isTalkingToHuman,
           geoLocation {
@@ -71,7 +83,11 @@ module.exports = {
           profilePic,
           PSID,
           travelType,
+          cityTraveling,
+          isItFirstTimeCity,
           isTalkingToHuman,
+          arrivalDateToCity,
+          departureDateToCity,
           geoLocation {
             lat,
             lng,
@@ -93,9 +109,125 @@ module.exports = {
           lastName,
           gender,
           profilePic,
+          cityTraveling,
+          isTalkingToHuman,
+          arrivalDateToCity,
+          departureDateToCity,
+          PSID,
+          travelType,
+          isItFirstTimeCity,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          },
+          categories {
+          name,
+          weight
+        }
+      }
+     }
+    `
+  },
+  updateCityTraveling: () => {
+      return `mutation updateCityTraveling($PSID: ID!, $cityTraveling: String) {
+        updateCityTraveling(PSID: $PSID, cityTraveling: $cityTraveling) {
+           id
+          firstName,
+          lastName,
+          cityTraveling,
+          gender,
+          profilePic,
           isTalkingToHuman,
           PSID,
           travelType,
+          arrivalDateToCity,
+          departureDateToCity,
+          isItFirstTimeCity,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          },
+          categories {
+          name,
+          weight
+        }
+      }
+     }
+    `
+  },
+  updateFirstTimeCity: () => {
+      return `mutation updateFirstTimeCity($PSID: ID!, $isItFirstTimeCity: Boolean) {
+        updateFirstTimeCity(PSID: $PSID, isItFirstTimeCity: $isItFirstTimeCity) {
+           id
+          firstName,
+          lastName,
+          cityTraveling,
+          gender,
+          profilePic,
+          isTalkingToHuman,
+          PSID,
+          arrivalDateToCity,
+          departureDateToCity,
+          travelType,
+          isItFirstTimeCity,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          },
+          categories {
+          name,
+          weight
+        }
+      }
+     }
+    `
+  },
+  updateArrivalDate: () => {
+      return `mutation updateArrivalDate($PSID: ID!, $arrivalDateToCity: String) {
+        updateArrivalDate(PSID: $PSID, arrivalDateToCity: $arrivalDateToCity) {
+           id
+          firstName,
+          lastName,
+          cityTraveling,
+          gender,
+          profilePic,
+          isTalkingToHuman,
+          PSID,
+          arrivalDateToCity,
+          departureDateToCity,
+          travelType,
+          isItFirstTimeCity,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          },
+          categories {
+          name,
+          weight
+        }
+      }
+     }
+    `
+  },
+  updateDepartureDate: () => {
+      return `mutation updateDepartureDate($PSID: ID!, $departureDateToCity: String) {
+        updateDepartureDate(PSID: $PSID, departureDateToCity: $departureDateToCity) {
+           id
+          firstName,
+          lastName,
+          cityTraveling,
+          gender,
+          profilePic,
+          isTalkingToHuman,
+          PSID,
+          arrivalDateToCity,
+          departureDateToCity,
+          travelType,
+          isItFirstTimeCity,
           geoLocation {
             lat,
             lng,
