@@ -436,7 +436,7 @@ module.exports = {
         "template_type": "generic",
         "elements": [
           {
-            "title": "🇫🇷🇫🇷",
+            "title": "🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷",
             "image_url": `https://api.marco-app.com/api/image/paris.jpg`,
             "buttons": [
               {
@@ -447,7 +447,7 @@ module.exports = {
             ]
           },
           {
-            "title": "🇬🇧🇬🇧",
+            "title": "🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧",
             "image_url": `https://api.marco-app.com/api/image/london.jpg`,
             "buttons": [
               {
@@ -458,7 +458,7 @@ module.exports = {
             ]
           },
           {
-            "title": "🇪🇸🇪🇸",
+            "title": "🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸",
             "image_url": `https://api.marco-app.com/api/image/barcelona.jpg`,
             "buttons": [
               {
@@ -469,7 +469,18 @@ module.exports = {
             ]
           },
           {
-            "title": "🇩🇪🇩🇪",
+            "title": "🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹",
+            "image_url": `https://api.marco-app.com/api/image/roma.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Roma",
+                "payload": `TRAVELINGTO_BARCELONA`
+              },
+            ]
+          },
+          {
+            "title": "🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪",
             "image_url": `https://api.marco-app.com/api/image/berlin.jpg`,
             "buttons": [
               {
