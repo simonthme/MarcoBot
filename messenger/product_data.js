@@ -109,14 +109,14 @@ module.exports = {
   },
   templateList: (list, kindElement, page, whichApi, category = '',
                  price = 0) => {
+    console.log(list, kindElement, page, whichApi, category, price);
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
-
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
-            const elemLocationGoogleMap = elem.location.name.replace(" ", "+")
+            const elemLocationGoogleMap = elem.location.name.replace(" ", "+");
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
