@@ -436,56 +436,56 @@ module.exports = {
         "template_type": "generic",
         "elements": [
           {
-            "title": "🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷🇫🇷",
+            "title": "🇫🇷🇫🇷 Paris 🇫🇷🇫🇷",
             "image_url": `https://api.marco-app.com/api/image/paris.jpg`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "Paris",
+                "title": "Validate ✔️",
                 "payload": `TRAVELINGTO_PARIS`
               },
             ]
           },
           {
-            "title": "🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧🇬🇧",
+            "title": "🇬🇧🇬🇧 London 🇬🇧🇬🇧",
             "image_url": `https://api.marco-app.com/api/image/london.jpg`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "London",
+                "title": "Validate ✔️",
                 "payload": `TRAVELINGTO_LONDON`
               },
             ]
           },
           {
-            "title": "🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸🇪🇸",
+            "title": "🇪🇸🇪🇸 Barcelona 🇪🇸🇪🇸",
             "image_url": `https://api.marco-app.com/api/image/barcelona.jpg`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "Barcelona",
+                "title": "Validate ✔️",
                 "payload": `TRAVELINGTO_BARCELONA`
               },
             ]
           },
           {
-            "title": "🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹🇮🇹",
+            "title": "🇮🇹🇮🇹 Roma 🇮🇹🇮🇹",
             "image_url": `https://api.marco-app.com/api/image/roma.jpg`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "Roma",
-                "payload": `TRAVELINGTO_BARCELONA`
+                "title": "Validate ✔️",
+                "payload": `TRAVELINGTO_ROMA`
               },
             ]
           },
           {
-            "title": "🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪🇩🇪",
+            "title": "🇩🇪🇩🇪 Berlin 🇩🇪🇩🇪",
             "image_url": `https://api.marco-app.com/api/image/berlin.jpg`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "Berlin",
+                "title": "Validate ✔️",
                 "payload": `TRAVELINGTO_BERLIN`
               },
             ]
