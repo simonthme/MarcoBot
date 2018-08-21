@@ -20,6 +20,7 @@ module.exports = (type, price, params, senderID) => {
   const queryType = event === 'restaurant' ? restaurant.queryRestaurantsByPriceAndType(senderID, type, price, page) : bar.queryBarsByPriceAndType(senderID, type, price, page);
   const recommandationApi = new ApiGraphql(config.category[config.indexCategory].recommendationApilUrl, config.accessTokenRecommendationApi);
   const conditionType = event === 'restaurant' ? 'restaurantsByPriceAndType' : 'barsByPriceAndType';
+
   recommandationApi.sendQuery(queryType)
    .then(res => {
     if (res[conditionType].length > 0 && res[conditionType] !== null) {

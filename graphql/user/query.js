@@ -10,6 +10,10 @@ module.exports = {
           gender,
           deleted,
           isTalkingToHuman,
+          cityTraveling,
+          departureDateToCity,
+          isItFirstTimeCity,
+          arrivalDateToCity,
           geoLocation {
             lat,
             lng,
@@ -29,6 +33,10 @@ module.exports = {
           gender,
           deleted,
           isTalkingToHuman,
+          cityTraveling,
+          isItFirstTimeCity,
+          departureDateToCity,
+          arrivalDateToCity,
           geoLocation {
             lat,
             lng,

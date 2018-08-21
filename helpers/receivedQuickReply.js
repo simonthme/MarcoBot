@@ -8,6 +8,8 @@ const postbackDefault = require('../messenger/postbackBlocks/default');
 const noUpdateLocation = require('../messenger/quickReplyBlocks/noUpdateLocation');
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const backQuestionHandler = require('../handlers/backQuestionHandler/backQuestion');
+const firstTimeCityHandler = require('../handlers/firstTimeCityHandler/firstTimeCity');
+const alreadyInCityHandler = require('../handlers/alreadyInCityHandler/alreadyInCity');
 
 module.exports = (event) => {
   const senderID = event.sender.id;
@@ -41,6 +43,12 @@ module.exports = (event) => {
         break;
       case 'CATEGORY':
         backQuestionHandler(payloadType[1], senderID);
+        break;
+      case 'FIRSTTIME':
+        firstTimeCityHandler(payloadType[1], senderID);
+        break;
+      case 'ALREADYINCITY':
+        alreadyInCityHandler(senderID);
         break;
       default :
         postbackDefault(senderID);

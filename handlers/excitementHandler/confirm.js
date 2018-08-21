@@ -11,7 +11,7 @@ module.exports = (senderID) => {
   messageData.message = product_data.experienceMessage;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
-      messageData.message = product_data.missionMessage;
+      messageData.message = product_data.missionMessage2;
       if (response.status === 200)
         return  apiMessenger.sendToFacebook(messageData);
     })
@@ -24,7 +24,20 @@ module.exports = (senderID) => {
     .then(helper.delayPromise(2000))
     .then(response => {
       delete messageData.sender_action;
-      messageData.message = product_data.preQuestionMessage;
+      messageData.message = product_data.whichCity;
+      if (response.status === 200)
+        return  apiMessenger.sendToFacebook(messageData);
+    })
+    .then(response => {
+      delete messageData.message;
+      messageData.sender_action = 'typing_on';
+      if (response.status === 200)
+        return apiMessenger.sendToFacebook(messageData);
+    })
+    .then(helper.delayPromise(2000))
+    .then(response => {
+      delete messageData.sender_action;
+      messageData.message = product_data.whichCity2;
       if (response.status === 200)
         return apiMessenger.sendToFacebook(messageData);
     })
