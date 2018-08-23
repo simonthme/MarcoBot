@@ -470,6 +470,17 @@ module.exports = {
             ]
           },
           {
+            "title": "🇵🇹🇵🇹 Lisbon 🇵🇹🇵🇹",
+            "image_url": `https://api.marco-app.com/api/image/lisbon.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Validate ✔️",
+                "payload": `TRAVELINGTO_LISBON`
+              },
+            ]
+          },
+          {
             "title": "🇮🇹🇮🇹 Roma 🇮🇹🇮🇹",
             "image_url": `https://api.marco-app.com/api/image/roma.jpg`,
             "buttons": [
@@ -490,7 +501,7 @@ module.exports = {
                 "payload": `TRAVELINGTO_BERLIN`
               },
             ]
-          },
+          }
         ]
       }
     }
