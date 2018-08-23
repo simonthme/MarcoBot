@@ -29,14 +29,14 @@ module.exports = (senderID) => {
   return apiGraphql.sendQuery(userQuery.queryUserByAccountMessenger(senderID))
     .then(res => {
       if (res.userByAccountMessenger) {
-        return apiGraphql.sendMutation(userMutation.updateArrivalDate(),
+        return apiGraphql.sendMutation(userMutation.updateArrivalDateToNow(),
           {PSID: senderID, arrivalDateToCity: dateArrival})
       }
     })
     .then(res => {
-      if(res.updateArrivalDate) {
-        const city = res.updateArrivalDate.cityTraveling.charAt(0).toUpperCase()
-          + res.updateArrivalDate.cityTraveling.slice(1);
+      if(res.updateArrivalDateToNow) {
+        const city = res.updateArrivalDateToNow.cityTraveling.charAt(0).toUpperCase()
+          + res.updateArrivalDateToNow.cityTraveling.slice(1);
         return sendMessage(senderID, product_data.howManyDayAreStaying(city), "RESPONSE")
       }
     })

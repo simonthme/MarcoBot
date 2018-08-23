@@ -22,7 +22,6 @@ module.exports = {
         bars_id{ ${Bar} }
         clubs_id{ ${Club} }
         events_id{ ${Event} }
-        exhibitions_id{ ${Exhibition} }
         museums_id{ ${Museum} }
         parcs_id{ ${Parc} }
         restaurants_id{ ${Restaurant} }
@@ -40,7 +39,6 @@ module.exports = {
         bars_id{ ${Bar} }
         clubs_id{ ${Club} }
         events_id{ ${Event} }
-        exhibitions_id{ ${Exhibition} }
         museums_id{ ${Museum} }
         parcs_id{ ${Parc} }
         restaurants_id{ ${Restaurant} }

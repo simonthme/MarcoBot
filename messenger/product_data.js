@@ -3,9 +3,10 @@
  */
 const Config = require("../config");
 const async = require("async");
-const anecdotes = require('./anecdote')
+const anecdotes = require('../variableApp/anecdote')
 const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday",
   "friday", "saturday"];
+const numberDayString = ['', 'first', 'second', 'third', 'fourth', 'fifth'];
 
 const generateSubtitle = (elem, TODAY) => {
   return new Promise((resolve, reject) => {
@@ -545,7 +546,7 @@ module.exports = {
     }
   },
   arrivalLater: {
-    "text": 'Nice! Thanks, I\'ll get back to you the day before your arrival then. In the meantime you can already chack out what to do down there to give you some ideas.',
+    "text": 'Nice! Thanks, I\'ll get back to you the day before your arrival then 😉. In the meantime you can already check out what to do down there to give you some ideas 💡.',
     "quick_replies": [
       {
         "content_type": "text",
@@ -576,6 +577,36 @@ module.exports = {
   },
   isHereNow: {
     "text": "Thank you, you’re perfect! Now as promised here is your program for the day: "
+  },
+  noPropgramForThisStaying: {
+    "text": "Nice! Thanks, You can check out what to do down there to give you some ideas 💡.",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
+      },
+      {
+        "content_type": "text",
+        "title": "🍽 Eat",
+        "payload": "SEARCH_RESTAURANT",
+      },
+      {
+        "content_type": "text",
+        "title": "🍸 Drink",
+        "payload": "SEARCH_BAR",
+      },
+      {
+        "content_type": "text",
+        "title": "🚶‍️ Walk around",
+        "payload": "SEARCH_DISTRICT",
+      },
+      {
+        "content_type": "text",
+        "title": "🗣 Chat with human",
+        "payload": "SEARCH_HUMAN",
+      }
+    ]
   },
   experienceMessage: {
     "text": `Great ! 🎉 ️`
@@ -1729,6 +1760,149 @@ module.exports = {
         ]
       }
     }
-  }
+  },
+  messageOfItineraryNotification(name, city, numberDay, programs_id) {
+    const dayString = numberDayString[numberDay];
+    const cityToLowerCase = city[0].toUpperCase() + city.slice(1);
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": `Hey ${name} 😊, you can find here your program for your ${dayString} day in ${cityToLowerCase}`,
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Start ⚡️",
+              "payload": `STARTITINERARY_${programs_id}:${parseInt(numberDay)}`
+            }
+          ]
+        }
+      }
+    }
+  },
+  messageOfItineraryNotification2(city, numberDay, programs_id) {
+    const dayString = numberDayString[numberDay];
+    const cityToLowerCase = city[0].toUpperCase() + city.slice(1);
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": `Your program for your ${dayString} day in ${cityToLowerCase}`,
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Start ⚡️",
+              "payload": `STARTITINERARY_${programs_id}:${parseInt(numberDay)}`
+            }
+          ]
+        }
+      }
+    }
+  },
+  itineraryNotifications(description, numberDay, page, programs_id) {
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": `${description}`,
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Next",
+              "payload": `ITINERARYNEXT_${programs_id}:${parseInt(numberDay)}:${parseInt(page) + 1}`
+            }
+          ]
+        }
+      }
+    }
+  },
+  messageForTomorrow(name, city) {
+    const cityToLowerCase = city[0].toUpperCase() + city.slice(1);
+    return {
+      "text": `Hey ${name}, ready for tomorrow ? ${cityToLowerCase} is waiting for you 🤩.\nTomorrow morning I'll send you your personal program. But now, you can check out what to do`,
+      "quick_replies": [
+        {
+          "content_type": "text",
+          "title": "📸 Visit",
+          "payload": "SEARCH_VISIT",
+        },
+        {
+          "content_type": "text",
+          "title": "🍽 Eat",
+          "payload": "SEARCH_RESTAURANT",
+        },
+        {
+          "content_type": "text",
+          "title": "🍸 Drink",
+          "payload": "SEARCH_BAR",
+        },
+        {
+          "content_type": "text",
+          "title": "🚶‍️ Walk around",
+          "payload": "SEARCH_DISTRICT",
+        },
+        {
+          "content_type": "text",
+          "title": "🗣 Chat with human",
+          "payload": "SEARCH_HUMAN",
+        }
+      ]
+    }
+  },
+  textBeforeShare(url) {
+    return {
+      "text": `You can find this program in its entirety 👉 ${url}\nIf you have fun, you can share this one with your friends\nI'm counting on you to make me grow! ❤️`,
+    }
+  },
+  shareOrFindUrlMedium: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "Share Marco ❤",
+            "subtitle": "Marco is your personal travel assistant available 24h/24h on Facebook Messenger! ✈",
+            "image_url": "https://api.marco-app.com/api/image/FBProfileRe.png",
+            "buttons": [
+              {
+                "type": "element_share",
+                "share_contents": {
+                  "attachment": {
+                    "type": "template",
+                    "payload": {
+                      "template_type": "generic",
+                      "elements": [
+                        {
+                          "title": `Share`,
+                          "subtitle": `Marco is your personal travel assistant available 24h/24h on Facebook Messenger! ✈️`,
+                          "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
+                          "default_action": {
+                            "type": "web_url",
+                            "url": "https://www.messenger.com/t/marco.bot.paris",
+
+                          },
+                          "buttons": [
+                            {
+                              "type": "web_url",
+                              "url": `https://www.messenger.com/t/marco.bot.paris`,
+                              "title": "Discover Marco"
+                            },
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ],
+      }
+    }
+  },
 }
 ;

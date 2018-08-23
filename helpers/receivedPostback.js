@@ -14,6 +14,8 @@ const laterViewHandler = require('../handlers/laterViewHandler/laterView');
 const helpHandler = require('../handlers/helpHandler/help');
 const unsubscribeHandler = require('../handlers/unsubscribeHandler/unsubscribe');
 const shareHandler = require('../handlers/shareHandler/share');
+const itineraryStartHandler = require('../handlers/itineraryHandler/startItinerary');
+const itineraryNextHandler = require('../handlers/itineraryHandler/nextItinerary');
 const cityHandler = require('../handlers/cityHandler/city');
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
@@ -74,8 +76,14 @@ module.exports = (event) => {
       case  'UNSUBSCRIBE':
         unsubscribeHandler(senderID);
         break;
-        case  'INVITE':
+      case  'INVITE':
         shareHandler(senderID);
+        break;
+      case  'STARTITINERARY':
+        itineraryStartHandler(payloadType[1], senderID);
+        break;
+      case  'ITINERARYNEXT':
+        itineraryNextHandler(payloadType[1], senderID);
         break;
       default :
         postbackDefault(senderID);
