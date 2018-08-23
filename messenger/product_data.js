@@ -3,7 +3,7 @@
  */
 const Config = require("../config");
 const async = require("async");
-const anecdotes = require('../variableApp/anecdote')
+const anecdotes = require('../variableApp/anecdote');
 const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday",
   "friday", "saturday"];
 const numberDayString = ['', 'first', 'second', 'third', 'fourth', 'fifth'];
@@ -43,7 +43,7 @@ const generateSubtitle = (elem, TODAY) => {
         }
       })
     } else {
-      schedule = "❌ CLOSE";
+      schedule = "❌ CLOSED";
       resolve({schedule: schedule, money: money});
     }
   });
@@ -104,20 +104,20 @@ module.exports = {
         "text": "Marco is your personal travel assistant available 24h/24h on Facebook Messenger! ✈️ "
       }, {
         "locale": "en_US",
-        "text": "Marco is your personal travel assistant available 24h/24h on Facebook Messenger! ✈"
+        "text": "Marco is your personal travel assistant available 24h/24h on Facebook Messenger! ✈️"
       }
     ]
   },
   templateList: (list, kindElement, page, whichApi, category = '',
                  price = 0) => {
+    console.log(list, kindElement, page, whichApi, category, price);
     return new Promise((resolve, reject) => {
       const TODAY = new Date();
       const arrayOfElement = [];
-
       async.each(list, (elem, callback) => {
         generateSubtitle(elem, TODAY)
           .then(res => {
-            const elemLocationGoogleMap = elem.location.name.replace(" ", "+")
+            const elemLocationGoogleMap = elem.location.name.replace(" ", "+");
             const element = {
               "title": `${elem.name}`,
               "image_url": `https://api.marco-app.com/api/image/${elem.photos[0]}`,
@@ -189,13 +189,13 @@ module.exports = {
           arrayOfElement.push(morePage)
         } else {
           const talkWithHuman = {
-            "title": `We have nothing left in stock, but ask for a local`,
-            "subtitle": `If you want any information on Paris, request a local by clicking button below.`,
+            "title": `I have nothing left in stock, but ask for a Parisian. 😉`,
+            "subtitle": `If you want more information on Paris, request a local by clicking the button below.`,
             "image_url": `https://api.marco-app.com/api/image/askInformation.jpg`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "Chat with human",
+                "title": "Chat with a human",
                 "payload": `SEARCH_HUMAN`
               },
             ]
@@ -296,8 +296,8 @@ module.exports = {
           arrayOfElement.push(morePage)
         } else {
           const talkWithHuman = {
-            "title": `We have nothing left in stock, but ask for a local`,
-            "subtitle": `If you want any information on Paris, request a local by clicking button below.`,
+            "title": `I have nothing left in stock, but ask for a Parisian. 😉`,
+            "subtitle": `If you want more information on Paris, request a local by clicking the button below.`,
             "image_url": `https://api.marco-app.com/api/image/askInformation.jpg`,
             "buttons": [
               {
@@ -697,7 +697,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -733,7 +733,7 @@ module.exports = {
         },
         {
           "content_type": "text",
-          "title": "🗣 Chat with human",
+          "title": "🗣 Chat with a human",
           "payload": "SEARCH_HUMAN",
         }
       ]
@@ -764,7 +764,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -794,7 +794,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -824,7 +824,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -854,7 +854,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -884,7 +884,7 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -1185,7 +1185,7 @@ module.exports = {
             "buttons": [
               {
                 "type": "postback",
-                "title": "Atypical",
+                "title": "Healthy",
                 "payload": "RESTAURANT_VEGGIE"
               }
             ]
@@ -1480,22 +1480,22 @@ module.exports = {
       },
       {
         "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_SITE",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -1505,27 +1505,27 @@ module.exports = {
     "quick_replies": [
       {
         "content_type": "text",
-        "title": "Visiting",
-        "payload": "SEARCH_SITE",
+        "title": "📸 Visit",
+        "payload": "SEARCH_VISIT",
       },
       {
         "content_type": "text",
-        "title": "I'm hungry",
+        "title": "🍽 Eat",
         "payload": "SEARCH_RESTAURANT",
       },
       {
         "content_type": "text",
-        "title": "I'm thirsty",
+        "title": "🍸 Drink",
         "payload": "SEARCH_BAR",
       },
       {
         "content_type": "text",
-        "title": "district",
-        "payload": `SEARCH_DISTRICT`,
+        "title": "🚶‍️ Walk around",
+        "payload": "SEARCH_DISTRICT",
       },
       {
         "content_type": "text",
-        "title": "🗣 Chat with human",
+        "title": "🗣 Chat with a human",
         "payload": "SEARCH_HUMAN",
       }
     ]
@@ -1615,7 +1615,7 @@ module.exports = {
         },
         {
           "content_type": "text",
-          "title": "🗣 Chat with human",
+          "title": "🗣 Chat with a human",
           "payload": "SEARCH_HUMAN",
         }
       ]
@@ -1648,7 +1648,7 @@ module.exports = {
         },
         {
           "content_type": "text",
-          "title": "🗣 Chat with human",
+          "title": "🗣 Chat with a human",
           "payload": "SEARCH_HUMAN",
         }
       ]
@@ -1664,7 +1664,7 @@ module.exports = {
     "text": "Oops! Something wrong happened... Please email at hello@marcobot.io"
   },
   startTalkingWithHuman: {
-    "text": "Okay, an awesome Parisian will answer you as soon as possible.\n You can stop talking to him by typing \"Start Marco\" or just \"Stop\". \nI\'ll come back for you. See you soon 🙂 ",
+    "text": "Okay! An awesome Parisian is gonna answer your request ASAP!\n To stop chatting just type \"I want Marco back\" or \"Stop\". \nI\'ll come back for you. See you soon 🙂 ",
   },
   startTalkingWithHuman2: {
     "attachment": {
@@ -1673,12 +1673,12 @@ module.exports = {
         "template_type": "generic",
         "elements": [
           {
-            "title": `You start chat with an awesome Parisian who will answer you as soon as possible`,
-            "subtitle": `You can stop talking to him by typing \"Start Marco\", \"Stop\" or clicking button.`,
+            "title": `You started to chat with an awesome Parisian that'll answer your requests ASAP! 🙂`,
+            "subtitle": `To stop chatting just type \"I want Marco back\", \"Stop\" or click the button.`,
             "buttons": [
               {
                 "type": "postback",
-                "title": "Stop Chat",
+                "title": "Stop chat",
                 "payload": "STOPTALKING_"
               },
             ]
@@ -1690,7 +1690,7 @@ module.exports = {
 
   stopTalkingWithHuman(name){
     return {
-      "text": `Hey ${name}, I missed you. I\'m really happy to talk to you again 🙂. How can I help you ?`,
+      "text": `Hey ${name}, I missed you. I\'m really happy to talk with you again 🙂. How can I help you?`,
       "quick_replies": [
         {
           "content_type": "text",
@@ -1714,7 +1714,7 @@ module.exports = {
         },
         {
           "content_type": "text",
-          "title": "🗣 Chat with human",
+          "title": "🗣 Chat with a human",
           "payload": "SEARCH_HUMAN",
         }
       ]
@@ -1728,7 +1728,7 @@ module.exports = {
         "elements": [
           {
             "title": "Marco",
-            "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
+            "image_url": `https://api.marco-app.com/api/image/marcoSharePhoto.jpg`,
             "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
             "buttons": [
               {
@@ -1741,7 +1741,7 @@ module.exports = {
                       "elements": [
                         {
                           "title": "Marco",
-                          "image_url": `https://api.marco-app.com/api/image/FBProfileRe.png`,
+                          "image_url": `https://api.marco-app.com/api/image/marcoSharePhoto.jpg`,
                           "subtitle": "Your own personal travel assistant 24h/24h on Facebook Messenger. ✈️",
                           "buttons": [{
                             "type": "web_url",

@@ -10,7 +10,11 @@ module.exports = (senderID) => {
   messageData.message = product_data.shareMessage;
   apiMessenger.sendToFacebook(messageData)
     .then(response => {
-      console.log('share');
+      messageData.message = product_data.question1MessageListView;
+      return apiMessenger.sendToFacebook(messageData)
+    })
+    .then(res => {
+      console.log('share end');
     })
     .catch(err => {
       console.log(err.response.data.error);
