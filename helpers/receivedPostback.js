@@ -12,7 +12,8 @@ const nextPageRecommendationHandler = require('../handlers/nextPageHandler/nextP
 const nextPageDiffEventRecommendationHandler = require('../handlers/nextPageHandler/nextPageDiffEventRecommendation');
 const laterViewHandler = require('../handlers/laterViewHandler/laterView');
 const helpHandler = require('../handlers/helpHandler/help');
-const unsubscribeHandler = require('../handlers/unsubscribeHandler/unsubscribe');
+const unsubscribeHandler = require('../handlers/subscribeHandler/unsubscribe');
+const subscriptionHandler = require('../handlers/subscribeHandler/subscription');
 const shareHandler = require('../handlers/shareHandler/share');
 const itineraryStartHandler = require('../handlers/itineraryHandler/startItinerary');
 const itineraryNextHandler = require('../handlers/itineraryHandler/nextItinerary');
@@ -73,8 +74,8 @@ module.exports = (event) => {
       case 'HELP':
         helpHandler(senderID);
         break;
-      case  'UNSUBSCRIBE':
-        unsubscribeHandler(senderID);
+      case  'SUBSCRIPTION':
+        subscriptionHandler(senderID);
         break;
       case  'INVITE':
         shareHandler(senderID);

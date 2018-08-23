@@ -71,9 +71,9 @@ module.exports = {
                 "payload": "HELP"
               },
               {
-                "title": "Unsubscribe",
+                "title": "Subscription",
                 "type": "postback",
-                "payload": "UNSUBSCRIBE"
+                "payload": "SUBSCRIPTION"
               },
               {
                 "title": "Restart",
@@ -94,6 +94,21 @@ module.exports = {
           },
 
         ]
+      }
+    ]
+  },
+  wouldYouSubOrUnsub: {
+    "text": "You can choose if you want to be susbcribe or unsubscribe to my notifications ",
+    "quick_replies": [
+      {
+        "content_type": "text",
+        "title": "Susbcribe 👍",
+        "payload": "SUBSCRIBE_",
+      },
+      {
+        "content_type": "text",
+        "title": "Unsubscribe 👎",
+        "payload": "UNSUBSCRIBE_",
       }
     ]
   },
@@ -1670,6 +1685,9 @@ module.exports = {
   },
   unsubscribeMessage: {
     "text": "Done! ✅ Could you tell me in a few words why? It will help me getting better. 🙂 \n\n\nNevertheless if you want to delete your account, email us at hello@marcobot.io "
+  },
+  subscribeMessage: {
+    "text": "Done! ✅, I'm happy to be able to continue talking with you my friend 🙂"
   },
   unsubscribeMessageError: {
     "text": "Oops! Something wrong happened... Please email at hello@marcobot.io"

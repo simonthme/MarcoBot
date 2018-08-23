@@ -54,7 +54,6 @@ module.exports = (event) => {
                 const city = res.updateDepartureDate.cityTraveling;
                 let numberDay = duration / (24 * 60 * 60) < 1 ? 1 : duration / (24 * 60 * 60);
                 numberDay > numberDayProgramByCity[city] ? numberDay = numberDayProgramByCity[city] : null;
-                console.log(numberDay);
                 return apiGraphql.sendQuery(queryProgram.getOneProgram(res.updateDepartureDate.cityTraveling, numberDay))
                   .then(program => {
                     if(program.getOneProgram) {

@@ -9,6 +9,7 @@ const queryTrip = require('../../graphql/trip/query');
 const queryProgram = require('../../graphql/program/query');
 const queryItinerary = require('../../graphql/itinerary/query');
 const queryUser = require('../../graphql/user/query');
+const queryAccountMessenger = require('../../graphql/accountMessenger/query');
 const product_data = require("../../messenger/product_data");
 const numberDayProgramByCity = require('../../variableApp/limitCityProgram')
 
@@ -55,14 +56,22 @@ class CronMethods {
                     .then(user => {
                       if (user.user) {
                         const PSID = user.user.PSID;
-                        return CronMethods.sendMessage(PSID,
-                          product_data.messageOfItineraryNotification(user.user.firstName,
-                            trip.cityTraveling, numberDayAlreadyDone + 1, idProgram), "RESPONSE")
-                          .then(() => callback())
-                          .catch(err => {
-                            callback()
-                            console.log(err.response.data);
+                        return this.apiGraphql.sendQuery(queryAccountMessenger.queryPSID(PSID))
+                          .then(accountMessenger => {
+                            if (accountMessenger.accountMessenger.subscribe){
+                              return CronMethods.sendMessage(PSID,
+                                product_data.messageOfItineraryNotification(user.user.firstName,
+                                  trip.cityTraveling, numberDayAlreadyDone + 1, idProgram), "RESPONSE")
+                                .then(() => callback())
+                                .catch(err => {
+                                  callback()
+                                  console.log(err.response.data);
+                                })
+                            } else {
+                              callback()
+                            }
                           })
+                          .catch(err => callback())
                       } else {
                         callback()
                       }
@@ -88,14 +97,22 @@ class CronMethods {
             .then(user => {
               if (user.user) {
                 const PSID = user.user.PSID;
-                return CronMethods.sendMessage(PSID,
-                  product_data.messageForTomorrow(user.user.firstName,
-                    trip.cityTraveling), "RESPONSE")
-                  .then(() => callback())
-                  .catch(err => {
-                    callback()
-                    console.log(err.response.data);
+                return this.apiGraphql.sendQuery(queryAccountMessenger.queryPSID(PSID))
+                  .then(accountMessenger => {
+                    if (accountMessenger.accountMessenger.subscribe){
+                      return CronMethods.sendMessage(PSID,
+                        product_data.messageForTomorrow(user.user.firstName,
+                          trip.cityTraveling), "RESPONSE")
+                        .then(() => callback())
+                        .catch(err => {
+                          callback()
+                          console.log(err.response.data);
+                        })
+                    } else {
+                      callback();
+                    }
                   })
+                  .catch(err => callback())
               } else {
                 callback()
               }
