@@ -471,7 +471,7 @@ module.exports = {
           },
           {
             "title": "🇵🇹🇵🇹 Lisbon 🇵🇹🇵🇹",
-            "image_url": `https://api.marco-app.com/api/image/lisbon.jpg`,
+            "image_url": `https://api.marco-app.com/api/image/lisbon.png`,
             "buttons": [
               {
                 "type": "postback",
