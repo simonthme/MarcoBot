@@ -9,6 +9,8 @@ const ApiGraphql = require("./apiGraphql");
 const helper = require("./helper");
 const config = require("../config");
 const async = require('async');
+const queryProgram = require('../graphql/program/query');
+const numberDayProgramByCity = require('../variableApp/limitCityProgram')
 
 const sendMessage = (senderID, data, typeMessage) => {
   return new Promise((resolve, reject) => {
@@ -49,17 +51,44 @@ module.exports = (event) => {
                     return sendMessage(senderID, product_data.arrivalLater, "RESPONSE")
                   })
               } else {
-                return apiMessenger.sendToFacebook({
-                  recipient: {id: senderID},
-                  sender_action: 'typing_on',
-                  messaging_types: "RESPONSE",
-                  message: ""
-                })
-                  .then(helper.delayPromise(2000))
-                  .then(() => {
-                    return sendMessage(senderID, product_data.isHereNow, "RESPONSE")
+                const city = res.updateDepartureDate.cityTraveling;
+                let numberDay = duration / (24 * 60 * 60) < 1 ? 1 : duration / (24 * 60 * 60);
+                numberDay > numberDayProgramByCity[city] ? numberDay = numberDayProgramByCity[city] : null;
+                return apiGraphql.sendQuery(queryProgram.getOneProgram(res.updateDepartureDate.cityTraveling, numberDay))
+                  .then(program => {
+                    if(program.getOneProgram) {
+                      const idProgram = program.getOneProgram.id;
+                      return apiMessenger.sendToFacebook({
+                        recipient: {id: senderID},
+                        sender_action: 'typing_on',
+                        messaging_types: "RESPONSE",
+                        message: ""
+                      })
+                        .then(helper.delayPromise(2000))
+                        .then(() => {
+                          return sendMessage(senderID, product_data.isHereNow, "RESPONSE")
+                        })
+                        .then(() => {
+                          return apiMessenger.sendToFacebook({
+                            recipient: {id: senderID},
+                            sender_action: 'typing_on',
+                            messaging_types: "RESPONSE",
+                            message: ""
+                          })
+                        })
+                        .then(helper.delayPromise(2000))
+                        .then(() => {
+                          return sendMessage(senderID,
+                            product_data.messageOfItineraryNotification2(city, numberDay, idProgram), "RESPONSE")
+                        })
+                    } else {
+                      return sendMessage(senderID, product_data.noPropgramForThisStaying, "RESPONSE")
+                    }
                   })
               }
+            } else {
+              return sendMessage(senderID,
+                {"text": "Oopss something wrong happened 😕, please try to type again your duration in this city"}, "RESPONSE")
             }
           })
       } else if (res.userByAccountMessenger && res.userByAccountMessenger.cityTraveling !== null

@@ -10,6 +10,8 @@ const postbackInteractionWithCard = require('../messenger/postbackBlocks/interac
 const backQuestionHandler = require('../handlers/backQuestionHandler/backQuestion');
 const firstTimeCityHandler = require('../handlers/firstTimeCityHandler/firstTimeCity');
 const alreadyInCityHandler = require('../handlers/alreadyInCityHandler/alreadyInCity');
+const unsubscribeHandler = require('../handlers/subscribeHandler/unsubscribe');
+const subscribeHandler = require('../handlers/subscribeHandler/susbcribe');
 
 module.exports = (event) => {
   const senderID = event.sender.id;
@@ -49,6 +51,12 @@ module.exports = (event) => {
         break;
       case 'ALREADYINCITY':
         alreadyInCityHandler(senderID);
+        break;
+      case  'UNSUBSCRIBE':
+        unsubscribeHandler(senderID);
+        break;
+      case  'SUBSCRIBE':
+        subscribeHandler(senderID);
         break;
       default :
         postbackDefault(senderID);

@@ -213,6 +213,34 @@ module.exports = {
      }
     `
   },
+  updateArrivalDateToNow: () => {
+      return `mutation updateArrivalDateToNow($PSID: ID!, $arrivalDateToCity: String) {
+        updateArrivalDateToNow(PSID: $PSID, arrivalDateToCity: $arrivalDateToCity) {
+           id
+          firstName,
+          lastName,
+          cityTraveling,
+          gender,
+          profilePic,
+          isTalkingToHuman,
+          PSID,
+          arrivalDateToCity,
+          departureDateToCity,
+          travelType,
+          isItFirstTimeCity,
+          geoLocation {
+            lat,
+            lng,
+            lastUpdated
+          },
+          categories {
+          name,
+          weight
+        }
+      }
+     }
+    `
+  },
   updateDepartureDate: () => {
       return `mutation updateDepartureDate($PSID: ID!, $departureDateToCity: String) {
         updateDepartureDate(PSID: $PSID, departureDateToCity: $departureDateToCity) {
