@@ -51,7 +51,7 @@ const generateSubtitle = (elem, TODAY) => {
 module.exports = {
   getStartedData: {
     "get_started": {
-      "payload": "INIT"
+      "payload": "INIT",
     }
   },
   menuData: {

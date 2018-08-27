@@ -39,12 +39,18 @@ axios.post(Config.category[Config.indexCategory].authUrlRecommendationApi, {clie
 app.get('/setup', (req, res) => {
   apiMessenger.callbackStartButton(product_data.getStartedData)
     .then(response => {
+        console.log("start call");
+	console.log(response);
       return apiMessenger.callbackStartButton(product_data.menuData)
     })
     .then(response => {
+      console.log("menu call");
+      console.log(response);
       return apiMessenger.callbackStartButton(product_data.welcomeMessage)
     })
     .then(response => {
+      console.log("welcome message call");
+	console.log(response)
       res.send(response.data);
     })
     .catch(err => {
