@@ -2,6 +2,7 @@
  * Created by corentin on 14/06/2018.
  */
 const queryBar = require('../../graphql/bar/query');
+const queryUser = require('../../graphql/user/query');
 const product_data = require("../../messenger/product_data");
 const config = require("../../config");
 const ApiGraphql = require('../../helpers/apiGraphql');
@@ -25,10 +26,17 @@ module.exports = (parameters, senderId) => {
   let dataToSend = {};
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   if (typeof parameters.drink !== "undefined" && parameters.drink !== null
-    && parameters.drink.length > 0 && (parameters.drink[0] !== 'drink' && parameters.drink[0] !== 'bar') && parameters.drink.length > 0){
+    && parameters.drink.length > 0 && (parameters.drink[0] !== 'drink' && parameters.drink[0] !== 'bar') && parameters.drink.length > 0) {
     return sendMessage(senderId, product_data.priceMessage('BAR', parameters.drink[0]), "RESPONSE")
   } else {
-    return apiGraphql.sendQuery(queryBar.queryBars(0))
+    return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderId))
+      .then(res => {
+        if (res.userByAccountMessenger) {
+          const city = res.userByAccountMessenger.cityTraveling.length > 0
+            ? res.userByAccountMessenger.cityTraveling : "paris";
+          return apiGraphql.sendQuery(queryBar.queryBars(0, city))
+        }
+      })
       .then((res) => {
         return product_data.templateList(res.bars, "BAR", 0, "mongo")
       })

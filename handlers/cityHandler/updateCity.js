@@ -1,5 +1,5 @@
 /**
- * Created by corentin on 07/08/2018.
+ * Created by corentin on 28/08/2018.
  */
 const product_data = require("../../messenger/product_data");
 const apiMessenger = require("../../helpers/apiMessenger");
@@ -35,7 +35,29 @@ module.exports = (payload, senderID) => {
     .then(res => {
       const city = payload.charAt(0) + payload.slice(1).toLowerCase();
       if(res.updateCityTraveling) {
-        return sendMessage(senderID, product_data.isItFirstTime(city), "RESPONSE")
+        return apiMessenger.sendToFacebook({
+          recipient: {id: senderID},
+          sender_action: 'typing_on',
+          messaging_types: "RESPONSE",
+          message: ""
+        })
+          .then(helper.delayPromise(2000))
+          .then(() => {
+            return sendMessage(senderID, product_data.updateCityDone(city), "RESPONSE")
+          })
+          .then(() => {
+            return apiMessenger.sendToFacebook({
+              recipient: {id: senderID},
+              sender_action: 'typing_on',
+              messaging_types: "RESPONSE",
+              message: ""
+            })
+          })
+          .then(helper.delayPromise(2000))
+          .then(() => {
+            return sendMessage(senderID, product_data.question1Message, "RESPONSE")
+          })
+          .catch(err => console.log(err))
       }
     })
 };

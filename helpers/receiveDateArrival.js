@@ -26,7 +26,6 @@ const sendMessage = (senderId, data, typeMessage) => {
 module.exports = (event) => {
   const senderID = event.sender.id;
   const dateArrival = event.message.nlp.entities.datetime[0].value;
-  console.log('ARRIVE AT ', dateArrival);
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(userQuery.queryUserByAccountMessenger(senderID))
     .then(res => {

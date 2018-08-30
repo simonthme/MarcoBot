@@ -18,6 +18,10 @@ const shareHandler = require('../handlers/shareHandler/share');
 const itineraryStartHandler = require('../handlers/itineraryHandler/startItinerary');
 const itineraryNextHandler = require('../handlers/itineraryHandler/nextItinerary');
 const cityHandler = require('../handlers/cityHandler/city');
+const changeMyCityHandler = require('../handlers/cityHandler/changeMyCity');
+const updateCityHandler = require('../handlers/cityHandler/updateCity');
+const newTripHandler = require('../handlers/cityHandler/newTrip');
+
 
 const postbackInteractionWithCard = require('../messenger/postbackBlocks/interactionWithCard');
 const postbackLocation = require('../messenger/quickReplyBlocks/quickReplyLocation');
@@ -85,6 +89,15 @@ module.exports = (event) => {
         break;
       case  'ITINERARYNEXT':
         itineraryNextHandler(payloadType[1], senderID);
+        break;
+      case 'CHANGEMYCITY':
+        changeMyCityHandler(senderID);
+        break;
+      case 'MODIFYCITY':
+        updateCityHandler(payloadType[1], senderID);
+        break;
+      case 'NEWTRIP':
+        newTripHandler(senderID);
         break;
       default :
         postbackDefault(senderID);

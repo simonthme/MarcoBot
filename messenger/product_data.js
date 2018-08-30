@@ -7,6 +7,8 @@ const anecdotes = require('../variableApp/anecdote');
 const ARRAYDAY = ["sunday", "monday", "tuesday", "wednesday", "thursday",
   "friday", "saturday"];
 const numberDayString = ['', 'first', 'second', 'third', 'fourth', 'fifth'];
+const indexElementDistrict = require('../variableApp/district/index');
+const limitPageDistrict = require('../variableApp/district/limit');
 
 const generateSubtitle = (elem, TODAY) => {
   return new Promise((resolve, reject) => {
@@ -66,6 +68,27 @@ module.exports = {
             "type": "nested",
             "call_to_actions": [
               {
+                "title": "🔄 Switch city",
+                "type": "postback",
+                "payload": "CHANGEMYCITY"
+              },
+              {
+                "title": "🗺 New trip",
+                "type": "postback",
+                "payload": "NEWTRIP"
+              },
+              {
+                "title": "🧡 My favorites",
+                "type": "postback",
+                "payload": "MYFAVORITE_0"
+              },
+            ]
+          },
+          {
+            "title": "🛎 Service",
+            "type": "nested",
+            "call_to_actions": [
+              {
                 "title": "Help",
                 "type": "postback",
                 "payload": "HELP"
@@ -81,11 +104,6 @@ module.exports = {
                 "payload": "INIT"
               }
             ]
-          },
-          {
-            "title": "🧡 Favorites",
-            "type": "postback",
-            "payload": "MYFAVORITE_0"
           },
           {
             "title": "💌 Invite a friend",
@@ -484,39 +502,39 @@ module.exports = {
               },
             ]
           },
-          {
-            "title": "🇵🇹🇵🇹 Lisbon 🇵🇹🇵🇹",
-            "image_url": `https://api.marco-app.com/api/image/lisbon.png`,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Validate ✔️",
-                "payload": `TRAVELINGTO_LISBON`
-              },
-            ]
-          },
-          {
-            "title": "🇮🇹🇮🇹 Roma 🇮🇹🇮🇹",
-            "image_url": `https://api.marco-app.com/api/image/roma.jpg`,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Validate ✔️",
-                "payload": `TRAVELINGTO_ROMA`
-              },
-            ]
-          },
-          {
-            "title": "🇩🇪🇩🇪 Berlin 🇩🇪🇩🇪",
-            "image_url": `https://api.marco-app.com/api/image/berlin.jpg`,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Validate ✔️",
-                "payload": `TRAVELINGTO_BERLIN`
-              },
-            ]
-          }
+          // {
+          //   "title": "🇵🇹🇵🇹 Lisbon 🇵🇹🇵🇹",
+          //   "image_url": `https://api.marco-app.com/api/image/lisbon.png`,
+          //   "buttons": [
+          //     {
+          //       "type": "postback",
+          //       "title": "Validate ✔️",
+          //       "payload": `TRAVELINGTO_LISBON`
+          //     },
+          //   ]
+          // },
+          // {
+          //   "title": "🇮🇹🇮🇹 Roma 🇮🇹🇮🇹",
+          //   "image_url": `https://api.marco-app.com/api/image/roma.jpg`,
+          //   "buttons": [
+          //     {
+          //       "type": "postback",
+          //       "title": "Validate ✔️",
+          //       "payload": `TRAVELINGTO_ROMA`
+          //     },
+          //   ]
+          // },
+          // {
+          //   "title": "🇩🇪🇩🇪 Berlin 🇩🇪🇩🇪",
+          //   "image_url": `https://api.marco-app.com/api/image/berlin.jpg`,
+          //   "buttons": [
+          //     {
+          //       "type": "postback",
+          //       "title": "Validate ✔️",
+          //       "payload": `TRAVELINGTO_BERLIN`
+          //     },
+          //   ]
+          // }
         ]
       }
     }
@@ -569,6 +587,99 @@ module.exports = {
   howManyDayAreStaying(city) {
     return {
       "text": `How many day will you stay in ${city}? (Type the duration)`,
+    }
+  },
+  updateCityDone(city) {
+    return {
+      "text": `The switch for ${city} has been done ✅`,
+    }
+  },
+  changeMyCity: {
+    "attachment": {
+      "type": "template",
+      "payload": {
+        "template_type": "generic",
+        "elements": [
+          {
+            "title": "🇫🇷🇫🇷 Paris 🇫🇷🇫🇷",
+            "image_url": `https://api.marco-app.com/api/image/paris.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Validate ✔️",
+                "payload": `MODIFYCITY_PARIS`
+              },
+            ]
+          },
+          {
+            "title": "🇬🇧🇬🇧 London 🇬🇧🇬🇧",
+            "image_url": `https://api.marco-app.com/api/image/london.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Validate ✔️",
+                "payload": `MODIFYCITY_LONDON`
+              },
+            ]
+          },
+          {
+            "title": "🇪🇸🇪🇸 Barcelona 🇪🇸🇪🇸",
+            "image_url": `https://api.marco-app.com/api/image/barcelona.jpg`,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Validate ✔️",
+                "payload": `MODIFYCITY_BARCELONA`
+              },
+            ]
+          },
+          // {
+          //   "title": "🇵🇹🇵🇹 Lisbon 🇵🇹🇵🇹",
+          //   "image_url": `https://api.marco-app.com/api/image/lisbon.png`,
+          //   "buttons": [
+          //     {
+          //       "type": "postback",
+          //       "title": "Validate ✔️",
+          //       "payload": `MODIFYCITY_LISBON`
+          //     },
+          //   ]
+          // },
+          // {
+          //   "title": "🇮🇹🇮🇹 Roma 🇮🇹🇮🇹",
+          //   "image_url": `https://api.marco-app.com/api/image/roma.jpg`,
+          //   "buttons": [
+          //     {
+          //       "type": "postback",
+          //       "title": "Validate ✔️",
+          //       "payload": `MODIFYCITY_ROMA`
+          //     },
+          //   ]
+          // },
+          // {
+          //   "title": "🇩🇪🇩🇪 Berlin 🇩🇪🇩🇪",
+          //   "image_url": `https://api.marco-app.com/api/image/berlin.jpg`,
+          //   "buttons": [
+          //     {
+          //       "type": "postback",
+          //       "title": "Validate ✔️",
+          //       "payload": `MODIFYCITY_BERLIN`
+          //     },
+          //   ]
+          // }
+        ]
+      }
+    }
+  },
+  noMoreCityInTrip(city) {
+    const cityToUpper = city[0].toUpperCase() + city.slice(1);
+    return {
+      "text": `Currently you're looking for ${cityToUpper}, Which city do you want to switch ?\nBy the way you have no recorded city in your upcoming trips.\nI advise you to record a new trip in the menu \"👤 My account\" -> \"🗺 New trip\"`
+    }
+  },
+  yourCityActual(city) {
+    const cityToUpper = city[0].toUpperCase() + city.slice(1);
+    return {
+      "text": `Currently you're looking for ${cityToUpper}, Which city do you want to switch ?`
     }
   },
   arrivalLater: {
@@ -886,7 +997,7 @@ module.exports = {
     ]
   },
   nothingMore: {
-    "text": "Sorry! There's nothing left in stock... If you have any other queries, don’t hesitate to tell me.",
+    "text": "Sorry! You have nothing in your favorite right now. You can add one when you click on tell me more and later 😉. \nIf you have any other queries, don’t hesitate to tell me.",
     "quick_replies": [
       {
         "content_type": "text",
@@ -1275,224 +1386,24 @@ module.exports = {
   selectionDistrict2: {
     "text": " Oh but wait, I don’t know where you’d like to go. Would you mind telling me?"
   },
-  selectionDistrictType: {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "list",
-        "top_element_style": "compact",
-        "elements": [
-          {
-            "title": "Around Le Louvre",
-            "image_url": "https://api.marco-app.com/api/image/minLouvreDistrict.jpg",
-            "subtitle": "Center of Paris.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_louvre"
-              }
-            ]
-          },
-          {
-            "title": "Latin quarter",
-            "image_url": "https://api.marco-app.com/api/image/minLatin.jpg",
-            "subtitle": "The left bank's true student & intellectual center.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_latin_quarter"
-              }
-            ]
-          },
-          {
-            "title": "Around the Tour Eiffel",
-            "image_url": "https://api.marco-app.com/api/image/minEiffelDistrict.jpg",
-            "subtitle": "Hidden behind walls you'll find embassies and institutional buildings.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_eiffel_tour"
-              }
-            ]
-          },
-        ],
-        "buttons": [
-          {
-            "title": "View more ➕",
-            "type": "postback",
-            "payload": "SEARCH_DISTRICT2"
-          }
-        ]
-      }
-    }
-  },
-  selectionDistrictType2: {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "list",
-        "top_element_style": "compact",
-        "elements": [
-          {
-            "title": "The Champs Elysée surroundings",
-            "image_url": "https://api.marco-app.com/api/image/minChamps.jpg",
-            "subtitle": "The golden triangle famous for its luxurious shops.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_champs_elysee"
-              }
-            ]
-          },
-          {
-            "title": "Canal St. Martin district",
-            "image_url": "https://api.marco-app.com/api/image/minCanal.jpg",
-            "subtitle": "Famous for being hype!",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_canal_st_martin"
-              }
-            ]
-          },
-          {
-            "title": "Le Marais district",
-            "image_url": "https://api.marco-app.com/api/image/minMarais.jpg",
-            "subtitle": "Historical district of Paris full of high-end boutiques.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_marais"
-              }
-            ]
-          },
-        ],
-        "buttons": [
-          {
-            "title": "View more ➕",
-            "type": "postback",
-            "payload": "SEARCH_DISTRICT3"
-          }
-        ]
-      }
-    }
-  },
-  selectionDistrictType3: {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "list",
-        "top_element_style": "compact",
-        "elements": [
-          {
-            "title": "Montmartre",
-            "image_url": "https://api.marco-app.com/api/image/minMontmartre.jpg",
-            "subtitle": "Famous artistic hill of Paris.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_montmartre"
-              }
-            ]
-          },
-          {
-            "title": "Trocadéro surroundings",
-            "image_url": "https://api.marco-app.com/api/image/minTroca.jpg",
-            "subtitle": "Famous artistic hill of Paris.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_trocadero"
-              }
-            ]
-          },
-          {
-            "title": "Belleville",
-            "image_url": "https://api.marco-app.com/api/image/minBelleville.jpg",
-            "subtitle": "Historically the rural & working class neighbourhood.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_belleville"
-              }
-            ]
-          },
-        ],
-        "buttons": [
-          {
-            "title": "View more ➕",
-            "type": "postback",
-            "payload": "SEARCH_DISTRICT4"
-          }
-        ]
-      }
-    }
-  },
-  selectionDistrictType4: {
-    "attachment": {
-      "type": "template",
-      "payload": {
-        "template_type": "list",
-        "top_element_style": "compact",
-        "elements": [
-          {
-            "title": "Around Bastille",
-            "image_url": "https://api.marco-app.com/api/image/minBastille.jpg",
-            "subtitle": "From nightfall to early morning streets are crowded with young people.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_bastille"
-              }
-            ]
-          },
-          {
-            "title": "Pigalle",
-            "image_url": "https://api.marco-app.com/api/image/minPigalle.jpg",
-            "subtitle": "The hottest neighbourhood of Paris.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_pigalle"
-              }
-            ]
-          },
-          {
-            "title": "Montparnasse & surroundings",
-            "image_url": "https://api.marco-app.com/api/image/minMontpar.jpg",
-            "subtitle": "Famous for its theatres.",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_montparnasse"
-              }
-            ]
-          },
-          {
-            "title": "Chinatown",
-            "image_url": "https://api.marco-app.com/api/image/minChinatown.jpg",
-            "subtitle": "Famous for its asian streets and food",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Gooooo! 🚀",
-                "payload": "AROUND_chinese_quarter"
-              }
-            ]
-          }
-        ],
+  selectionDistrictType(city, page) {
+    const elementsDistrict = indexElementDistrict(city, parseInt(page));
+    const buttonsDistrict =
+      limitPageDistrict(city) <= page ? null :
+        [{
+          "title": "View more ➕",
+          "type": "postback",
+          "payload": `SEARCH_DISTRICTAT${parseInt(page)+1}`
+        }];
+    return {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "list",
+          "top_element_style": "compact",
+          "elements": elementsDistrict,
+          "buttons": buttonsDistrict
+        }
       }
     }
   },

@@ -47,9 +47,9 @@ module.exports = {
         }
       } 
   `,
-  queryRestaurants: (page) => {
+  queryRestaurants: (page, city) => {
     return `{
-      restaurants(page: ${page}) {
+      restaurants(page: ${page}, city: "${city}") {
           id
           name
           types

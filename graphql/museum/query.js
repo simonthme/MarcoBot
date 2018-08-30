@@ -47,9 +47,9 @@ module.exports = {
       }
     }
   `,
-  queryMuseums: (page) => {
+  queryMuseums: (page, city) => {
     return `{
-      museums(page: ${page}) {
+      museums(page: ${page}, city: "${city}") {
           id
           name
           types

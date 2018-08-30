@@ -13,7 +13,6 @@ module.exports = (req, res) =>  {
   if (req.body.object === "page"){
     req.body.entry.forEach(entry => {
       entry.messaging.forEach(event => {
-        console.log(event);
         if (event.message && event.message.text) {
           if(event.message.quick_reply) {
             receivedQuickReply(event);
@@ -44,7 +43,6 @@ module.exports = (req, res) =>  {
             })
             .catch(err => {
               console.log(err);
-              console.log(err.response.data.error);
             })
         } else {
           if (event.postback) {

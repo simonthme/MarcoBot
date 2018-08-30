@@ -47,9 +47,9 @@ module.exports = {
       }
     }
   `,
-  queryParcs: (page) => {
+  queryParcs: (page, city) => {
     return `{
-      parcs(page: ${page}) {
+      parcs(page: ${page}, city: "${city}") {
           id
           name
           types

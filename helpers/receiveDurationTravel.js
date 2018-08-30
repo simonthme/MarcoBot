@@ -28,7 +28,6 @@ const sendMessage = (senderID, data, typeMessage) => {
 module.exports = (event) => {
   const senderID = event.sender.id;
   const duration = event.message.nlp.entities.duration[0].normalized.value;
-  console.log('DURATION ', duration);
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(userQuery.queryUserByAccountMessenger(senderID))
     .then(res => {

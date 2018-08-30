@@ -61,7 +61,6 @@ module.exports = (event) => {
         const apiaiSession = apiAiClient.textRequest(message,
           {sessionId: Config.projectIDDialogflow});
           apiaiSession.on("response", (response) => {
-            console.log("RESPONSE ===> ", response.result);
             return clientControl.checkDialogflow(senderId, response)
           });
           apiaiSession.on("error", error => {

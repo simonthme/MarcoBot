@@ -3,6 +3,7 @@
  */
 const queryRestaurant = require('../../graphql/restaurant/query');
 const product_data = require("../../messenger/product_data");
+const queryUser = require('../../graphql/user/query');
 const config = require("../../config");
 const ApiGraphql = require('../../helpers/apiGraphql');
 const helper = require("../../helpers/helper");
@@ -28,7 +29,14 @@ module.exports = (parameters,senderId) => {
     && parameters.eatdrink.length > 0 &&  parameters.eatdrink[0] !== 'restaurants'){
     return sendMessage(senderId, product_data.priceMessage('RESTAURANT', parameters.eatdrink[0]), "RESPONSE")
   } else {
-    return apiGraphql.sendQuery(queryRestaurant.queryRestaurants(0))
+    return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderId))
+      .then(res => {
+        if (res.userByAccountMessenger) {
+          const city = res.userByAccountMessenger.cityTraveling.length > 0
+            ? res.userByAccountMessenger.cityTraveling : "paris";
+          return apiGraphql.sendQuery(queryRestaurant.queryRestaurants(0, city))
+        }
+      })
       .then((res) => {
         return product_data.templateList(res.restaurants, "RESTAURANT", 0, "mongo")
       })

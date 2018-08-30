@@ -1,51 +1,33 @@
+/**
+ * Created by corentin on 12/06/2018.
+ */
 const product_data = require("../../../messenger/product_data");
 const apiMessenger = require("../../../helpers/apiMessenger");
 const helper = require("../../../helpers/helper");
-const queryUser = require('../../../graphql/user/query');
 const ApiGraphql = require("../../../helpers/apiGraphql");
+const queryUser = require('../../../graphql/user/query');
 const config = require('../../../config');
 
-module.exports = (senderID) => {
+module.exports = (senderID, page) => {
   let messageData = {
     recipient: {
       id: senderID
     },
     message: ''
   };
-
   const apiGraphql = new ApiGraphql(config.category[config.indexCategory].apiGraphQlUrl, config.accessTokenMarcoApi);
   return apiGraphql.sendQuery(queryUser.queryUserByAccountMessenger(senderID))
     .then(res => {
       if (res.userByAccountMessenger) {
         const city = res.userByAccountMessenger.cityTraveling.length > 0 ?
           res.userByAccountMessenger.cityTraveling : "paris";
-        messageData.message = product_data.selectionDistrict;
-        apiMessenger.sendToFacebook(messageData)
-          .then(response => {
-            delete messageData.message;
-            messageData.sender_action = 'typing_on';
-            if (response.status === 200)
-              return apiMessenger.sendToFacebook(messageData);
-          })
+        messageData.sender_action = 'typing_on';
+        return apiMessenger.sendToFacebook(messageData)
           .then(helper.delayPromise(2000))
           .then(resp => {
             delete messageData.sender_action;
-            messageData.message = product_data.selectionDistrict2;
-            if(resp.status === 200) {
-              return apiMessenger.sendToFacebook(messageData)
-            }
-          })
-          .then(response => {
-            delete messageData.message;
-            messageData.sender_action = 'typing_on';
-            if (response.status === 200)
-              return apiMessenger.sendToFacebook(messageData);
-          })
-          .then(helper.delayPromise(2000))
-          .then(resp => {
-            delete messageData.sender_action;
-            messageData.message = product_data.selectionDistrictType(city, 1);
-            if(resp.status === 200) {
+            messageData.message = product_data.selectionDistrictType(city, page);
+            if (resp.status === 200) {
               return apiMessenger.sendToFacebook(messageData)
             }
           })

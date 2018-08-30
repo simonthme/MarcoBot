@@ -47,9 +47,9 @@ module.exports = {
       }
     }
   `,
-  queryBars: (page) => {
+  queryBars: (page, city) => {
     return `{
-      bars(page: ${page}) {
+      bars(page: ${page}, city: "${city}") {
           id
           name
           types

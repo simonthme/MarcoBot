@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 const cronMorning = new CronJob(hoursCron["morning"], () => {
   const Cron = new cronMethods();
-  Cron.sendProgram()
+  Cron.sendProgram();
   console.log('cron MORNING begin');
 }, () => {
   console.log('cron MORNING finished');
@@ -30,7 +30,7 @@ const cronMorning = new CronJob(hoursCron["morning"], () => {
 
 const cronEndAfterNoon = new CronJob(hoursCron["endAfterNoon"], () => {
   const Cron = new cronMethods();
-  Cron.readyForTomorrow()
+  Cron.readyForTomorrow();
   console.log('cron END AFTERNOON begin');
 }, () => {
   console.log('cron END AFTERNOON finished');
@@ -46,11 +46,11 @@ axios.post(Config.category[Config.indexCategory].authUrlMarcoApi, {clientId: Con
   .catch(err => console.log(err));
 
 //TODO: décommenter quand api recommendation sera disponible
-axios.post(Config.category[Config.indexCategory].authUrlRecommendationApi, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
-  .then(res => {
-    Config.accessTokenRecommendationApi = res.data.token;
-  })
-  .catch(err => console.log(err));
+// axios.post(Config.category[Config.indexCategory].authUrlRecommendationApi, {clientId: Config.clientId, clientSecret: Config.clientSecret, grantType: 'server'})
+//   .then(res => {
+//     Config.accessTokenRecommendationApi = res.data.token;
+//   })
+//   .catch(err => console.log(err));
 
 
 app.get('/setup', (req, res) => {
